@@ -33,6 +33,8 @@ local.properties
 #################
 build/
 nbproject/
+build.xml
+manifest.mf
 
 
 #################
