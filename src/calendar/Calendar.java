@@ -1,5 +1,9 @@
 package calendar;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 /**
  *
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
@@ -8,10 +12,17 @@ public class Calendar {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println(ICSFinder.getLocal("toto.txt"));
+			System.out.println(ICSFinder.getLocal("exemple.ics"));			
+		} catch (FileNotFoundException e) {
+			System.out.println("FileNotFoundException : " + e.getLocalizedMessage());
+		}
+		
+		try {
 			System.out.println(ICSFinder.getURL("http://www.edt-sciences.univ-nantes.fr/g78030.ics"));
-		} catch (Exception e) {
-			System.out.println("Error : " + e.getLocalizedMessage());
+		} catch (MalformedURLException e) {
+			System.out.println("MalformedURLException : " + e.getLocalizedMessage());
+		} catch (IOException e) {
+			System.out.println("IOException : " + e.getLocalizedMessage());
 		}
 	}
 }

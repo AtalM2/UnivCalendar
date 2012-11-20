@@ -1,10 +1,12 @@
 package calendar;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,7 +20,11 @@ public class ICSFinder {
 
 	public static ArrayList<String> getLocal(String path) throws FileNotFoundException {
 		ArrayList<String> ret = new ArrayList<>();
-		Scanner scanner = new Scanner(new FileReader(path));
+		
+		FileReader file;
+		file = new FileReader(path);
+		
+		Scanner scanner = new Scanner(file);
 		while (scanner.hasNextLine()) {
 			ret.add(scanner.nextLine());
 		}
@@ -27,19 +33,14 @@ public class ICSFinder {
 
 	public static ArrayList<String> getURL(String path) throws MalformedURLException, IOException {
 		ArrayList<String> ret = new ArrayList<>();
-		URL u;
-		InputStream is;
-		DataInputStream dis;
-		String line;
 		
-		u = new URL(path);
-		is = u.openStream();
-		dis = new DataInputStream(is);
-		
-		line = dis.readUTF();
-		while (line != null) {
-			ret.add(line);
-			line = dis.readUTF();
+		URL u = new URL(path);
+		InputStreamReader isr = new InputStreamReader(u.openStream());
+		BufferedReader br = new BufferedReader(isr);
+
+		Scanner scanner = new Scanner(br);
+		while (scanner.hasNextLine()) {
+			ret.add(scanner.nextLine());
 		}
 		
 		return ret;
