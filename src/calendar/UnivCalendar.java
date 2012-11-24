@@ -8,15 +8,18 @@ import java.net.MalformedURLException;
  *
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
-public class Calendar {
+public class UnivCalendar {
 
 	public static void main(String[] args) {
+		
+		// Récupération en local
 		try {
 			System.out.println(ICSFinder.getLocal("exemple.ics"));			
 		} catch (FileNotFoundException e) {
 			System.out.println("FileNotFoundException : " + e.getLocalizedMessage());
 		}
 		
+		// Récupération sur le serveur
 		try {
 			System.out.println(ICSFinder.getURL("http://www.edt-sciences.univ-nantes.fr/g78030.ics"));
 		} catch (MalformedURLException e) {
@@ -24,5 +27,11 @@ public class Calendar {
 		} catch (IOException e) {
 			System.out.println("IOException : " + e.getLocalizedMessage());
 		}
+		
+		// Récupération google
+		// adresse : atal.univ.nantes@gmail.com
+		// passwd : jnatal44
+		GoogleCalendar google = new GoogleCalendar();
+
 	}
 }
