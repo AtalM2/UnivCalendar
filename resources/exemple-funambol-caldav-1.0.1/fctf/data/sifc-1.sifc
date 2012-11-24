@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contact>
+<BusinessAddressCity>BusinessCity100</BusinessAddressCity>
+<BusinessAddressCountry>Italy</BusinessAddressCountry>
+<BusinessAddressPostOfficeBox/>
+<BusinessAddressPostalCode>BusinessZip100</BusinessAddressPostalCode>
+<BusinessAddressState>BusinessState100</BusinessAddressState>
+<BusinessAddressStreet>BusinessStreet100</BusinessAddressStreet>
+<Email1Address>contact100@funambol.com</Email1Address>
+<FirstName>Contact100</FirstName>
+<HomeAddressCity>CityHome100</HomeAddressCity>
+<HomeAddressCountry>Italy</HomeAddressCountry>
+<HomeAddressPostOfficeBox/>
+<HomeAddressPostalCode>HomeZip100</HomeAddressPostalCode>
+<HomeAddressState>HomeState100</HomeAddressState>
+<HomeAddressStreet>HomeStreet100</HomeAddressStreet>
+<HomeTelephoneNumber>+39 0020000100</HomeTelephoneNumber>
+<LastName>100Contact</LastName>
+</contact>

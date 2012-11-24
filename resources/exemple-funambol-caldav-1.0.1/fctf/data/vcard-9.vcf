@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:2.1
+N:100Contact;Contact100;;;
+ADR;HOME:;;HomeStreet100;CityHome100;HomeState100;HomeZip100;Italy
+TEL;VOICE;HOME:+39 0020000100
+EMAIL;INTERNET:contact100@funambol.com
+ADR;WORK:;;BusinessStreet100;BusinessCity100;BusinessState100;BusinessZip100;Italy
+END:VCARD

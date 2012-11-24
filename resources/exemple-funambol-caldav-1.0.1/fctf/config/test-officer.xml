@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.funambol.fctf.TestOfficer"> 
+  <void property="fakeEmailAddress"> 
+   <string>fctf@funambol.com</string> 
+  </void> 
+  <void property="fakeFirstName"> 
+   <string>Fctf</string> 
+  </void> 
+  <void property="fakeLastName"> 
+   <string>Fctf</string> 
+  </void> 
+ </object> 
+</java>
