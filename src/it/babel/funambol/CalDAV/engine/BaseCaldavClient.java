@@ -124,7 +124,7 @@ public class BaseCaldavClient extends HttpClient {
 	/** 
 	 * @return a sample client with default values
 	 */
-	public BaseCaldavClient() {		
+	public BaseCaldavClient() {
 		this("localhost", "8080",
 				"http",
 				"/ucaldav/user/", "guest", "guest");
