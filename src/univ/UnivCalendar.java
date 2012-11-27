@@ -1,5 +1,8 @@
-package calendar;
+package univ;
 
+import univ.calendar.Calendar;
+import univ.ics.ICSParser;
+import univ.ics.ICSFinder;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -1,4 +1,4 @@
-package calendar;
+package univ.ics;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

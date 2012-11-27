@@ -2,9 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package calendar;
+package univ.ics;
 
-import calendar.util.DateTime;
+import univ.calendar.Calendar;
+import univ.calendar.Day;
+import univ.calendar.Event;
+import univ.calendar.Week;
+import univ.util.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 

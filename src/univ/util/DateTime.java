@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package calendar.util;
+package univ.util;
 
-import calendar.Day;
-import calendar.Week;
+import univ.calendar.Day;
+import univ.calendar.Week;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

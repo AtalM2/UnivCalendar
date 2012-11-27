@@ -1,6 +1,6 @@
-package calendar;
+package univ.calendar;
 
-import calendar.util.DateTime;
+import univ.util.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
