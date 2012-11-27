@@ -547,8 +547,8 @@ DTSTART:20121127T130000Z
 DTEND:20121127T142000Z
 UID:CELCAT - 2013 (90309-14)
 SUMMARY:TD INFO - X7II020  Bases de données\, M1ALMA - Architectures Logicielles\, M1ATAL
-LOCATION:salle 024 (Bât. 18 - Sous-sol BU)
-DESCRIPTION:Matière : X7II020  Bases de données\nPersonnel : SKAF Hala\nGroupe : M1ALMA - Architectures Logicielles\, M1ATAL\nSalle : salle 024 (Bât. 18 - Sous-sol BU)\nRemarques :  16-20-12 - \n
+LOCATION:salle I 042 (Bât 14)
+DESCRIPTION:Matière : X7II020  Bases de données\nPersonnel : SKAF Hala\nGroupe : M1ALMA - Architectures Logicielles\, M1ATAL\nSalle : salle I 042 (Bât 14)\nRemarques :  16-20-12 - \n
 CATEGORIES:CELCAT Timetabler (vcal) - 2013
 END:VEVENT
 BEGIN:VEVENT
@@ -894,33 +894,6 @@ DESCRIPTION:Matière : X7II030 Concepts et outils de développement\nPersonnel :
 CATEGORIES:CELCAT Timetabler (vcal) - 2013
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20121128T143000Z
-DTEND:20121128T155000Z
-UID:CELCAT - 2013 (91252-14)
-SUMMARY:TD INFO - X7II030 Concepts et outils de développement\, M1ALMA - Architectures Logicielles\, M1ATAL
-LOCATION:Amphi 111 (Bât 26-Erdre RdC)
-DESCRIPTION:Matière : X7II030 Concepts et outils de développement\nPersonnel : GOUDIA Dalila\nGroupe : M1ALMA - Architectures Logicielles\, M1ATAL\nSalle : Amphi 111 (Bât 26-Erdre RdC)\nRemarques : 16-16-16 Gr2 (manque 1 séance) \n
-CATEGORIES:CELCAT Timetabler (vcal) - 2013
-END:VEVENT
-BEGIN:VEVENT
-DTSTART:20121205T143000Z
-DTEND:20121205T155000Z
-UID:CELCAT - 2013 (91252-15)
-SUMMARY:TD INFO - X7II030 Concepts et outils de développement\, M1ALMA - Architectures Logicielles\, M1ATAL
-LOCATION:Amphi 111 (Bât 26-Erdre RdC)
-DESCRIPTION:Matière : X7II030 Concepts et outils de développement\nPersonnel : GOUDIA Dalila\nGroupe : M1ALMA - Architectures Logicielles\, M1ATAL\nSalle : Amphi 111 (Bât 26-Erdre RdC)\nRemarques : 16-16-16 Gr2 (manque 1 séance) \n
-CATEGORIES:CELCAT Timetabler (vcal) - 2013
-END:VEVENT
-BEGIN:VEVENT
-DTSTART:20121212T143000Z
-DTEND:20121212T155000Z
-UID:CELCAT - 2013 (91252-16)
-SUMMARY:TD INFO - X7II030 Concepts et outils de développement\, M1ALMA - Architectures Logicielles\, M1ATAL
-LOCATION:Amphi 111 (Bât 26-Erdre RdC)
-DESCRIPTION:Matière : X7II030 Concepts et outils de développement\nPersonnel : GOUDIA Dalila\nGroupe : M1ALMA - Architectures Logicielles\, M1ATAL\nSalle : Amphi 111 (Bât 26-Erdre RdC)\nRemarques : 16-16-16 Gr2 (manque 1 séance) \n
-CATEGORIES:CELCAT Timetabler (vcal) - 2013
-END:VEVENT
-BEGIN:VEVENT
 DTSTART:20121121T143000Z
 DTEND:20121121T155000Z
 UID:CELCAT - 2013 (91251-13)
@@ -1200,9 +1173,9 @@ DESCRIPTION:Matière : X7II030 Concepts et outils de développement\nPersonnel :
 CATEGORIES:CELCAT Timetabler (vcal) - 2013
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20121122T130000Z
-DTEND:20121122T150000Z
-UID:CELCAT - 2013 (87113-13)
+DTSTART:20121129T130000Z
+DTEND:20121129T150000Z
+UID:CELCAT - 2013 (87113-14)
 SUMMARY:TP INFO - X7II030 Concepts et outils de développement\, M1ATAL
 LOCATION:salle Info 1 (Bât 2)
 DESCRIPTION:Matière : X7II030 Concepts et outils de développement\nPersonnel : GOUALARD\, Frédéric\nGroupe : M1ATAL\nSalle : salle Info 1 (Bât 2)\nRemarques : 16-16-16  \n
