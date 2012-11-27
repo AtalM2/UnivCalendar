@@ -1,18 +1,17 @@
 package univ;
 
-import univ.calendar.Calendar;
-import univ.ics.ICSParser;
-import univ.ics.ICSFinder;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import univ.calendar.Calendar;
+import univ.ics.ICSFinder;
+import univ.ics.ICSParser;
 
 /**
  *
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
-public class UnivCalendar {
+public class TestUnivCalendar {
 
 	public static void main(String[] args) {
 		ArrayList<String> ics = null;
