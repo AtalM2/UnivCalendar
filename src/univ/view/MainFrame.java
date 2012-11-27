@@ -2,13 +2,19 @@ package univ.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -47,6 +53,7 @@ public class MainFrame extends JFrame {
 
 	private void buildMenu() {
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setPreferredSize(new Dimension(menuBar.getWidth(), 26));
 		setJMenuBar(menuBar);
 		JMenu fileMenu = new JMenu("Fichier");
 		menuBar.add(fileMenu);
@@ -61,20 +68,37 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void buildContent() {
-		JPanel content = new JPanel();
+		JPanel content = new JPanel(new BorderLayout());
 		add(content);
 		
 		// Panel top
-		JButton top = new JButton();
+		JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		top.setPreferredSize(new Dimension(780,130));
-		content.add(top, BorderLayout.PAGE_START);
+		content.add(top, BorderLayout.NORTH);
 		
+		JPanel topContent = new JPanel(new FlowLayout());
+		top.add(topContent);
+		
+		JButton left = new JButton("<");
+		topContent.add(left);
+		
+		JPanel week = new JPanel(new GridLayout(0,1));
+		JLabel weekNumber = new JLabel("Semaine 45");
+		weekNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		week.add(weekNumber);
+		JLabel weekDetail = new JLabel("Du 5/11 au 15/11");
+		weekDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		week.add(weekDetail);		
+		topContent.add(week);
+		
+		JButton right = new JButton(">");
+		topContent.add(right);
+					
 		// Panel bottom
-		JButton bottom = new JButton();
+		JPanel bottom = new JPanel(new GridBagLayout());
 		bottom.setPreferredSize(new Dimension(780,380));
-		content.add(bottom, BorderLayout.PAGE_END);
-		
-		
+		content.add(bottom, BorderLayout.SOUTH);	
 	}
+
 	
 }
