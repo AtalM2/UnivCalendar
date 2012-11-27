@@ -33,7 +33,7 @@ public class Day implements Comparable {
 
 	@Override
 	public String toString() {
-		String ret = "\tDAY - Date : " + date.toString() + "\n";
+		String ret = "\tDAY - Date : " + date.getDayOfWeek() + " " + date.toString() + "\n";
 		ret += eventsList.toString() + "\n";
 		return ret;
 	}

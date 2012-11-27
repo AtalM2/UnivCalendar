@@ -6,6 +6,10 @@ package calendar.util;
 
 import calendar.Day;
 import calendar.Week;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -36,6 +40,35 @@ public class DateTime {
 		hour = cloneDateTime.getHour();
 		minute = cloneDateTime.getMinute();
 		second = cloneDateTime.getSecond();
+	}
+	
+	public int getDayOfWeek() {
+		//Utilisation de la classe java.util.Calendar
+		int dayOfWeek;
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.MONTH, month-1);
+		c.set(Calendar.DAY_OF_MONTH, day);
+		dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+		dayOfWeek = dayOfWeek-1;
+		if (dayOfWeek == 0) {
+			dayOfWeek = 7; // Gestion du dimanche
+		}
+		return dayOfWeek;
+	}
+
+	public DateTime addDay(int add) {
+		//Utilisation de la classe java.util.Calendar
+		DateTime dateAdded = new DateTime(this);
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.MONTH, month);
+		c.set(Calendar.DAY_OF_MONTH, day);
+		c.add(Calendar.DATE, add);
+		dateAdded.setYear(c.get(Calendar.YEAR));
+		dateAdded.setMonth(c.get(Calendar.MONTH));
+		dateAdded.setDay(c.get(Calendar.DAY_OF_MONTH));
+		return dateAdded;
 	}
 
 	public boolean inDay(Day day) {
@@ -131,10 +164,6 @@ public class DateTime {
 
 	public int compareTo(DateTime otherDateTime) {
 		return compareTo(otherDateTime, false);
-	}
-
-	public void addDays(int nbDays) {
-		day += nbDays;
 	}
 
 	public int getYear() {

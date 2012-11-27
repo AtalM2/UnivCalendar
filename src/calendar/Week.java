@@ -17,8 +17,7 @@ public class Week implements Comparable {
 	public Week(DateTime d) {
 		daysList = new ArrayList<>();
 		dateBegin = d;
-		DateTime end = new DateTime(d);
-		end.addDays(6);
+		DateTime end = d.addDay(6);
 		dateEnd = new DateTime(end);
 	}
 
