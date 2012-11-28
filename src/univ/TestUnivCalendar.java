@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import univ.calendar.Calendar;
 import univ.ics.ICSFinder;
 import univ.ics.ICSParser;
+import univ.view.MainFrame;
 
 /**
  *
@@ -41,6 +42,10 @@ public class TestUnivCalendar {
 		// passwd : jnatal44
 		
 		//https://developers.google.com/google-apps/calendar/v2/developers_guide_java
+		
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.setVisible(true);
+		mainFrame.getJWeek().addWeek(calendar.getWeeksList().get(2));
 
 
 	}
