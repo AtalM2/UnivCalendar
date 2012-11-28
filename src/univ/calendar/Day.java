@@ -22,7 +22,7 @@ public class Day implements Comparable {
 	}
 
 	public boolean inWeek(Week week) {
-		return (date.compareTo(week.getDateBegin()) >= 1 && date.compareTo(week.getDateEnd()) <= -1);
+		return (date.compareTo(week.getStartDate()) >= 1 && date.compareTo(week.getEndDate()) <= -1);
 	}
 
 	@Override

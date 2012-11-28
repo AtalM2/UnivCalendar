@@ -13,8 +13,8 @@ import univ.util.DateTime;
  */
 public class Event implements Comparable {
 		
-	private DateTime dateStart;
-	private DateTime dateEnd;
+	private DateTime startTime;
+	private DateTime endTime;
 	private String uid;
 	private String summary;
 	private String location;
@@ -25,18 +25,18 @@ public class Event implements Comparable {
 	}
 	
 	public boolean inDay(Day day) {
-		return (dateStart.compareTo(day.getDate()) == 0);
+		return (startTime.compareTo(day.getDate()) == 0);
 	}
 	
 	@Override
 	public int compareTo(Object t) {
 		Event otherEvent = (Event) t;
-		return dateStart.compareTo(otherEvent.getDateStart(), true);
+		return startTime.compareTo(otherEvent.getStartTime(), true);
 	}
 	
 	@Override
 	public String toString() {
-		String ret = "\t\tEVENT - DateStart : " + dateStart.toString(true) + " - DateEnd : " + dateEnd.toString(true) + "\n";
+		String ret = "\t\tEVENT - DateStart : " + startTime.toString(true) + " - DateEnd : " + endTime.toString(true) + "\n";
 		ret += "\t\t\t UID : " + uid + "\n";
 		ret += "\t\t\t Summary : " + summary + "\n";
 		ret += "\t\t\t Location : " + location + "\n";
@@ -45,20 +45,20 @@ public class Event implements Comparable {
 		return ret;
 	}
 
-	public DateTime getDateStart() {
-		return dateStart;
+	public DateTime getStartTime() {
+		return startTime;
 	}
 
-	public void setDateStart(DateTime dateStart) {
-		this.dateStart = dateStart;
+	public void setStartTime(DateTime startTime) {
+		this.startTime = startTime;
 	}
 
-	public DateTime getDateEnd() {
-		return dateEnd;
+	public DateTime getEndTime() {
+		return endTime;
 	}
 
-	public void setDateEnd(DateTime dateEnd) {
-		this.dateEnd = dateEnd;
+	public void setEndTime(DateTime endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getUid() {

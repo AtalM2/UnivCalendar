@@ -11,14 +11,14 @@ import java.util.Collections;
 public class Week implements Comparable {
 
 	private ArrayList<Day> daysList;
-	private DateTime dateBegin;
-	private DateTime dateEnd;
+	private DateTime startDate;
+	private DateTime endDate;
 
 	public Week(DateTime d) {
 		daysList = new ArrayList<>();
-		dateBegin = d;
+		startDate = d;
 		DateTime end = d.addDay(6);
-		dateEnd = new DateTime(end);
+		endDate = new DateTime(end);
 	}
 
 	public Day findDay(DateTime date) {
@@ -42,18 +42,18 @@ public class Week implements Comparable {
 	@Override
 	public int compareTo(Object t) {
 		Week otherWeek = (Week) t;
-		return dateBegin.compareTo(otherWeek.getDateBegin());
+		return startDate.compareTo(otherWeek.getStartDate());
 	}
 	
 	@Override
 	public String toString() {
-		String ret = "WEEK - DateBegin : " + dateBegin.toString() + " - DateEnd : " + dateEnd.toString() + "\n";
+		String ret = "WEEK - DateBegin : " + startDate.toString() + " - DateEnd : " + endDate.toString() + "\n";
 		ret += daysList.toString();
 		return ret;
 	}
 	
 	public int getWeekOfYear() {
-		return dateBegin.getWeekOfYear();
+		return startDate.getWeekOfYear();
 	}
 
 	public ArrayList<Day> getDaysList() {
@@ -64,19 +64,19 @@ public class Week implements Comparable {
 		this.daysList = daysList;
 	}
 
-	public DateTime getDateBegin() {
-		return dateBegin;
+	public DateTime getStartDate() {
+		return startDate;
 	}
 
-	public void setDateBegin(DateTime dateBegin) {
-		this.dateBegin = dateBegin;
+	public void setStartDate(DateTime startDate) {
+		this.startDate = startDate;
 	}
 
-	public DateTime getDateEnd() {
-		return dateEnd;
+	public DateTime getEndDate() {
+		return endDate;
 	}
 
-	public void setDateEnd(DateTime dateEnd) {
-		this.dateEnd = dateEnd;
+	public void setEndDate(DateTime endDate) {
+		this.endDate = endDate;
 	}
 }
