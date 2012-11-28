@@ -4,13 +4,13 @@
  */
 package univ.ics;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import univ.calendar.Calendar;
 import univ.calendar.Day;
 import univ.calendar.Event;
 import univ.calendar.Week;
 import univ.util.DateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  *
@@ -35,6 +35,7 @@ public class ICSParser {
 			}
 			if (isDtStart(line)) {
 				DateTime date = new DateTime(getValue(line));
+				date.setHour(date.getHour()+2);
 				currentEvent.setStartTime(date);
 				if (currentDay == null || !currentEvent.inDay(currentDay)) {
 					currentWeek = calendar.findWeek(date);
@@ -44,7 +45,9 @@ public class ICSParser {
 				Collections.sort(currentDay.getEventsList());
 			}
 			if (isDtEnd(line)) {
-				currentEvent.setEndTime(new DateTime(getValue(line)));
+				DateTime date = new DateTime(getValue(line));
+				date.setHour(date.getHour()+2);
+				currentEvent.setEndTime(date);
 			}
 			if (isUID(line)) {
 				currentEvent.setUid(getValue(line));
