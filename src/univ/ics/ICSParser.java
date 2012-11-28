@@ -35,7 +35,7 @@ public class ICSParser {
 			}
 			if (isDtStart(line)) {
 				DateTime date = new DateTime(getValue(line));
-				currentEvent.setDateStart(date);
+				currentEvent.setStartTime(date);
 				if (currentDay == null || !currentEvent.inDay(currentDay)) {
 					currentWeek = calendar.findWeek(date);
 					currentDay = currentWeek.findDay(date);

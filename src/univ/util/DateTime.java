@@ -84,7 +84,7 @@ public class DateTime {
 	}
 
 	public boolean inWeek(Week week) {
-		return (this.compareTo(week.getDateBegin()) >= 0 && this.compareTo(week.getDateEnd()) <= 0);
+		return (this.compareTo(week.getStartDate()) >= 0 && this.compareTo(week.getEndDate()) <= 0);
 	}
 
 	public String toString(boolean withTime) {
