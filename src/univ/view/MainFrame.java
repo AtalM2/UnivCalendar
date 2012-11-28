@@ -1,10 +1,9 @@
 package univ.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,9 +13,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import net.miginfocom.layout.CC;
+import net.miginfocom.swing.MigLayout;
 
 /**
  *
@@ -24,6 +24,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MainFrame extends JFrame {
 
+	private JCalendarWeek jWeek;
+	
 	public MainFrame() {
 		super();
 		
@@ -43,12 +45,14 @@ public class MainFrame extends JFrame {
 	
 	private void buildFrame() {
 		setTitle("UnivCalendar");
-		setSize(800, 600);
+		setSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(800, 600));
 		setLocationRelativeTo(null);
-		setResizable(false);
+		//setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ImageIcon icon = new ImageIcon("img/icon-app.jpg");
 		setIconImage(icon.getImage());
+		setLayout(new BorderLayout());
 	}
 
 	private void buildMenu() {
@@ -68,13 +72,14 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void buildContent() {
-		JPanel content = new JPanel(new BorderLayout());
+		JPanel content = new JPanel(new MigLayout("wrap 1"));
 		add(content);
+		content.setBackground(Color.yellow);
 		
 		// Panel top
 		JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		top.setPreferredSize(new Dimension(780,130));
-		content.add(top, BorderLayout.NORTH);
+		top.setBackground(Color.GREEN);
+		content.add(top,"center");
 		
 		JPanel topContent = new JPanel(new FlowLayout());
 		top.add(topContent);
@@ -95,9 +100,16 @@ public class MainFrame extends JFrame {
 		topContent.add(right);
 					
 		// Panel bottom
-		JPanel bottom = new JPanel(new GridBagLayout());
-		bottom.setPreferredSize(new Dimension(780,380));
-		content.add(bottom, BorderLayout.SOUTH);	
+		JPanel bottom = new JPanel(new MigLayout());
+		bottom.setBackground(Color.ORANGE);
+		content.add(bottom,"push, grow");
+		
+		jWeek = new JCalendarWeek();
+		bottom.add(jWeek, "push, grow");
+	}
+	
+	public JCalendarWeek getJWeek() {
+		return jWeek;
 	}
 
 	
