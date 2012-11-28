@@ -44,7 +44,7 @@ public class ICSParser {
 				Collections.sort(currentDay.getEventsList());
 			}
 			if (isDtEnd(line)) {
-				currentEvent.setDateEnd(new DateTime(getValue(line)));
+				currentEvent.setEndTime(new DateTime(getValue(line)));
 			}
 			if (isUID(line)) {
 				currentEvent.setUid(getValue(line));
