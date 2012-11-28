@@ -4,8 +4,8 @@
  */
 package univ.calendar;
 
-import univ.util.DateTime;
 import java.util.ArrayList;
+import univ.util.DateTime;
 
 /**
  *
@@ -36,6 +36,10 @@ public class Day implements Comparable {
 		String ret = "\tDAY - Date : " + date.getDayOfWeek() + " " + date.toString() + "\n";
 		ret += eventsList.toString() + "\n";
 		return ret;
+	}
+	
+	public int getDayOfWeek() {
+		return date.getDayOfWeek();
 	}
 
 	public ArrayList<Event> getEventsList() {
