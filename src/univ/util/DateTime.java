@@ -6,10 +6,7 @@ package univ.util;
 
 import univ.calendar.Day;
 import univ.calendar.Week;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -55,6 +52,17 @@ public class DateTime {
 			dayOfWeek = 7; // Gestion du dimanche
 		}
 		return dayOfWeek;
+	}
+	
+	public int getWeekOfYear() {
+		//Utilisation de la classe java.util.Calendar
+		int weekOfYear;
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.MONTH, month-1);
+		c.set(Calendar.DAY_OF_MONTH, day);
+		weekOfYear = c.get(Calendar.WEEK_OF_YEAR);
+		return weekOfYear;
 	}
 
 	public DateTime addDay(int add) {

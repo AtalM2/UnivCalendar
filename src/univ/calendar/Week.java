@@ -51,6 +51,10 @@ public class Week implements Comparable {
 		ret += daysList.toString();
 		return ret;
 	}
+	
+	public int getWeekOfYear() {
+		return dateBegin.getWeekOfYear();
+	}
 
 	public ArrayList<Day> getDaysList() {
 		return daysList;
