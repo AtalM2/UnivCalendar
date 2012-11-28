@@ -7,6 +7,7 @@ package univ.util;
 import univ.calendar.Day;
 import univ.calendar.Week;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -20,6 +21,22 @@ public class DateTime {
 	private int hour;
 	private int minute;
 	private int second;
+	
+	public DateTime() {
+		this(false);
+	}
+	
+	public DateTime(boolean withTime) {
+		Calendar c = Calendar.getInstance();
+		year = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);
+		if (withTime) {
+			hour = c.get(Calendar.HOUR);
+			minute = c.get(Calendar.MINUTE);
+			second = c.get(Calendar.SECOND);
+		}
+	}
 
 	public DateTime(String dateTime) {
 		year = Integer.parseInt(dateTime.substring(0, 4));
@@ -81,6 +98,18 @@ public class DateTime {
 
 	public boolean inDay(Day day) {
 		return (this.compareTo(day.getDate()) == 0);
+	}
+	
+	public long getTimeInMillis() {
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.MONTH, month);
+		c.set(Calendar.DAY_OF_MONTH, day);
+		c.set(Calendar.HOUR, hour);
+		c.set(Calendar.MINUTE, minute);
+		c.set(Calendar.SECOND, second);
+		c.set(Calendar.MILLISECOND, 0);
+		return c.getTimeInMillis();
 	}
 
 	public boolean inWeek(Week week) {
