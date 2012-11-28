@@ -4,9 +4,9 @@
  */
 package univ.calendar;
 
-import univ.util.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import univ.util.DateTime;
 
 /**
  *
@@ -24,8 +24,8 @@ public class Calendar {
 		int dayOfWeek;
 		boolean finded = false;
 		Week week = null;
-		for (int i = 0; i < weeksList.size(); i++) {
-			week = weeksList.get(i);
+		for (int i = 0; i < getWeeksList().size(); i++) {
+			week = getWeeksList().get(i);
 			if (date.inWeek(week)) {
 				finded = true;
 				break;
@@ -38,15 +38,24 @@ public class Calendar {
 				date = date.addDay(-(dayOfWeek-1));
 			}
 			week = new Week(date);
-			weeksList.add(week);
-			Collections.sort(weeksList);
+			getWeeksList().add(week);
+			Collections.sort(getWeeksList());
 		}
 		return week;
 	}
 
+	@Override
 	public String toString() {
 		String ret = "CALENDAR\n";
-		ret += weeksList.toString();
+		ret += getWeeksList().toString();
 		return ret;
+	}
+
+	public ArrayList<Week> getWeeksList() {
+		return weeksList;
+	}
+
+	public void setWeeksList(ArrayList<Week> weeksList) {
+		this.weeksList = weeksList;
 	}
 }
