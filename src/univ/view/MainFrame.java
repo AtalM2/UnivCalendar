@@ -13,9 +13,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -25,10 +25,12 @@ import net.miginfocom.swing.MigLayout;
 public class MainFrame extends JFrame {
 
 	private JCalendarWeek jWeek;
-	
+	private JLabel weekNumber;
+	private JLabel weekDetail;
+
 	public MainFrame() {
 		super();
-		
+		ToolTipManager.sharedInstance().setDismissDelay(1000000);
 		buildLookAndFeel();
 		buildFrame();
 		buildMenu();
@@ -42,7 +44,7 @@ public class MainFrame extends JFrame {
 			// ON NE FAIT RIEN DE SPECIAL
 		}
 	}
-	
+
 	private void buildFrame() {
 		setTitle("UnivCalendar");
 		setSize(new Dimension(800, 600));
@@ -70,47 +72,61 @@ public class MainFrame extends JFrame {
 		fileMenu.add(disconnectAction);
 		fileMenu.add(exitAction);
 	}
-	
+
 	private void buildContent() {
 		JPanel content = new JPanel(new MigLayout("wrap 1"));
 		add(content);
 		content.setBackground(Color.yellow);
-		
+
 		// Panel top
 		JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		top.setBackground(Color.GREEN);
-		content.add(top,"center");
-		
+		content.add(top, "center");
+
 		JPanel topContent = new JPanel(new FlowLayout());
 		top.add(topContent);
-		
+
 		JButton left = new JButton("<");
 		topContent.add(left);
-		
-		JPanel week = new JPanel(new GridLayout(0,1));
-		JLabel weekNumber = new JLabel("Semaine 45");
-		weekNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		week.add(weekNumber);
-		JLabel weekDetail = new JLabel("Du 5/11 au 15/11");
-		weekDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		week.add(weekDetail);		
+
+		JPanel week = new JPanel(new GridLayout(0, 1));
+		setWeekNumber(new JLabel("Semaine 45"));
+		getWeekNumber().setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		week.add(getWeekNumber());
+		setWeekDetail(new JLabel("Du 5/11 au 15/11"));
+		getWeekDetail().setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		week.add(getWeekDetail());
 		topContent.add(week);
-		
+
 		JButton right = new JButton(">");
 		topContent.add(right);
-					
+
 		// Panel bottom
 		JPanel bottom = new JPanel(new MigLayout());
 		bottom.setBackground(Color.ORANGE);
-		content.add(bottom,"push, grow");
-		
+		content.add(bottom, "push, grow");
+
 		jWeek = new JCalendarWeek();
 		bottom.add(jWeek, "push, grow");
 	}
-	
+
 	public JCalendarWeek getJWeek() {
 		return jWeek;
 	}
 
-	
+	public JLabel getWeekNumber() {
+		return weekNumber;
+	}
+
+	public void setWeekNumber(JLabel weekNumber) {
+		this.weekNumber = weekNumber;
+	}
+
+	public JLabel getWeekDetail() {
+		return weekDetail;
+	}
+
+	public void setWeekDetail(JLabel weekDetail) {
+		this.weekDetail = weekDetail;
+	}
 }

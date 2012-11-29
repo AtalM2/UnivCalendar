@@ -1,8 +1,11 @@
 package univ.view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
 import univ.calendar.Day;
 import univ.calendar.Week;
 
@@ -11,24 +14,49 @@ import univ.calendar.Week;
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
 public class JCalendarWeek extends JPanel {
-	
+
+	private final int START_HOUR = 7;
+	private final int END_HOUR = 21;
+	private final int MINUTES_BY_SPLIT = 15;
+	private final int NB_SPLIT = (END_HOUR - START_HOUR) * 60 / MINUTES_BY_SPLIT;
 	private ArrayList<JCalendarDay> daysList;
-	
+
 	public JCalendarWeek() {
-		super(new GridLayout(0,7));
+		super(new MigLayout("", "[][grow]", "[grow]"));
+
+		JPanel hours = new JPanel(new MigLayout("insets 0", "", "[grow]"));
+		add(hours, "cell 0 0, grow, gaptop 30px");
+
+		JPanel listHours = new JPanel(new MigLayout("insets 0", "", "[top, grow]"));
+		hours.add(listHours, "grow");
+		for (int hour = START_HOUR; hour < END_HOUR; hour++) {
+			listHours.add(new JLabel(new Integer(hour).toString()), "cell 0 " + (hour - START_HOUR));
+		}
+
+		JPanel content = new JPanel(new GridLayout(0, 6));
+		add(content, "cell 1 0, grow");
+
 		daysList = new ArrayList<>();
-		for (int i=0; i<7 ;i++) {
-			daysList.add(new JCalendarDay());
+		for (int i = 0;
+				i
+				< 6; i++) {
+			daysList.add(new JCalendarDay(START_HOUR, END_HOUR, MINUTES_BY_SPLIT));
 		}
 		for (JCalendarDay day : daysList) {
-			add(day);
+			content.add(day);
 		}
 	}
-	
-	public void addWeek(Week c) {
+
+	public void build() {
+		for (JCalendarDay jDay : daysList) {
+			jDay.build();
+		}
+	}
+
+	public void addWeek(Week c, Color color) {
 		for (Day day : c.getDaysList()) {
-			JCalendarDay jDay = daysList.get(day.getDayOfWeek()-1);
-			jDay.addDay(day);
+			JCalendarDay jDay = daysList.get(Integer.parseInt(day.getDayOfWeek()) - 1);
+			jDay.addDay(day, color);
 		}
 	}
 }

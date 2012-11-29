@@ -1,14 +1,15 @@
 package univ.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import univ.calendar.Day;
 import univ.calendar.Event;
+import univ.util.DateTime;
 import univ.util.Tools;
 
 /**
@@ -18,46 +19,58 @@ import univ.util.Tools;
 class JCalendarDay extends JPanel {
 
 	// Découpage en tranche de 15min de 7h à 22h
-	private final int START_HOUR = 7;
-	private final int END_HOUR = 21;
-	private final int MINUTES_BY_SPLIT = 15;
-	private final int NB_SPLIT = (END_HOUR - START_HOUR) * 60 / MINUTES_BY_SPLIT;
+	private int START_HOUR;
+	private int END_HOUR;
+	private int MINUTES_BY_SPLIT;
+	private int NB_SPLIT;
 	private ArrayList<EventInfos[]> checkList;
 	private ArrayList<EventInfos> eventsList;
+	private JLabel title;
+	private JPanel content;
 
 	class EventInfos {
 
-		EventInfos(Event e, int c, int w) {
+		EventInfos(Event e, int c, int w, Color co) {
 			event = e;
 			column = c;
 			width = w;
+			color = co;
 		}
+		Color color;
 		Event event;
 		int column;
 		int width;
 	}
 
-	public JCalendarDay() {
-		super(new MigLayout("insets 0, gapy 0", "[0%][grow]", "[grow, 0:5px:30px]"));
+	public JCalendarDay(int start_hour, int end_hour, int minutes_by_split) {
+		super(new MigLayout("insets 0, gapy 0", "[grow]", "[0:30px:30px][grow]"));
+
+		START_HOUR = start_hour;
+		END_HOUR = end_hour;
+		MINUTES_BY_SPLIT = minutes_by_split;
+		NB_SPLIT = (END_HOUR - START_HOUR) * 60 / MINUTES_BY_SPLIT;
+
 		eventsList = new ArrayList<>();
 		checkList = new ArrayList<>();
-		Random rand = new Random();
-		int red = rand.nextInt(255);
-		int green = rand.nextInt(255);
-		int blue = rand.nextInt(255);
-		setBackground(new Color(red, green, blue));
+		JPanel header = new JPanel();
+		add(header, "grow, cell 0 0");
+		header.setBorder(BorderFactory.createLineBorder(Color.black));
+		content = new JPanel(new MigLayout("insets 4px 0px 5px 5px, gapy 0", "[1px][grow]", "[grow, 0:5px:30px]"));
+		add(content, "grow, cell 0 1");
+		content.setBorder(BorderFactory.createLineBorder(Color.black));
+		title = new JLabel();
+		header.add(title);
 		for (int row = 0; row < NB_SPLIT; row++) {
-			JLabel panel = new JLabel(" > ");
-			red = rand.nextInt(255);
-			green = rand.nextInt(255);
-			blue = rand.nextInt(255);
-			panel.setBackground(new Color(red, green, blue));
-			add(new JPanel(), "grow, cell 0 " + row);
+			content.add(new JPanel(), "width 1px:1px:1px, grow, cell 0 " + row);
 		}
 	}
 
-	public void addDay(Day day) {
+	public void addDay(Day day, Color color) {
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
+		DateTime date = day.getDate();
+		String dayName = date.getDayOfWeek(true) + " " + date.toString();
+
+		title.setText(dayName);
 		EventInfos eventInfos, tempEvent;
 		int col, row;
 		boolean empty, done;
@@ -71,7 +84,7 @@ class JCalendarDay extends JPanel {
 			endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 			endPosition = endPosition < NB_SPLIT ? endPosition : NB_SPLIT;
 
-			eventInfos = new EventInfos(event, 0, 0);
+			eventInfos = new EventInfos(event, 0, 0, color);
 			col = 0;
 			row = startPosition;
 			done = false;
@@ -86,17 +99,17 @@ class JCalendarDay extends JPanel {
 					row++;
 				}
 				if (empty) {
-					eventInfos.width = col+1;
-					eventInfos.column = col+1;
+					eventInfos.width = col + 1;
+					eventInfos.column = col + 1;
 					eventsList.add(eventInfos);
 					for (int i = 0; i < checkList.size(); i++) {
 						for (int j = startPosition; j < endPosition; j++) {
 							if (i == col) {
-								checkList.get(col)[j] = eventInfos;
+								checkList.get(i)[j] = eventInfos;
 							} else {
 								tempEvent = checkList.get(i)[j];
 								if (tempEvent != null) {
-									tempEvent.width = col+1;
+									tempEvent.width = col + 1;
 								}
 							}
 						}
@@ -106,7 +119,15 @@ class JCalendarDay extends JPanel {
 				col++;
 			}
 		}
-		col = 0;
+	}
+
+	public void build() {
+		int col = 0;
+		for (Component component : getComponents()) {
+			if (component.getClass() == JCalendarEvent.class) {
+				remove(component);
+			}
+		}
 		for (EventInfos ev : eventsList) {
 			addEvent(ev);
 			col++;
@@ -124,7 +145,7 @@ class JCalendarDay extends JPanel {
 		int startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 		int endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 
-		JCalendarEvent jEvent = new JCalendarEvent(event);
-		add(jEvent, "width 0:80%:80%, grow, cell " + ev.column + " " + startPosition + " " + maxCol/ev.width + " " + (endPosition - startPosition));
+		JCalendarEvent jEvent = new JCalendarEvent(event, ev.color);
+		content.add(jEvent, "width 0:100%:100%, grow, cell " + ev.column + " " + startPosition + " " + maxCol / ev.width + " " + (endPosition - startPosition));
 	}
 }

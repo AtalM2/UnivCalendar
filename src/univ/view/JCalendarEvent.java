@@ -3,6 +3,8 @@ package univ.view;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import net.miginfocom.swing.MigLayout;
 import univ.calendar.Event;
 
 /**
@@ -10,14 +12,42 @@ import univ.calendar.Event;
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
 class JCalendarEvent extends JPanel {
-	
+
 	private Event event;
-	
-	public JCalendarEvent(Event e) {
-		super();
+
+	public JCalendarEvent(Event e, Color color) {
+		super(new MigLayout("wrap"));
 		event = e;
-		setBackground(Color.blue);
-		add(new JLabel(event.getStartTime().getHour()+" -fsdf sdf sdf sdf sd fsd sd fsd fs d fds f "+event.getEndTime().getHour()));
+		String startHour, startMinutes, endHour, endMinutes;
+		String summary = event.getSummary();
+		summary = summary.replace("\\,", ",");
+		
+		String description = event.getDescription();
+		description = description.replace("\\n", "<br/>");
+		description = description.replace("\\,", ",");
+
+		startHour = new Integer(event.getStartTime().getHour()).toString();
+		startMinutes = new Integer(event.getStartTime().getMinute()).toString();
+		endHour = new Integer(event.getEndTime().getHour()).toString();
+		endMinutes = new Integer(event.getEndTime().getMinute()).toString();
+		if (startHour.length() < 2) {
+			startHour = "0" + startHour;
+		}
+		if (startMinutes.length() < 2) {
+			startMinutes = "0" + startMinutes;
+		}
+		if (endHour.length() < 2) {
+			endHour = "0" + endHour;
+		}
+		if (endMinutes.length() < 2) {
+			endMinutes = "0" + endMinutes;
+		}
+		setToolTipText("<html>" + event.getStartTime().toString() + "<br/><b>De " + startHour + ":" + startMinutes + " à " + endHour + ":" + endMinutes + "<br/><br/>"
+				+ summary + "</b><br/><br/>"
+				+ description);
+		setBackground(color);
+		JLabel labelSummary = new JLabel(summary);
+		add(labelSummary);
+		add(new JLabel(event.getLocation()));
 	}
-	
 }
