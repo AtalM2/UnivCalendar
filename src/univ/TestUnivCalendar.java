@@ -1,11 +1,14 @@
 package univ;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import univ.calendar.Calendar;
+import univ.calendar.Week;
 import univ.ics.ICSFinder;
 import univ.ics.ICSParser;
+import univ.util.DateTime;
 import univ.view.MainFrame;
 
 /**
@@ -16,7 +19,7 @@ public class TestUnivCalendar {
 
 	public static void main(String[] args) {
 		ArrayList<String> ics = null;
-		
+
 		// Récupération sur le serveur
 		try {
 			ics = ICSFinder.getURL("http://www.edt-sciences.univ-nantes.fr/g78030.ics");
@@ -32,20 +35,26 @@ public class TestUnivCalendar {
 //		} catch (FileNotFoundException e) {
 //			System.out.println("FileNotFoundException : " + e.getMessage());
 //		}
-		
+
 		// Parsing de l'ICS récupéré
 		Calendar calendar = ICSParser.parse(ics);
-		System.out.println(calendar.toString());
+		//System.out.println(calendar.toString());
 
 		// Récupération google
 		// adresse : atal.univ.nantes@gmail.com
 		// passwd : jnatal44
-		
+
 		//https://developers.google.com/google-apps/calendar/v2/developers_guide_java
-		
+
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
-		mainFrame.getJWeek().addWeek(calendar.getWeeksList().get(2));
+		DateTime now = new DateTime();
+		Week week = calendar.findWeek(now);
+		mainFrame.getJWeek().addWeek(week, Color.lightGray);
+		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
+		mainFrame.getWeekDetail().setText("Du " + week.getStartDate().toString() + " au " + week.getEndDate().toString());
+		System.out.println(calendar.getWeeksList().get(10).toString());
+		mainFrame.getJWeek().build();
 
 
 	}
