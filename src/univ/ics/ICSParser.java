@@ -35,7 +35,7 @@ public class ICSParser {
 			}
 			if (isDtStart(line)) {
 				DateTime date = new DateTime(getValue(line));
-				date.setHour(date.getHour()+2);
+				date.setHour(date.getHour() + 1);
 				currentEvent.setStartTime(date);
 				if (currentDay == null || !currentEvent.inDay(currentDay)) {
 					currentWeek = calendar.findWeek(date);
@@ -46,7 +46,7 @@ public class ICSParser {
 			}
 			if (isDtEnd(line)) {
 				DateTime date = new DateTime(getValue(line));
-				date.setHour(date.getHour()+2);
+				date.setHour(date.getHour() + 1);
 				currentEvent.setEndTime(date);
 			}
 			if (isUID(line)) {
@@ -105,7 +105,7 @@ public class ICSParser {
 	private static boolean isCategories(String line) {
 		return line.toLowerCase().startsWith("CATEGORIES:".toLowerCase());
 	}
-	
+
 	private static boolean isEnd(String line) {
 		return line.toLowerCase().startsWith("END:".toLowerCase());
 	}
