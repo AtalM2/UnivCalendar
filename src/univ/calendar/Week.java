@@ -17,8 +17,16 @@ public class Week implements Comparable {
 	public Week(DateTime d) {
 		daysList = new ArrayList<>();
 		startDate = d;
-		DateTime end = d.addDay(6);
-		endDate = new DateTime(end);
+		endDate = d.addDay(5);
+
+		DateTime dayDate = new DateTime(startDate);
+		Day day;
+		for (int i = 0; i < 6; i++) {
+			day = new Day(dayDate);
+			daysList.add(day);
+			dayDate = dayDate.addDay(1);
+		}
+		Collections.sort(daysList);
 	}
 
 	public Day findDay(DateTime date) {
@@ -44,14 +52,14 @@ public class Week implements Comparable {
 		Week otherWeek = (Week) t;
 		return startDate.compareTo(otherWeek.getStartDate());
 	}
-	
+
 	@Override
 	public String toString() {
 		String ret = "WEEK - DateBegin : " + startDate.toString() + " - DateEnd : " + endDate.toString() + "\n";
 		ret += daysList.toString();
 		return ret;
 	}
-	
+
 	public int getWeekOfYear() {
 		return startDate.getWeekOfYear();
 	}
