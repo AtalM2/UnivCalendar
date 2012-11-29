@@ -4,10 +4,9 @@
  */
 package univ.util;
 
+import java.util.Calendar;
 import univ.calendar.Day;
 import univ.calendar.Week;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  *
@@ -21,15 +20,15 @@ public class DateTime {
 	private int hour;
 	private int minute;
 	private int second;
-	
+
 	public DateTime() {
 		this(false);
 	}
-	
+
 	public DateTime(boolean withTime) {
 		Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH);
+		month = c.get(Calendar.MONTH) + 1;
 		day = c.get(Calendar.DAY_OF_MONTH);
 		if (withTime) {
 			hour = c.get(Calendar.HOUR);
@@ -55,28 +54,59 @@ public class DateTime {
 		minute = cloneDateTime.getMinute();
 		second = cloneDateTime.getSecond();
 	}
-	
-	public int getDayOfWeek() {
+
+	public String getDayOfWeek() {
+		return getDayOfWeek(false);
+	}
+
+	public String getDayOfWeek(boolean inText) {
+		String ret;
 		//Utilisation de la classe java.util.Calendar
 		int dayOfWeek;
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month-1);
+		c.set(Calendar.MONTH, month - 1);
 		c.set(Calendar.DAY_OF_MONTH, day);
 		dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-		dayOfWeek = dayOfWeek-1;
+		dayOfWeek = dayOfWeek - 1;
 		if (dayOfWeek == 0) {
 			dayOfWeek = 7; // Gestion du dimanche
 		}
-		return dayOfWeek;
+		ret = new Integer(dayOfWeek).toString();
+		if (inText) {
+			switch (dayOfWeek) {
+				case 1:
+					ret = "Lundi";
+					break;
+				case 2:
+					ret = "Mardi";
+					break;
+				case 3:
+					ret = "Mercredi";
+					break;
+				case 4:
+					ret = "Jeudi";
+					break;
+				case 5:
+					ret = "Vendredi";
+					break;
+				case 6:
+					ret = "Samedi";
+					break;
+				case 7:
+					ret = "Dimanche";
+					break;
+			}
+		}
+		return ret;
 	}
-	
+
 	public int getWeekOfYear() {
 		//Utilisation de la classe java.util.Calendar
 		int weekOfYear;
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month-1);
+		c.set(Calendar.MONTH, month - 1);
 		c.set(Calendar.DAY_OF_MONTH, day);
 		weekOfYear = c.get(Calendar.WEEK_OF_YEAR);
 		return weekOfYear;
@@ -87,11 +117,11 @@ public class DateTime {
 		DateTime dateAdded = new DateTime(this);
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month);
+		c.set(Calendar.MONTH, month - 1);
 		c.set(Calendar.DAY_OF_MONTH, day);
 		c.add(Calendar.DATE, add);
 		dateAdded.setYear(c.get(Calendar.YEAR));
-		dateAdded.setMonth(c.get(Calendar.MONTH));
+		dateAdded.setMonth(c.get(Calendar.MONTH) + 1);
 		dateAdded.setDay(c.get(Calendar.DAY_OF_MONTH));
 		return dateAdded;
 	}
@@ -99,11 +129,11 @@ public class DateTime {
 	public boolean inDay(Day day) {
 		return (this.compareTo(day.getDate()) == 0);
 	}
-	
+
 	public long getTimeInMillis() {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month);
+		c.set(Calendar.MONTH, month - 1);
 		c.set(Calendar.DAY_OF_MONTH, day);
 		c.set(Calendar.HOUR, hour);
 		c.set(Calendar.MINUTE, minute);
