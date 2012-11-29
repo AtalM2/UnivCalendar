@@ -32,10 +32,10 @@ public class Calendar {
 			}
 		}
 		if (!finded) {
-			dayOfWeek = date.getDayOfWeek();
-			if(dayOfWeek != 1) {
+			dayOfWeek = Integer.parseInt(date.getDayOfWeek());
+			if (dayOfWeek != 1) {
 				// Si on est pas lundi, on soustrait la position du jour
-				date = date.addDay(-(dayOfWeek-1));
+				date = date.addDay(-(dayOfWeek - 1));
 			}
 			week = new Week(date);
 			getWeeksList().add(week);

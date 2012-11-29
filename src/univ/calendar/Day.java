@@ -37,9 +37,13 @@ public class Day implements Comparable {
 		ret += eventsList.toString() + "\n";
 		return ret;
 	}
-	
-	public int getDayOfWeek() {
-		return date.getDayOfWeek();
+
+	public String getDayOfWeek() {
+		return getDayOfWeek(false);
+	}
+
+	public String getDayOfWeek(boolean inText) {
+		return date.getDayOfWeek(inText);
 	}
 
 	public ArrayList<Event> getEventsList() {
