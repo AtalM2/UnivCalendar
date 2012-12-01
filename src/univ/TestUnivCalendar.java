@@ -1,9 +1,14 @@
 package univ;
 
+import ggl.GGLParser;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+
+import com.google.gdata.client.calendar.CalendarService;
+
 import univ.calendar.Calendar;
 import univ.calendar.Week;
 import univ.ics.ICSFinder;
@@ -38,7 +43,7 @@ public class TestUnivCalendar {
 
 		// Parsing de l'ICS récupéré
 		Calendar calendar = ICSParser.parse(ics);
-		//System.out.println(calendar.toString());
+		System.out.println(calendar.toString());
 
 		// Récupération google
 		// adresse : atal.univ.nantes@gmail.com
@@ -46,6 +51,11 @@ public class TestUnivCalendar {
 
 		//https://developers.google.com/google-apps/calendar/v2/developers_guide_java
 
+		CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
+		Calendar calGoogle = GGLParser.parse(myService);
+		System.out.println(calGoogle.toString());
+		
+		
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		DateTime now = new DateTime();
