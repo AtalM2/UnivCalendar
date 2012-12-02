@@ -1,8 +1,8 @@
 package univ.calendar;
 
-import univ.util.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import univ.util.DateTime;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Week implements Comparable {
 	public Week(DateTime d) {
 		daysList = new ArrayList<>();
 		startDate = d;
-		endDate = d.addDay(5);
+		endDate = d.addDay(6);
 
 		DateTime dayDate = new DateTime(startDate);
 		Day day;
