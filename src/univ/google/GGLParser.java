@@ -74,7 +74,6 @@ public class GGLParser {
 					String date = times.get(0).getStartTime().toString();
 	
 					DateTime datetime = new DateTime("000000000000000");
-					DateTime datetimeEnd = new DateTime("000000000000000");
 	
 					datetime.setYear(Integer.parseInt(date.substring(0, 4)));
 					datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
@@ -84,7 +83,25 @@ public class GGLParser {
 						datetime.setMinute(Integer.parseInt(date.substring(14, 16)));
 						datetime.setSecond(Integer.parseInt(date.substring(17, 19)));
 					}
-
+					
+					DateTime datetimeEnd = new DateTime(datetime);
+					if (date.length() > 10) {
+						datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13))+1);
+					}
+					
+					String dateEnd = times.get(0).getEndTime().toString();
+					if (dateEnd != null) {
+						datetimeEnd.setYear(Integer.parseInt(dateEnd.substring(0, 4)));
+						datetimeEnd.setMonth(Integer.parseInt(dateEnd.substring(5, 7)));
+						datetimeEnd.setDay(Integer.parseInt(dateEnd.substring(8, 10)));
+						if (dateEnd.length() > 10) {
+							datetimeEnd.setHour(Integer.parseInt(dateEnd.substring(11, 13)));
+							datetimeEnd.setMinute(Integer.parseInt(dateEnd.substring(14, 16)));
+							datetimeEnd.setSecond(Integer.parseInt(dateEnd.substring(17, 19)));
+						}
+					}
+					
+					
 					Week currentWeek = null;
 					Day currentDay = null;
 					currentEvent.setStartTime(datetime);
