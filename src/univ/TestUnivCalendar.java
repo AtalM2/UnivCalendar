@@ -65,7 +65,9 @@ public class TestUnivCalendar {
 		mainFrame.setVisible(true);
 		DateTime now = new DateTime();
 		Week week = calendar.findWeek(now);
-		mainFrame.getJWeek().addWeek(week, Color.lightGray);
+		Week weekGoogle = calGoogle.findWeek(now);
+		mainFrame.getJWeek().addWeek(week, Color.LIGHT_GRAY);
+		mainFrame.getJWeek().addWeek(weekGoogle, Color.RED);
 		//mainFrame.getJWeek().addWeek(calendar.getWeeksList().get(12), Color.blue);
 		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
 		mainFrame.getWeekDetail().setText("Du " + week.getStartDate().toString() + " au " + week.getEndDate().toString());
