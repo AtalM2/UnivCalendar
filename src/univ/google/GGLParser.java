@@ -39,6 +39,7 @@ public class GGLParser {
 	// (e.g. http://www.googe.com/feeds/calendar/jdoe@gmail.com/private/full)
 	private static URL eventFeedUrl = null;
 
+	
 	public static Calendar parse(CalendarService service) {
 		Calendar calendar = new Calendar();
 
@@ -59,46 +60,45 @@ public class GGLParser {
 
 		try {
 			service.setUserCredentials(userName, userPassword);
-//      System.out.println("Print myService");
 
 			CalendarEventFeed resultFeed = service.getFeed(eventFeedUrl,
 					CalendarEventFeed.class);
 
 			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 				CalendarEventEntry entry = resultFeed.getEntries().get(i);
+				
+				Event currentEvent = new Event();
+				
 				List<When> times = entry.getTimes();
-				String date = times.get(0).getStartTime().toString();
-				System.out.println(date);
+				if (!times.isEmpty()){
+					String date = times.get(0).getStartTime().toString();
+	
+					DateTime datetime = new DateTime("000000000000000");
+					DateTime datetimeEnd = new DateTime("000000000000000");
+	
+					datetime.setYear(Integer.parseInt(date.substring(0, 4)));
+					datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
+					datetime.setDay(Integer.parseInt(date.substring(8, 10)));
+					if (date.length() > 10) {
+						datetime.setHour(Integer.parseInt(date.substring(11, 13)));
+						datetime.setMinute(Integer.parseInt(date.substring(14, 16)));
+						datetime.setSecond(Integer.parseInt(date.substring(17, 19)));
+					}
 
-
-				DateTime datetime = new DateTime("000000000000000");
-				DateTime datetimeEnd = new DateTime("000000000000000");
-
-				datetime.setYear(Integer.parseInt(date.substring(0, 4)));
-				datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
-				datetime.setDay(Integer.parseInt(date.substring(8, 10)));
-				if (date.length() > 10) {
-					datetime.setHour(Integer.parseInt(date.substring(11, 13)));
-					datetime.setMinute(Integer.parseInt(date.substring(14, 16)));
-					datetime.setSecond(Integer.parseInt(date.substring(17, 19)));
+					Week currentWeek = null;
+					Day currentDay = null;
+					currentEvent.setStartTime(datetime);
+					currentEvent.setEndTime(datetimeEnd);
+					if (currentDay == null || !currentEvent.inDay(currentDay)) {
+						currentWeek = calendar.findWeek(datetime);
+						currentDay = currentWeek.findDay(datetime);
+					}
+					currentDay.getEventsList().add(currentEvent);
+					Collections.sort(currentDay.getEventsList());
 				}
 				String summary = entry.getTitle().getPlainText();
 
-				Week currentWeek = null;
-				Day currentDay = null;
-				Event currentEvent = new Event();
-
-				currentEvent.setStartTime(datetime);
-
-				if (currentDay == null || !currentEvent.inDay(currentDay)) {
-					currentWeek = calendar.findWeek(datetime);
-					currentDay = currentWeek.findDay(datetime);
-				}
-				currentDay.getEventsList().add(currentEvent);
-				Collections.sort(currentDay.getEventsList());
-
-				currentEvent.setSummary(summary);
-				currentEvent.setEndTime(datetimeEnd);
+				currentEvent.setSummary(summary);	
 				currentEvent.setDescription(null);
 				currentEvent.setLocation(null);
 				currentEvent.setUid(null);

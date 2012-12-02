@@ -1,6 +1,7 @@
 package univ;
 
 import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.util.AuthenticationException;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -44,12 +45,18 @@ public class TestUnivCalendar {
 		//System.out.println(calendar.toString());
 
 		// Récupération google
-		// adresse : atal.univ.nantes@gmail.com
-		// passwd : jnatal44
+		String adresse = "atal.univ.nantes@gmail.com";
+		String passwd = "jnatal44";
 
 		//https://developers.google.com/google-apps/calendar/v2/developers_guide_java
 
-		CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
+		CalendarService myService = new CalendarService("");
+		try {
+			myService.setUserCredentials(adresse, passwd);
+		} catch (AuthenticationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Calendar calGoogle = GGLParser.parse(myService);
 		System.out.println(calGoogle.toString());
 		

@@ -437,7 +437,7 @@ public class EventFeedDemo {
    * @param args Must be length 2 and contain a valid username/password
    */
   public static void main(String[] args) {
-    CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
+    CalendarService myService = new CalendarService("");
 
     // Set username and password from command-line arguments.
 //		if (args.length != 2) {
