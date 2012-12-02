@@ -21,7 +21,12 @@ public class Event implements Comparable {
 	private String description;
 	private String categories;
 	
-	public Event() {	
+	public Event() {
+		uid = "";
+		summary = "";
+		location = "";
+		description = "";
+		categories = "";
 	}
 	
 	public boolean inDay(Day day) {
@@ -66,7 +71,11 @@ public class Event implements Comparable {
 	}
 
 	public void setUid(String uid) {
-		this.uid = uid;
+		if (uid == null) {
+			this.uid = "";
+		} else {
+			this.uid = uid;
+		}
 	}
 
 	public String getSummary() {
@@ -74,7 +83,11 @@ public class Event implements Comparable {
 	}
 
 	public void setSummary(String summary) {
-		this.summary = summary;
+		if (summary == null) {
+			this.summary = "";
+		} else {
+			this.summary = summary;
+		}
 	}
 
 	public String getLocation() {
@@ -82,7 +95,11 @@ public class Event implements Comparable {
 	}
 
 	public void setLocation(String location) {
-		this.location = location;
+		if (location == null) {
+			this.location = "";
+		} else {
+			this.location = location;
+		}
 	}
 
 	public String getDescription() {
@@ -90,7 +107,11 @@ public class Event implements Comparable {
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		if (description == null) {
+			this.description = "";
+		} else {
+			this.description = description;
+		}		
 	}
 
 	public String getCategories() {
@@ -98,6 +119,10 @@ public class Event implements Comparable {
 	}
 
 	public void setCategories(String categories) {
-		this.categories = categories;
+		if (categories == null) {
+			this.categories = "";
+		} else {
+			this.categories = categories;
+		}	
 	}		
 }
