@@ -54,9 +54,13 @@ public class JCalendarWeek extends JPanel {
 	}
 
 	public void addWeek(Week c, Color color) {
+		int dayOfWeek;
 		for (Day day : c.getDaysList()) {
-			JCalendarDay jDay = daysList.get(Integer.parseInt(day.getDayOfWeek()) - 1);
-			jDay.addDay(day, color);
+			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
+			if (dayOfWeek < 6) {
+				JCalendarDay jDay = daysList.get(dayOfWeek);
+				jDay.addDay(day, color);
+			}
 		}
 	}
 }
