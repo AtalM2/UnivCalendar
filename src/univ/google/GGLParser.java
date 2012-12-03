@@ -17,7 +17,8 @@ import univ.calendar.Week;
 import univ.util.DateTime;
 
 /**
- * Classe permettant de parser les évènements Google vers notre modèle univ.calendar
+ * Classe permettant de parser les évènements Google vers notre modèle
+ * univ.calendar
  *
  * @authors Noémi Salaün, Joseph Lark
  */
@@ -68,56 +69,54 @@ public class GGLParser {
 				List<When> times = entry.getTimes();
 				if (!times.isEmpty()) {
 					String date = times.get(0).getStartTime().toString();
-
-					DateTime datetime = new DateTime("000000000000000");
-
-					datetime.setYear(Integer.parseInt(date.substring(0, 4)));
-					datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
-					datetime.setDay(Integer.parseInt(date.substring(8, 10)));
 					if (date.length() > 10) {
+						DateTime datetime = new DateTime("000000000000000");
+						datetime.setYear(Integer.parseInt(date.substring(0, 4)));
+						datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
+						datetime.setDay(Integer.parseInt(date.substring(8, 10)));
+
 						datetime.setHour(Integer.parseInt(date.substring(11, 13)));
 						datetime.setMinute(Integer.parseInt(date.substring(14, 16)));
 						datetime.setSecond(Integer.parseInt(date.substring(17, 19)));
-					}
 
-					DateTime datetimeEnd = new DateTime(datetime);
-					if (date.length() > 10) {
-						datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13)) + 1);
-					}
-
-					String dateEnd = times.get(0).getEndTime().toString();
-					if (dateEnd != null) {
-						datetimeEnd.setYear(Integer.parseInt(dateEnd.substring(0, 4)));
-						datetimeEnd.setMonth(Integer.parseInt(dateEnd.substring(5, 7)));
-						datetimeEnd.setDay(Integer.parseInt(dateEnd.substring(8, 10)));
-						if (dateEnd.length() > 10) {
-							datetimeEnd.setHour(Integer.parseInt(dateEnd.substring(11, 13)));
-							datetimeEnd.setMinute(Integer.parseInt(dateEnd.substring(14, 16)));
-							datetimeEnd.setSecond(Integer.parseInt(dateEnd.substring(17, 19)));
+						DateTime datetimeEnd = new DateTime(datetime);
+						if (date.length() > 10) {
+							datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13)) + 1);
 						}
-					}
 
+						String dateEnd = times.get(0).getEndTime().toString();
+						if (dateEnd != null) {
+							datetimeEnd.setYear(Integer.parseInt(dateEnd.substring(0, 4)));
+							datetimeEnd.setMonth(Integer.parseInt(dateEnd.substring(5, 7)));
+							datetimeEnd.setDay(Integer.parseInt(dateEnd.substring(8, 10)));
+							if (dateEnd.length() > 10) {
+								datetimeEnd.setHour(Integer.parseInt(dateEnd.substring(11, 13)));
+								datetimeEnd.setMinute(Integer.parseInt(dateEnd.substring(14, 16)));
+								datetimeEnd.setSecond(Integer.parseInt(dateEnd.substring(17, 19)));
+							}
+						}
 
-					Week currentWeek = null;
-					Day currentDay = null;
-					currentEvent.setStartTime(datetime);
-					currentEvent.setEndTime(datetimeEnd);
-					if (currentDay == null || !currentEvent.inDay(currentDay)) {
-						currentWeek = calendar.findWeek(datetime);
-						currentDay = currentWeek.findDay(datetime);
+						Week currentWeek = null;
+						Day currentDay = null;
+						currentEvent.setStartTime(datetime);
+						currentEvent.setEndTime(datetimeEnd);
+						if (currentDay == null || !currentEvent.inDay(currentDay)) {
+							currentWeek = calendar.findWeek(datetime);
+							currentDay = currentWeek.findDay(datetime);
+						}
+						currentDay.getEventsList().add(currentEvent);
+						Collections.sort(currentDay.getEventsList());
 					}
-					currentDay.getEventsList().add(currentEvent);
-					Collections.sort(currentDay.getEventsList());
+					String summary = entry.getTitle().getPlainText();
+
+					currentEvent.setSummary(summary);
+					currentEvent.setDescription(null);
+					currentEvent.setLocation(null);
+					currentEvent.setUid(null);
+					currentEvent.setCategories(null);
+
+					//System.out.println(newEvent.toString());
 				}
-				String summary = entry.getTitle().getPlainText();
-
-				currentEvent.setSummary(summary);
-				currentEvent.setDescription(null);
-				currentEvent.setLocation(null);
-				currentEvent.setUid(null);
-				currentEvent.setCategories(null);
-
-//          System.out.println(newEvent.toString());
 			}
 
 		} catch (IOException e) {
