@@ -2,8 +2,12 @@ package univ.google;
 
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.DateTime;
+import com.google.gdata.data.Link;
 import com.google.gdata.data.PlainTextConstruct;
+import com.google.gdata.data.batch.BatchOperationType;
+import com.google.gdata.data.batch.BatchUtils;
 import com.google.gdata.data.calendar.CalendarEventEntry;
+import com.google.gdata.data.calendar.CalendarEventFeed;
 import com.google.gdata.data.extensions.When;
 import com.google.gdata.util.ServiceException;
 import java.io.IOException;
@@ -44,6 +48,10 @@ public class GGLCreator {
 	 */
 	public static CalendarEventEntry createEvent(CalendarService service,
 			Event event) throws ServiceException, IOException {
+
+		String userName = "atal.univ.nantes@gmail.com";
+		//String userPassword = "jnatal44";
+
 		CalendarEventEntry myEntry = new CalendarEventEntry();
 
 		myEntry.setTitle(new PlainTextConstruct(event.getSummary()));
@@ -54,30 +62,108 @@ public class GGLCreator {
 		// of the event.
 		univ.util.DateTime start = event.getStartTime();
 		univ.util.DateTime end = event.getEndTime();
-		DateTime startTime = new DateTime(new Date(start.getYear(), start.getMonth(), start.getDay(), start.getHour(), start.getMinute(), start.getSecond()));
-		DateTime endTime = new DateTime(new Date(end.getYear(), end.getMonth(), end.getDay(), end.getHour(), end.getMinute(), end.getSecond()));
+		DateTime startTime = new DateTime(new Date(start.getYear() - 1900, start.getMonth() - 1, start.getDay(), start.getHour() + 1, start.getMinute(), start.getSecond()));
+		DateTime endTime = new DateTime(new Date(end.getYear() - 1900, end.getMonth() - 1, end.getDay(), end.getHour() + 1, end.getMinute(), end.getSecond()));
 
 		When eventTimes = new When();
 		eventTimes.setStartTime(startTime);
 		eventTimes.setEndTime(endTime);
 		myEntry.addTime(eventTimes);
 
+		eventFeedUrl = new URL(METAFEED_URL_BASE + userName
+				+ EVENT_FEED_URL_SUFFIX);
+
 		// Send the request and receive the response:
 		return service.insert(eventFeedUrl, myEntry);
 	}
-//	/**
-//	 * Creates a single-occurrence event.
-//	 * 
-//	 * @param service An authenticated CalendarService object.
-//	 * @param eventTitle Title of the event to create.
-//	 * @param eventContent Text content of the event to create.
-//	 * @return The newly-created CalendarEventEntry.
-//	 * @throws ServiceException If the service is unable to handle the request.
-//	 * @throws IOException Error communicating with the server.
-//	 */
-//	private static CalendarEventEntry createSingleEvent(CalendarService service,
-//			Event event) throws ServiceException,
-//			IOException {
-//		return createEvent(service, event);
-//	}
+
+	/**
+	 * Creates a single-occurrence event.
+	 *
+	 * @param service An authenticated CalendarService object.
+	 * @param eventTitle Title of the event to create.
+	 * @param eventContent Text content of the event to create.
+	 * @return The newly-created CalendarEventEntry.
+	 * @throws ServiceException If the service is unable to handle the request.
+	 * @throws IOException Error communicating with the server.
+	 */
+	public static CalendarEventEntry createSingleEvent(CalendarService service,
+			Event e) throws ServiceException,
+			IOException {
+		return createEvent(service, e);
+	}
+
+	/**
+	 * Updates the title of an existing calendar event.
+	 *
+	 * @param entry The event to update.
+	 * @param newTitle The new title for this event.
+	 * @return The updated CalendarEventEntry object.
+	 * @throws ServiceException If the service is unable to handle the request.
+	 * @throws IOException Error communicating with the server.
+	 */
+	public static CalendarEventEntry updateTitle(CalendarEventEntry entry,
+			String newTitle) throws ServiceException, IOException {
+		entry.setTitle(new PlainTextConstruct(newTitle));
+		return entry.update();
+	}
+
+	/**
+	 * Updates the title of an existing calendar event.
+	 *
+	 * @param entry The event to update.
+	 * @param newTitle The new title for this event.
+	 * @return The updated CalendarEventEntry object.
+	 * @throws ServiceException If the service is unable to handle the request.
+	 * @throws IOException Error communicating with the server.
+	 */
+	public static void updateDate(CalendarService service, CalendarEventEntry entry,
+			univ.util.DateTime newStartTime, univ.util.DateTime newEndTime) throws ServiceException, IOException {
+		Event e = new Event();
+		e.setSummary(entry.getTitle().getPlainText());
+		e.setUid(entry.getContent().toString());
+		e.setStartTime(newStartTime);
+		e.setEndTime(newEndTime);
+
+		createSingleEvent(service, e);
+
+		deleteEvent(service, entry);
+//	    return entry.update();
+	}
+
+	/**
+	 * Makes a batch request to delete all the events in the given list. If any
+	 * of the operations fails, the errors returned from the server are
+	 * displayed. The CalendarEntry objects in the list given as a parameters
+	 * must be entries returned from the server that contain valid edit links
+	 * (for optimistic concurrency to work). Note: You can add entries to a
+	 * batch request for the other operation types (INSERT, QUERY, and UPDATE)
+	 * in the same manner as shown below for DELETE operations.
+	 *
+	 * @param service An authenticated CalendarService object.
+	 * @param eventsToDelete A list of CalendarEventEntry objects to delete.
+	 * @throws ServiceException If the service is unable to handle the request.
+	 * @throws IOException Error communicating with the server.
+	 */
+	public static void deleteEvent(CalendarService service,
+			CalendarEventEntry eventToDelete) throws ServiceException,
+			IOException {
+
+		// Add each item in eventsToDelete to the batch request.
+		CalendarEventFeed batchRequest = new CalendarEventFeed();
+
+		// Modify the entry toDelete with batch ID and operation type.
+		//BatchUtils.setBatchId(eventToDelete, String.valueOf(i));
+		BatchUtils.setBatchOperationType(eventToDelete, BatchOperationType.DELETE);
+		batchRequest.getEntries().add(eventToDelete);
+
+		// Get the URL to make batch requests to
+		CalendarEventFeed feed = service.getFeed(eventFeedUrl,
+				CalendarEventFeed.class);
+		Link batchLink = feed.getLink(Link.Rel.FEED_BATCH, Link.Type.ATOM);
+		URL batchUrl = new URL(batchLink.getHref());
+
+		// Submit the batch request
+		CalendarEventFeed batchResponse = service.batch(batchUrl, batchRequest);
+	}
 }

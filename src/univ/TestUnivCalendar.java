@@ -1,6 +1,7 @@
 package univ;
 
 import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.calendar.CalendarEventEntry;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import univ.view.MainFrame;
 
 /**
  *
- * @authors Noémi Salaün, Joseph Lark
+ * @author Noémi Salaün, Joseph Lark
  */
 public class TestUnivCalendar {
 
@@ -60,6 +61,7 @@ public class TestUnivCalendar {
 			System.err.println("AuthenticationException");
 			e.printStackTrace();
 		}
+
 		Calendar calGoogle = GGLParser.parse(myService);
 		System.out.println(calGoogle.toString());
 
@@ -68,9 +70,44 @@ public class TestUnivCalendar {
 		event.setEndTime(new DateTime("20121203_190000"));
 		event.setSummary("Le summary de l event");
 		event.setUid("L_UID_DE_L_EVENT");
+		//
+		System.out.println(event.toString());
+		CalendarEventEntry cee = new CalendarEventEntry();
+		try {
+			cee = GGLCreator.createSingleEvent(myService, event);
+		} catch (ServiceException e) {
+			System.err.println("ServiceException");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("IOException");
+			e.printStackTrace();
+		}
+
+//		try {
+//			GGLCreator.updateTitle(cee, "newTitle");
+//		} catch (ServiceException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
+//		try {
+//			GGLCreator.deleteEvent(myService, cee);
+//		} catch (ServiceException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
+		DateTime nStartTime = new DateTime("20121203_200000");
+		DateTime nEndTime = new DateTime("20121203_210000");
 
 		try {
-			GGLCreator.createEvent(myService, event);
+			GGLCreator.updateDate(myService, cee, nStartTime, nEndTime);
 		} catch (ServiceException e) {
 			System.err.println("ServiceException");
 			e.printStackTrace();
@@ -89,7 +126,6 @@ public class TestUnivCalendar {
 		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
 		mainFrame.getWeekDetail().setText("Du " + week.getStartDate().toString() + " au " + week.getEndDate().toString());
 		mainFrame.getJWeek().build();
-
 
 	}
 }
