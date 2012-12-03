@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package univ.util;
 
 import java.util.Calendar;
@@ -9,8 +5,10 @@ import univ.calendar.Day;
 import univ.calendar.Week;
 
 /**
+ * Classe représentant une Date et une Heure, utilisée par l'ensemble de notre
+ * modèle
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class DateTime {
 
@@ -112,6 +110,12 @@ public class DateTime {
 		return weekOfYear;
 	}
 
+	/**
+	 * Permet d'ajouter un nombre de jours à une date, en prenant en compte les
+	 * années bisextiles, etc...
+	 * @param add Le nombre de jours à ajouter
+	 * @return Une nouvelle DateTime avec les jours ajoutés
+	 */
 	public DateTime addDay(int add) {
 		//Utilisation de la classe java.util.Calendar
 		DateTime dateAdded = new DateTime(this);
@@ -126,22 +130,21 @@ public class DateTime {
 		return dateAdded;
 	}
 
+	/**
+	 * Test si la DateTime correspond au Day
+	 * 
+	 * @param day La Day à comparer
+	 * @return Vrai si la DateTime correpond, faux sinon
+	 */
 	public boolean inDay(Day day) {
 		return (this.compareTo(day.getDate()) == 0);
 	}
 
-	public long getTimeInMillis() {
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month - 1);
-		c.set(Calendar.DAY_OF_MONTH, day);
-		c.set(Calendar.HOUR, hour);
-		c.set(Calendar.MINUTE, minute);
-		c.set(Calendar.SECOND, second);
-		c.set(Calendar.MILLISECOND, 0);
-		return c.getTimeInMillis();
-	}
-
+	/**
+	 * Test si la DateTime est comprise dans la Week
+	 * @param week La Week à comparer
+	 * @return Vrai si la DateTime est comprise, faux sinon
+	 */
 	public boolean inWeek(Week week) {
 		return (this.compareTo(week.getStartDate()) >= 0 && this.compareTo(week.getEndDate()) <= 0);
 	}
@@ -166,6 +169,11 @@ public class DateTime {
 		return toString(false);
 	}
 
+	/**
+	 * Retourne une chaine avec tout les attributs concaténés simplement
+	 * @param withTime Permet définir si on veut l'heure en plus de la date
+	 * @return 
+	 */
 	public String toSimpleString(boolean withTime) {
 		if (withTime) {
 			return Integer.toString(year)

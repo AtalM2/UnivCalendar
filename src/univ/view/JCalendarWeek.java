@@ -10,8 +10,9 @@ import univ.calendar.Day;
 import univ.calendar.Week;
 
 /**
+ * Classe gérant l'affichage d'une Week dans le calendrier
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class JCalendarWeek extends JPanel {
 
@@ -40,9 +41,7 @@ public class JCalendarWeek extends JPanel {
 		add(content, "cell 1 0, grow");
 
 		daysList = new ArrayList<>();
-		for (int i = 0;
-				i
-				< 6; i++) {
+		for (int i = 0; i < 6; i++) {
 			daysList.add(new JCalendarDay(START_HOUR, END_HOUR, MINUTES_BY_SPLIT));
 		}
 		for (JCalendarDay day : daysList) {
@@ -50,15 +49,22 @@ public class JCalendarWeek extends JPanel {
 		}
 	}
 
+	/**
+	 * Génère l'affichage de la semaine
+	 */
 	public void build() {
 		for (JCalendarDay jDay : daysList) {
 			jDay.build();
 		}
 	}
 
-	public void addGoogleUnivWeek(Week c) {
+	/**
+	 * Ajout d'une semaine de type Univ récupérer dans Google
+	 * @param w La Week à ajouter
+	 */
+	public void addGoogleUnivWeek(Week w) {
 		int dayOfWeek;
-		for (Day day : c.getDaysList()) {
+		for (Day day : w.getDaysList()) {
 			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
 			if (dayOfWeek < 6) {
 				JCalendarDay jDay = daysList.get(dayOfWeek);
@@ -67,9 +73,13 @@ public class JCalendarWeek extends JPanel {
 		}
 	}
 
-	public void addIcsUnivWeek(Week c) {
+	/**
+	 * Ajout d'une semaine de type Univ récupérer dans l'ICS
+	 * @param w La Week à ajouter 
+	 */
+	public void addIcsUnivWeek(Week w) {
 		int dayOfWeek;
-		for (Day day : c.getDaysList()) {
+		for (Day day : w.getDaysList()) {
 			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
 			if (dayOfWeek < 6) {
 				JCalendarDay jDay = daysList.get(dayOfWeek);
@@ -78,9 +88,13 @@ public class JCalendarWeek extends JPanel {
 		}
 	}
 
-	public void addGoogleEventWeek(Week c) {
+	/**
+	 * Ajout d'une semaine de type Event récupérer dans Google
+	 * @param w La Week à ajouter 
+	 */
+	public void addGoogleEventWeek(Week w) {
 		int dayOfWeek;
-		for (Day day : c.getDaysList()) {
+		for (Day day : w.getDaysList()) {
 			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
 			if (dayOfWeek < 6) {
 				JCalendarDay jDay = daysList.get(dayOfWeek);

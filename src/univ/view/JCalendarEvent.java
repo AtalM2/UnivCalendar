@@ -3,13 +3,13 @@ package univ.view;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import net.miginfocom.swing.MigLayout;
 import univ.calendar.Event;
 
 /**
+ * Classe gérant l'affichage d'un Event dans le calendrier
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 class JCalendarEvent extends JPanel {
 
@@ -21,7 +21,7 @@ class JCalendarEvent extends JPanel {
 		String startHour, startMinutes, endHour, endMinutes;
 		String summary = event.getSummary();
 		summary = summary.replace("\\,", ",");
-		
+
 		String description = event.getDescription();
 		description = description.replace("\\n", "<br/>");
 		description = description.replace("\\,", ",");

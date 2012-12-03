@@ -11,17 +11,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * Classe permettant de charger le texte d'un ICS à partir d'un fichier local
+ * ou d'une URL. Les données sont retournées sous forme d'un tableau de lignes
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class ICSFinder {
 
+	/**
+	 * Récupère un ICS en local à partir du chemin du fichier
+	 * 
+	 * @param path Le chemin du fichier ICS
+	 * @return Un ArrayList contenant chaque ligne de l'ICS
+	 * @throws FileNotFoundException 
+	 */
 	public static ArrayList<String> getLocal(String path) throws FileNotFoundException {
 		ArrayList<String> ret = new ArrayList<>();
-		
+
 		FileReader file;
 		file = new FileReader(path);
-		
+
 		Scanner scanner = new Scanner(file);
 		while (scanner.hasNextLine()) {
 			ret.add(scanner.nextLine());
@@ -29,9 +38,18 @@ public class ICSFinder {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * Récupère un ICS sur Internet à partir d'une URL
+	 * 
+	 * @param path L'adresse du fichier ICS
+	 * @return Un ArrayList contenant chaque ligne de l'ICS
+	 * @throws MalformedURLException
+	 * @throws IOException 
+	 */
 	public static ArrayList<String> getURL(String path) throws MalformedURLException, IOException {
 		ArrayList<String> ret = new ArrayList<>();
-		
+
 		URL u = new URL(path);
 		InputStreamReader isr = new InputStreamReader(u.openStream());
 		BufferedReader br = new BufferedReader(isr);
@@ -40,7 +58,7 @@ public class ICSFinder {
 		while (scanner.hasNextLine()) {
 			ret.add(scanner.nextLine());
 		}
-		
+
 		return ret;
 	}
 }

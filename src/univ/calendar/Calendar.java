@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package univ.calendar;
 
 import java.util.ArrayList;
@@ -9,8 +5,10 @@ import java.util.Collections;
 import univ.util.DateTime;
 
 /**
- *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * Classe représentant un calendrier complet. Ce calendrier correspond soit à l'ICS,
+ * soit aux évènements Google. Un calendrier contient la liste des semaines.
+ * 
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class Calendar {
 
@@ -20,10 +18,18 @@ public class Calendar {
 		weeksList = new ArrayList<>();
 	}
 
+	/**
+	 * Permet de récupérer la Week contenant la DateTime. La Week est créée si
+	 * elle n'est pas trouvée
+	 * 
+	 * @param date La date que doit contenir la Week à trouver
+	 * @return La Week correspondante
+	 */
 	public Week findWeek(DateTime date) {
 		int dayOfWeek;
 		boolean finded = false;
 		Week week = null;
+		// On parcourt l'ensemble des Weeks du Calendar pour voir si elle existe déjà
 		for (int i = 0; i < getWeeksList().size(); i++) {
 			week = getWeeksList().get(i);
 			if (date.inWeek(week)) {
@@ -31,6 +37,7 @@ public class Calendar {
 				break;
 			}
 		}
+		// Si elle n'est pas trouvée, on la crée
 		if (!finded) {
 			dayOfWeek = Integer.parseInt(date.getDayOfWeek());
 			if (dayOfWeek != 1) {

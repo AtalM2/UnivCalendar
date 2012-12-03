@@ -13,8 +13,9 @@ import univ.util.DateTime;
 import univ.util.Tools;
 
 /**
+ * Classe gérant l'affichage d'un jour dans le calendrier
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 class JCalendarDay extends JPanel {
 
@@ -23,11 +24,15 @@ class JCalendarDay extends JPanel {
 	private int END_HOUR;
 	private int MINUTES_BY_SPLIT;
 	private int NB_SPLIT;
-	private ArrayList<EventInfos[]> checkList;
-	private ArrayList<EventInfos> eventsList;
+	private ArrayList<EventInfos[]> checkList; // Tableau représentant l'ensemble des plages horaires affichées
+	private ArrayList<EventInfos> eventsList; // Tableau comprenant la liste des Events du jour
 	private JLabel title;
 	private JPanel content;
 
+	/**
+	 * Structure permettant de stocker des informations supplémentaires sur un
+	 * Event
+	 */
 	class EventInfos {
 
 		EventInfos(Event e, int c, int w, Color co) {
@@ -38,8 +43,8 @@ class JCalendarDay extends JPanel {
 		}
 		Color color;
 		Event event;
-		int column;
-		int width;
+		int column; // Index de la colonne d'affichage de l'Event
+		int width; // Largeur de l'event, pour gérer les Events simultanés
 	}
 
 	public JCalendarDay(int start_hour, int end_hour, int minutes_by_split) {
@@ -60,11 +65,19 @@ class JCalendarDay extends JPanel {
 		content.setBorder(BorderFactory.createLineBorder(Color.black));
 		title = new JLabel();
 		header.add(title);
+		// La première colonne de la grille du layout est rempli avec des Panels de taille 1*1 pour fixer la grille
 		for (int row = 0; row < NB_SPLIT; row++) {
 			content.add(new JPanel(), "width 1px:1px:1px, grow, cell 0 " + row);
 		}
 	}
-	
+
+	/**
+	 * Ajout d'une Day, avec parcourt des différents Events et gestion des
+	 * Events en conflit
+	 *
+	 * @param day La Day à ajouter
+	 * @param color La couleur d'affichage des Events
+	 */
 	public void addDay(Day day, Color color) {
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
 		DateTime date = day.getDate();
@@ -74,6 +87,7 @@ class JCalendarDay extends JPanel {
 		EventInfos eventInfos, tempEvent;
 		int col, row;
 		boolean empty, done;
+		// On parcourt tous les Events de la Day passé en paramètre
 		for (Event event : day.getEventsList()) {
 			startHour = event.getStartTime().getHour();
 			startMin = event.getStartTime().getMinute();
@@ -90,28 +104,35 @@ class JCalendarDay extends JPanel {
 			done = false;
 
 			while (!done) {
+				// On vérifie si le tableau contient assez de colonnes
 				if (checkList.size() < col + 1) {
 					checkList.add(new EventInfos[NB_SPLIT]);
 				}
 				empty = true;
+				// On vérifie que la colonne courante est bien vide là où on veut ajouter l'Event
 				while (empty && row < endPosition) {
 					empty = checkList.get(col)[row] == null;
 					if (!empty) {
-						if(checkList.get(col)[row].event.getUid().equals(event.getUid())) {
-							done = true;	// Si l'event est déjà présent sur Google (même UID) on le considère DONE
+						// Si l'event est déjà présent sur Google (même UID) on le considère DONE
+						if (checkList.get(col)[row].event.getUid().equals(event.getUid())) {
+							done = true;
 						}
 					}
 					row++;
 				}
+				// Si la position est libre, on ajoute l'Event
 				if (empty) {
 					eventInfos.width = col + 1;
 					eventInfos.column = col + 1;
-					eventsList.add(eventInfos);
+					eventsList.add(eventInfos); // On ajoute l'Event à la liste des Events
+					// Pour chaque Event de la checkList on met à jour les largeurs
 					for (int i = 0; i < checkList.size(); i++) {
 						for (int j = startPosition; j < endPosition; j++) {
 							if (i == col) {
+								// Si c'est la colonne courante, on ajoute simplement l'Event courant
 								checkList.get(i)[j] = eventInfos;
 							} else {
+								// Si c'est une autre colonne, on renseigne le fait qu'il y a des Events simultanés
 								tempEvent = checkList.get(i)[j];
 								if (tempEvent != null) {
 									tempEvent.width = col + 1;
@@ -121,24 +142,35 @@ class JCalendarDay extends JPanel {
 					}
 					done = true;
 				}
+				// Si la position n'est pas libre, on passe à la colonne suivante
 				col++;
 			}
 		}
 	}
 
+	/**
+	 * Construit l'affichage du calendrier
+	 */
 	public void build() {
 		int col = 0;
+		// D'abord on le vide
 		for (Component component : getComponents()) {
 			if (component.getClass() == JCalendarEvent.class) {
 				remove(component);
 			}
 		}
+		// Puis on le rempli
 		for (EventInfos ev : eventsList) {
 			addEvent(ev);
 			col++;
 		}
 	}
 
+	/**
+	 * Ajout d'un Event dans l'IHM
+	 * 
+	 * @param ev L'Event avec ses infos complémentaires
+	 */
 	private void addEvent(EventInfos ev) {
 		Event event = ev.event;
 		int startHour = event.getStartTime().getHour();

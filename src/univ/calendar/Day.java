@@ -1,15 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package univ.calendar;
 
 import java.util.ArrayList;
 import univ.util.DateTime;
 
 /**
- *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * Classe représentant un jour de notre calendrier. Un jour contient la liste des
+ * évènements de la journée.
+ * 
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class Day implements Comparable {
 
@@ -21,6 +19,12 @@ public class Day implements Comparable {
 		date = d;
 	}
 
+	/**
+	 * Permet de tester l'existance d'une Day dans une Week
+	 * 
+	 * @param week La week dans laquelle on veut chercher la Day
+	 * @return Vrai si la Week contient la Day, faux sinon
+	 */
 	public boolean inWeek(Week week) {
 		return (date.compareTo(week.getStartDate()) >= 1 && date.compareTo(week.getEndDate()) <= -1);
 	}

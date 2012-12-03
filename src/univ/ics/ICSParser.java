@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package univ.ics;
 
 import java.util.ArrayList;
@@ -13,8 +9,9 @@ import univ.calendar.Week;
 import univ.util.DateTime;
 
 /**
- *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * Classe permettant de parser l'ICS vers notre modèle univ.calendar
+ * 
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class ICSParser {
 
@@ -33,6 +30,8 @@ public class ICSParser {
 					currentEvent = new Event();
 				}
 			}
+			// Si la ligne est une Date de début d'event, on recherche la semaine
+			// et le jour correspondant à l'event et on l'ajoute
 			if (isDtStart(line)) {
 				DateTime date = new DateTime(getValue(line));
 				date.setHour(date.getHour() + 1);

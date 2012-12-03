@@ -19,8 +19,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Classe gérant l'affichage de la fenêtre principale
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class MainFrame extends JFrame {
 
@@ -37,6 +38,9 @@ public class MainFrame extends JFrame {
 		buildContent();
 	}
 
+	/**
+	 * Selection d'un style correspondant à l'OS
+	 */
 	private void buildLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -45,6 +49,9 @@ public class MainFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Création de la fenêtre générale
+	 */
 	private void buildFrame() {
 		setTitle("UnivCalendar");
 		setSize(new Dimension(800, 600));
@@ -57,6 +64,9 @@ public class MainFrame extends JFrame {
 		setLayout(new BorderLayout());
 	}
 
+	/**
+	 * Création du menu
+	 */
 	private void buildMenu() {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setPreferredSize(new Dimension(menuBar.getWidth(), 26));
@@ -73,6 +83,9 @@ public class MainFrame extends JFrame {
 		fileMenu.add(exitAction);
 	}
 
+	/**
+	 * Création du contenu
+	 */
 	private void buildContent() {
 		JPanel content = new JPanel(new MigLayout("wrap 1"));
 		add(content);

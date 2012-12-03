@@ -2,8 +2,6 @@ package univ;
 
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.util.AuthenticationException;
-
-import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -28,9 +26,11 @@ public class TestUnivCalendar {
 		try {
 			ics = ICSFinder.getURL("http://www.edt-sciences.univ-nantes.fr/g78030.ics");
 		} catch (MalformedURLException e) {
-			System.out.println("MalformedURLException : " + e.getMessage());
+			System.err.println("MalformedURLException");
+			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("IOException : " + e.getMessage());
+			System.err.println("IOException");
+			e.printStackTrace();
 		}
 
 		// Récupération en local
@@ -54,13 +54,13 @@ public class TestUnivCalendar {
 		try {
 			myService.setUserCredentials(adresse, passwd);
 		} catch (AuthenticationException e) {
-			// TODO Auto-generated catch block
-			System.out.println("AuthenticationException : " + e.getMessage());
+			System.err.println("AuthenticationException");
+			e.printStackTrace();
 		}
 		Calendar calGoogle = GGLParser.parse(myService);
 		System.out.println(calGoogle.toString());
-		
-		
+
+
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		DateTime now = new DateTime();

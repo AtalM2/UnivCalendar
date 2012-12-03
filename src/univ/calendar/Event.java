@@ -1,18 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package univ.calendar;
 
 import univ.util.DateTime;
 
-
 /**
+ * Classe représentant un évènement. Il peut s'agir d'un évènement Google ou d'un
+ * cours de l'ICS.
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @author @authors Noémi Salaün, Joseph Lark
  */
 public class Event implements Comparable {
-		
+
 	private DateTime startTime;
 	private DateTime endTime;
 	private String uid;
@@ -20,7 +17,7 @@ public class Event implements Comparable {
 	private String location;
 	private String description;
 	private String categories;
-	
+
 	public Event() {
 		uid = "";
 		summary = "";
@@ -28,17 +25,23 @@ public class Event implements Comparable {
 		description = "";
 		categories = "";
 	}
-	
+
+	/**
+	 * Vérifie si la date de l'Event correspond à la date de la Day
+	 * 
+	 * @param day La Day à comparer avec la date de l'Event
+	 * @return Vrai sir la date correspond, faux sinon
+	 */
 	public boolean inDay(Day day) {
 		return (startTime.compareTo(day.getDate()) == 0);
 	}
-	
+
 	@Override
 	public int compareTo(Object t) {
 		Event otherEvent = (Event) t;
 		return startTime.compareTo(otherEvent.getStartTime(), true);
 	}
-	
+
 	@Override
 	public String toString() {
 		String ret = "\t\tEVENT - DateStart : " + startTime.toString(true) + " - DateEnd : " + endTime.toString(true) + "\n";
@@ -111,7 +114,7 @@ public class Event implements Comparable {
 			this.description = "";
 		} else {
 			this.description = description;
-		}		
+		}
 	}
 
 	public String getCategories() {
@@ -123,6 +126,6 @@ public class Event implements Comparable {
 			this.categories = "";
 		} else {
 			this.categories = categories;
-		}	
-	}		
+		}
+	}
 }
