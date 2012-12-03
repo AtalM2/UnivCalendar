@@ -55,7 +55,7 @@ public class TestUnivCalendar {
 			myService.setUserCredentials(adresse, passwd);
 		} catch (AuthenticationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("AuthenticationException : " + e.getMessage());
 		}
 		Calendar calGoogle = GGLParser.parse(myService);
 		System.out.println(calGoogle.toString());
@@ -68,7 +68,6 @@ public class TestUnivCalendar {
 		Week weekGoogle = calGoogle.findWeek(now);
 		mainFrame.getJWeek().addWeek(week, Color.LIGHT_GRAY);
 		mainFrame.getJWeek().addWeek(weekGoogle, Color.RED);
-		//mainFrame.getJWeek().addWeek(calendar.getWeeksList().get(12), Color.blue);
 		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
 		mainFrame.getWeekDetail().setText("Du " + week.getStartDate().toString() + " au " + week.getEndDate().toString());
 		mainFrame.getJWeek().build();
