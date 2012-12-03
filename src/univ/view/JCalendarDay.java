@@ -64,7 +64,7 @@ class JCalendarDay extends JPanel {
 			content.add(new JPanel(), "width 1px:1px:1px, grow, cell 0 " + row);
 		}
 	}
-
+	
 	public void addDay(Day day, Color color) {
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
 		DateTime date = day.getDate();
@@ -96,6 +96,11 @@ class JCalendarDay extends JPanel {
 				empty = true;
 				while (empty && row < endPosition) {
 					empty = checkList.get(col)[row] == null;
+					if (!empty) {
+						if(checkList.get(col)[row].event.getUid().equals(event.getUid())) {
+							done = true;	// Si l'event est déjà présent sur Google (même UID) on le considère DONE
+						}
+					}
 					row++;
 				}
 				if (empty) {
