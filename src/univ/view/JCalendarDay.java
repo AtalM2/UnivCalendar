@@ -59,9 +59,9 @@ class JCalendarDay extends JPanel {
 	 * Events en conflit
 	 *
 	 * @param day La Day à ajouter
-	 * @param color La couleur d'affichage des Events
 	 */
-	public void addDay(Day day, Color color) {
+	public void addDay(Day day) {
+		Color color;
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
 		DateTime date = day.getDate();
 		String dayName = date.getDayOfWeek(true) + " " + date.toString();
@@ -81,6 +81,20 @@ class JCalendarDay extends JPanel {
 			endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 			endPosition = endPosition < NB_SPLIT ? endPosition : NB_SPLIT;
 
+			switch (event.getType()) {
+				case Event.TYPE_EVENT_GGL :
+					color = EventInfos.GOOGLE_EVENT;
+					break;
+				case Event.TYPE_UNIV_GGL :
+					color = EventInfos.GOOGLE_UNIV;
+					break;
+				case Event.TYPE_UNIV_ICS :
+					color = EventInfos.ICS_UNIV;
+					break;
+				default :
+					color = EventInfos.GOOGLE_EVENT;
+						
+			}
 			eventInfos = new EventInfos(event, 0, 0, color);
 			col = 0;
 			row = startPosition;

@@ -9,6 +9,10 @@ import java.awt.Color;
  * @authors Noémi Salaün, Joseph Lark
  */
 public class EventInfos {
+	
+	public static final Color GOOGLE_UNIV = new Color(0, 128, 210);
+	public static final Color ICS_UNIV = new Color(65, 185, 255);
+	public static final Color GOOGLE_EVENT = new Color(140, 140, 140);
 
 	private Color color; /** Couleur d'affichage de l'Event **/
 	private Event event;

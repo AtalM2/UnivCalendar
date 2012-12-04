@@ -20,9 +20,6 @@ public class JCalendarWeek extends JPanel {
 	private final int END_HOUR = 21;
 	private final int MINUTES_BY_SPLIT = 15;
 	private final int NB_SPLIT = (END_HOUR - START_HOUR) * 60 / MINUTES_BY_SPLIT;
-	private final Color GOOGLE_UNIV = new Color(0, 128, 210);
-	private final Color ICS_UNIV = new Color(65, 185, 255);
-	private final Color GOOGLE_EVENT = new Color(140, 140, 140);
 	private ArrayList<JCalendarDay> daysList;
 
 	public JCalendarWeek() {
@@ -59,46 +56,16 @@ public class JCalendarWeek extends JPanel {
 	}
 
 	/**
-	 * Ajout d'une semaine de type Univ récupérer dans Google
+	 * Ajout d'une semaine
 	 * @param w La Week à ajouter
 	 */
-	public void addGoogleUnivWeek(Week w) {
+	public void addWeek(Week w) {
 		int dayOfWeek;
 		for (Day day : w.getDaysList()) {
 			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
 			if (dayOfWeek < 6) {
 				JCalendarDay jDay = daysList.get(dayOfWeek);
-				jDay.addDay(day, GOOGLE_UNIV);
-			}
-		}
-	}
-
-	/**
-	 * Ajout d'une semaine de type Univ récupérer dans l'ICS
-	 * @param w La Week à ajouter 
-	 */
-	public void addIcsUnivWeek(Week w) {
-		int dayOfWeek;
-		for (Day day : w.getDaysList()) {
-			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
-			if (dayOfWeek < 6) {
-				JCalendarDay jDay = daysList.get(dayOfWeek);
-				jDay.addDay(day, ICS_UNIV);
-			}
-		}
-	}
-
-	/**
-	 * Ajout d'une semaine de type Event récupérer dans Google
-	 * @param w La Week à ajouter 
-	 */
-	public void addGoogleEventWeek(Week w) {
-		int dayOfWeek;
-		for (Day day : w.getDaysList()) {
-			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
-			if (dayOfWeek < 6) {
-				JCalendarDay jDay = daysList.get(dayOfWeek);
-				jDay.addDay(day, GOOGLE_EVENT);
+				jDay.addDay(day);
 			}
 		}
 	}
