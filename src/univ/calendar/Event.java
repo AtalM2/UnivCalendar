@@ -143,7 +143,11 @@ public class Event implements Comparable {
 		if (type == null) {
 			this.type = TYPE_EVENT_GGL;
 		} else {
-			this.type = type;
+			if (!type.equals(TYPE_UNIV_GGL) || !type.equals(TYPE_UNIV_ICS)) {
+				this.type = TYPE_EVENT_GGL;
+			} else {
+				this.type = type;
+			}			
 		}
 	}
 }
