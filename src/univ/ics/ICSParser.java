@@ -28,7 +28,7 @@ public class ICSParser {
 			if (isBegin(line)) {
 				if (getValue(line).equalsIgnoreCase(VEVENT)) {
 					currentEvent = new Event();
-					currentEvent.setCategories(Event.TYPE_UNIV_ICS);
+					currentEvent.setType(Event.TYPE_UNIV_ICS);
 				}
 			}
 			// Si la ligne est une Date de début d'event, on recherche la semaine
