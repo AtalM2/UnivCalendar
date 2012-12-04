@@ -51,6 +51,7 @@ public class Event implements Comparable {
 	@Override
 	public String toString() {
 		String ret = "\t\tEVENT - DateStart : " + startTime.toString(true) + " - DateEnd : " + endTime.toString(true) + "\n";
+		ret += "\t\t\t Type : " + type + "\n";
 		ret += "\t\t\t UID : " + uid + "\n";
 		ret += "\t\t\t Summary : " + summary + "\n";
 		ret += "\t\t\t Location : " + location + "\n";
