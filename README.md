@@ -8,26 +8,26 @@ Les conflits entre les évènements simultanés doivent être géré par l'utili
 TODO
 ----
 * IHM
-** Boutons pour switch de semaines
-** Boutons pour valider la synchronisation
-** Page de connexion
-** Sélection de l'event à conserver
+	* Boutons pour switch de semaines
+	* Boutons pour valider la synchronisation
+	* Page de connexion
+	* Sélection de l'event à conserver
 
 * Documentation
-** Manuel utilisateur
-** JavaDoc
-** Diagrammes
+	* Manuel utilisateur
+	* JavaDoc
+	* Diagrammes
 
 * Modèle
-** Classer les events par types
-** Comparer les events ICS avec Google
-** Dresser la liste des actions Google
+	* Classer les events par types
+	* Comparer les events ICS avec Google
+	* Dresser la liste des actions Google
 
 * Google
-** ???
+	* ???
 
 Contributeurs
 -------------
 
-* Noémi SALAÜN <noemi.salaun@etu.univ-nantes.fr>
-* Joseph LARK <joseph.lark@etu.univ-nantes.fr>
+* Noémi SALAÜN - <noemi.salaun@etu.univ-nantes.fr>
+* Joseph LARK - <joseph.lark@etu.univ-nantes.fr>
