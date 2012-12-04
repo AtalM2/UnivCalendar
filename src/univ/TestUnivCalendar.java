@@ -66,25 +66,15 @@ public class TestUnivCalendar {
 		System.out.println(calGoogle.toString());
 
 		Event event = new Event();
-		event.setStartTime(new DateTime("20121203_180000"));
-		event.setEndTime(new DateTime("20121203_190000"));
+		event.setStartTime(new DateTime("20121203_200000"));
+		event.setEndTime(new DateTime("20121203_210000"));
 		event.setSummary("Le summary de l event");
 		event.setUid("L_UID_DE_L_EVENT");
 		//
 		System.out.println(event.toString());
 		CalendarEventEntry cee = new CalendarEventEntry();
-		try {
-			cee = GGLCreator.createSingleEvent(myService, event);
-		} catch (ServiceException e) {
-			System.err.println("ServiceException");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.err.println("IOException");
-			e.printStackTrace();
-		}
-
 //		try {
-//			GGLCreator.updateTitle(cee, "newTitle");
+//			cee = GGLCreator.createSingleEvent(myService, e);
 //		} catch (ServiceException e1) {
 //			// TODO Auto-generated catch block
 //			e1.printStackTrace();
@@ -92,6 +82,7 @@ public class TestUnivCalendar {
 //			// TODO Auto-generated catch block
 //			e1.printStackTrace();
 //		}
+
 
 //		try {
 //			GGLCreator.deleteEvent(myService, cee);
@@ -103,11 +94,9 @@ public class TestUnivCalendar {
 //			e1.printStackTrace();
 //		}
 
-		DateTime nStartTime = new DateTime("20121203_200000");
-		DateTime nEndTime = new DateTime("20121203_210000");
 
 		try {
-			GGLCreator.updateDate(myService, cee, nStartTime, nEndTime);
+			GGLCreator.updateEvent(myService, event);
 		} catch (ServiceException e) {
 			System.err.println("ServiceException");
 			e.printStackTrace();

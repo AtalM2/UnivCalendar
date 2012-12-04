@@ -11,25 +11,29 @@ import com.google.gdata.data.calendar.CalendarEventFeed;
 import com.google.gdata.data.extensions.When;
 import com.google.gdata.util.ServiceException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import univ.calendar.Event;
 
 /**
- *
+ * 
  * @authors Noémi Salaün, Joseph Lark
  */
 public class GGLCreator {
 
 	// The base URL for a user's calendar metafeed (needs a username appended).
-	private static final String METAFEED_URL_BASE =
+	private static final String METAFEED_URL_BASE = 
 			"https://www.google.com/calendar/feeds/";
+
 	// The string to add to the user's metafeedUrl to access the event feed for
 	// their primary calendar.
 	private static final String EVENT_FEED_URL_SUFFIX = "/private/full";
+
 	// The URL for the metafeed of the specified user.
 	// (e.g. http://www.google.com/feeds/calendar/jdoe@gmail.com)
 	private static URL metafeedUrl = null;
+
 	// The URL for the event feed of the specified user's primary calendar.
 	// (e.g. http://www.googe.com/feeds/calendar/jdoe@gmail.com/private/full)
 	private static URL eventFeedUrl = null;
@@ -38,7 +42,7 @@ public class GGLCreator {
 	 * Helper method to create either single-instance or recurring events. For
 	 * simplicity, some values that might normally be passed as parameters (such
 	 * as author name, email, etc.) are hard-coded.
-	 *
+	 * 
 	 * @param service An authenticated CalendarService object.
 	 * @param eventTitle Title of the event to create.
 	 * @param eventContent Text content of the event to create.
@@ -62,24 +66,29 @@ public class GGLCreator {
 		// of the event.
 		univ.util.DateTime start = event.getStartTime();
 		univ.util.DateTime end = event.getEndTime();
-		DateTime startTime = new DateTime(new Date(start.getYear() - 1900, start.getMonth() - 1, start.getDay(), start.getHour() + 1, start.getMinute(), start.getSecond()));
-		DateTime endTime = new DateTime(new Date(end.getYear() - 1900, end.getMonth() - 1, end.getDay(), end.getHour() + 1, end.getMinute(), end.getSecond()));
+		DateTime startTime = new DateTime(new Date(start.getYear()-1900,start.getMonth()-1,start.getDay(),start.getHour()+1,start.getMinute(),start.getSecond()));
+		DateTime endTime = new DateTime(new Date(end.getYear()-1900,end.getMonth()-1,end.getDay(),end.getHour()+1,end.getMinute(),end.getSecond()));
 
 		When eventTimes = new When();
 		eventTimes.setStartTime(startTime);
 		eventTimes.setEndTime(endTime);
 		myEntry.addTime(eventTimes);
 
-		eventFeedUrl = new URL(METAFEED_URL_BASE + userName
-				+ EVENT_FEED_URL_SUFFIX);
-
+		try {
+			eventFeedUrl = new URL(METAFEED_URL_BASE + userName
+					+ EVENT_FEED_URL_SUFFIX);
+		} catch (MalformedURLException e) {
+			// Bad URL
+			System.err.println("Uh oh - you've got an invalid URL.");
+			e.printStackTrace();
+		}
 		// Send the request and receive the response:
 		return service.insert(eventFeedUrl, myEntry);
 	}
 
 	/**
 	 * Creates a single-occurrence event.
-	 *
+	 * 
 	 * @param service An authenticated CalendarService object.
 	 * @param eventTitle Title of the event to create.
 	 * @param eventContent Text content of the event to create.
@@ -94,52 +103,78 @@ public class GGLCreator {
 	}
 
 	/**
-	 * Updates the title of an existing calendar event.
-	 *
+	 * Updates the desc of an existing calendar event.
+	 * 
 	 * @param entry The event to update.
 	 * @param newTitle The new title for this event.
 	 * @return The updated CalendarEventEntry object.
 	 * @throws ServiceException If the service is unable to handle the request.
 	 * @throws IOException Error communicating with the server.
 	 */
-	public static CalendarEventEntry updateTitle(CalendarEventEntry entry,
+	public static CalendarEventEntry updateContent(CalendarEventEntry entry,
 			String newTitle) throws ServiceException, IOException {
 		entry.setTitle(new PlainTextConstruct(newTitle));
 		return entry.update();
+		//	    entry.get
 	}
 
 	/**
 	 * Updates the title of an existing calendar event.
-	 *
+	 * 
 	 * @param entry The event to update.
 	 * @param newTitle The new title for this event.
 	 * @return The updated CalendarEventEntry object.
 	 * @throws ServiceException If the service is unable to handle the request.
 	 * @throws IOException Error communicating with the server.
 	 */
-	public static void updateDate(CalendarService service, CalendarEventEntry entry,
-			univ.util.DateTime newStartTime, univ.util.DateTime newEndTime) throws ServiceException, IOException {
+	public static void updateEvent(CalendarService service, Event event) throws ServiceException, IOException {
 		Event e = new Event();
-		e.setSummary(entry.getTitle().getPlainText());
-		e.setUid(entry.getContent().toString());
-		e.setStartTime(newStartTime);
-		e.setEndTime(newEndTime);
+		e.setSummary(event.getSummary());
+		e.setUid(event.getUid());
+		e.setStartTime(event.getStartTime());
+		e.setEndTime(event.getEndTime());
+		e.setCategories(event.getCategories());
+		e.setDescription(event.getDescription());
+		e.setLocation(event.getLocation());
 
-		createSingleEvent(service, e);
+		String userName = "atal.univ.nantes@gmail.com";
 
-		deleteEvent(service, entry);
-//	    return entry.update();
+		try {
+			eventFeedUrl = new URL(METAFEED_URL_BASE + userName
+					+ EVENT_FEED_URL_SUFFIX);
+		} catch (MalformedURLException err) {
+			// Bad URL
+			System.err.println("Uh oh - you've got an invalid URL.");
+			err.printStackTrace();
+			return;
+		}
+		CalendarEventFeed resultFeed = service.getFeed(eventFeedUrl,
+				CalendarEventFeed.class);
+
+		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+			CalendarEventEntry entry = resultFeed.getEntries().get(i);
+			System.out.println("Entry uid : " + entry.getPlainTextContent().toString());
+			System.out.println("Event uid : " + event.getUid());
+			System.out.println();
+			if (entry.getPlainTextContent().toString().equals(event.getUid())){
+				System.out.println("DELETE");
+				deleteEvent(service,entry);
+			}
+		}
+
+		createSingleEvent(service,e);
 	}
 
+
 	/**
-	 * Makes a batch request to delete all the events in the given list. If any
-	 * of the operations fails, the errors returned from the server are
-	 * displayed. The CalendarEntry objects in the list given as a parameters
-	 * must be entries returned from the server that contain valid edit links
-	 * (for optimistic concurrency to work). Note: You can add entries to a
-	 * batch request for the other operation types (INSERT, QUERY, and UPDATE)
-	 * in the same manner as shown below for DELETE operations.
-	 *
+	 * Makes a batch request to delete all the events in the given list. If any of
+	 * the operations fails, the errors returned from the server are displayed.
+	 * The CalendarEntry objects in the list given as a parameters must be entries
+	 * returned from the server that contain valid edit links (for optimistic
+	 * concurrency to work). Note: You can add entries to a batch request for the
+	 * other operation types (INSERT, QUERY, and UPDATE) in the same manner as
+	 * shown below for DELETE operations.
+	 * 
 	 * @param service An authenticated CalendarService object.
 	 * @param eventsToDelete A list of CalendarEventEntry objects to delete.
 	 * @throws ServiceException If the service is unable to handle the request.
@@ -155,7 +190,7 @@ public class GGLCreator {
 		// Modify the entry toDelete with batch ID and operation type.
 		//BatchUtils.setBatchId(eventToDelete, String.valueOf(i));
 		BatchUtils.setBatchOperationType(eventToDelete, BatchOperationType.DELETE);
-		batchRequest.getEntries().add(eventToDelete);
+		batchRequest.getEntries().add(eventToDelete);	    
 
 		// Get the URL to make batch requests to
 		CalendarEventFeed feed = service.getFeed(eventFeedUrl,
@@ -165,5 +200,6 @@ public class GGLCreator {
 
 		// Submit the batch request
 		CalendarEventFeed batchResponse = service.batch(batchUrl, batchRequest);
+
 	}
 }

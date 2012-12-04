@@ -112,7 +112,7 @@ public class GGLParser {
 					currentEvent.setSummary(summary);
 					currentEvent.setDescription(null);
 					currentEvent.setLocation(null);
-					currentEvent.setUid(null);
+					currentEvent.setUid(entry.getIcalUID());
 					currentEvent.setCategories(null);
 
 					//System.out.println(newEvent.toString());
