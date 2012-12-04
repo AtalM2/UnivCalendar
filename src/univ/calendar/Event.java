@@ -9,6 +9,10 @@ import univ.util.DateTime;
  * @author @authors Noémi Salaün, Joseph Lark
  */
 public class Event implements Comparable {
+	
+	public static final String TYPE_UNIV_ICS = "univ-ics";
+	public static final String TYPE_UNIV_GGL = "univ-ggl";
+	public static final String TYPE_EVENT_GGL = "event-ggl";
 
 	private DateTime startTime;
 	private DateTime endTime;
@@ -17,6 +21,7 @@ public class Event implements Comparable {
 	private String location;
 	private String description;
 	private String categories;
+	private String type;
 
 	public Event() {
 		uid = "";
@@ -24,6 +29,7 @@ public class Event implements Comparable {
 		location = "";
 		description = "";
 		categories = "";
+		type = TYPE_EVENT_GGL;
 	}
 
 	/**
@@ -126,6 +132,18 @@ public class Event implements Comparable {
 			this.categories = "";
 		} else {
 			this.categories = categories;
+		}
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		if (type == null) {
+			this.type = TYPE_EVENT_GGL;
+		} else {
+			this.type = type;
 		}
 	}
 }
