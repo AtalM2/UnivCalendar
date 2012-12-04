@@ -90,7 +90,7 @@ class JCalendarDay extends JPanel {
 		// On parcourt tous les Events de la Day passé en paramètre
 		for (Event event : day.getEventsList()) {
 			startHour = event.getStartTime().getHour();
-			startMin = event.getStartTime().getMinute();
+						startMin = event.getStartTime().getMinute();
 			endHour = event.getEndTime().getHour();
 			endMin = event.getEndTime().getMinute();
 			startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
@@ -102,6 +102,9 @@ class JCalendarDay extends JPanel {
 			col = 0;
 			row = startPosition;
 			done = false;
+			if (startHour < START_HOUR || endHour > END_HOUR) {
+				done = true;
+			}
 
 			while (!done) {
 				// On vérifie si le tableau contient assez de colonnes
