@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import univ.calendar.Day;
 import univ.calendar.Event;
+import univ.calendar.EventInfos;
 import univ.util.DateTime;
 import univ.util.Tools;
 
@@ -28,24 +29,6 @@ class JCalendarDay extends JPanel {
 	private ArrayList<EventInfos> eventsList; // Tableau comprenant la liste des Events du jour
 	private JLabel title;
 	private JPanel content;
-
-	/**
-	 * Structure permettant de stocker des informations supplémentaires sur un
-	 * Event
-	 */
-	class EventInfos {
-
-		EventInfos(Event e, int c, int w, Color co) {
-			event = e;
-			column = c;
-			width = w;
-			color = co;
-		}
-		Color color;
-		Event event;
-		int column; // Index de la colonne d'affichage de l'Event
-		int width; // Largeur de l'event, pour gérer les Events simultanés
-	}
 
 	public JCalendarDay(int start_hour, int end_hour, int minutes_by_split) {
 		super(new MigLayout("insets 0, gapy 0", "[grow]", "[0:30px:30px][grow]"));
@@ -117,7 +100,7 @@ class JCalendarDay extends JPanel {
 					empty = checkList.get(col)[row] == null;
 					if (!empty) {
 						// Si l'event est déjà présent sur Google (même UID) on le considère DONE
-						if (checkList.get(col)[row].event.getUid().equals(event.getUid())) {
+						if (checkList.get(col)[row].getEvent().getUid().equals(event.getUid())) {
 							done = true;
 						}
 					}
@@ -125,8 +108,8 @@ class JCalendarDay extends JPanel {
 				}
 				// Si la position est libre, on ajoute l'Event
 				if (empty) {
-					eventInfos.width = col + 1;
-					eventInfos.column = col + 1;
+					eventInfos.setWidth(col + 1);
+					eventInfos.setColumn(col + 1);
 					eventsList.add(eventInfos); // On ajoute l'Event à la liste des Events
 					// Pour chaque Event de la checkList on met à jour les largeurs
 					for (int i = 0; i < checkList.size(); i++) {
@@ -138,7 +121,7 @@ class JCalendarDay extends JPanel {
 								// Si c'est une autre colonne, on renseigne le fait qu'il y a des Events simultanés
 								tempEvent = checkList.get(i)[j];
 								if (tempEvent != null) {
-									tempEvent.width = col + 1;
+									tempEvent.setWidth(col + 1);
 								}
 							}
 						}
@@ -175,7 +158,7 @@ class JCalendarDay extends JPanel {
 	 * @param ev L'Event avec ses infos complémentaires
 	 */
 	private void addEvent(EventInfos ev) {
-		Event event = ev.event;
+		Event event = ev.getEvent();
 		int startHour = event.getStartTime().getHour();
 		int startMin = event.getStartTime().getMinute();
 		int endHour = event.getEndTime().getHour();
@@ -185,7 +168,7 @@ class JCalendarDay extends JPanel {
 		int startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 		int endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 
-		JCalendarEvent jEvent = new JCalendarEvent(event, ev.color);
-		content.add(jEvent, "width 0:100%:100%, grow, cell " + ev.column + " " + startPosition + " " + maxCol / ev.width + " " + (endPosition - startPosition));
+		JCalendarEvent jEvent = new JCalendarEvent(event, ev.getColor());
+		content.add(jEvent, "width 0:100%:100%, grow, cell " + ev.getColumn() + " " + startPosition + " " + maxCol / ev.getWidth() + " " + (endPosition - startPosition));
 	}
 }
