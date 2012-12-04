@@ -109,14 +109,14 @@ public class TestUnivCalendar {
 			e.printStackTrace();
 		}
 
+		calendar.update(calGoogleCours);
 		calendar.merge(calGoogleNotCours);
+		System.out.println(calendar.getGglAction().toString());
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		DateTime now = new DateTime();
-		Week week = calendar.findWeek(now);
-		//Week weekGoogle = calGoogleNotCours.findWeek(now);
+		Week week = calGoogleCours.findWeek(now);
 		mainFrame.getJWeek().addWeek(week);
-		//mainFrame.getJWeek().addGoogleEventWeek(weekGoogle);
 		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
 		mainFrame.getWeekDetail().setText("Du " + week.getStartDate().toString() + " au " + week.getEndDate().toString());
 		mainFrame.getJWeek().build();

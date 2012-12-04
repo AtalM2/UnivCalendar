@@ -13,6 +13,8 @@ public class Event implements Comparable {
 	public static final String TYPE_UNIV_ICS = "univ-ics";
 	public static final String TYPE_UNIV_GGL = "univ-ggl";
 	public static final String TYPE_EVENT_GGL = "event-ggl";
+	
+	public boolean checked;	/** Attribut public utilisé lors du parcourt des Calendar pour la fusion **/
 
 	private DateTime startTime;
 	private DateTime endTime;
@@ -24,6 +26,7 @@ public class Event implements Comparable {
 	private String type;
 
 	public Event() {
+		checked = false;
 		uid = "";
 		summary = "";
 		location = "";
@@ -46,6 +49,16 @@ public class Event implements Comparable {
 	public int compareTo(Object t) {
 		Event otherEvent = (Event) t;
 		return startTime.compareTo(otherEvent.getStartTime(), true);
+	}
+	
+	public boolean equals(Event event) {
+		return (event.getUid().equals(uid) &&
+				event.getCategories().equals(categories) &&
+				event.getDescription().equals(description) &&
+				(event.getEndTime().compareTo(endTime) == 0) &&
+				(event.getStartTime().compareTo(startTime) == 0) &&
+				event.getLocation().equals(location) &&
+				event.getSummary().equals(summary));
 	}
 
 	@Override

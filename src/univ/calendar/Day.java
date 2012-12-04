@@ -28,6 +28,23 @@ public class Day implements Comparable {
 	public boolean inWeek(Week week) {
 		return (date.compareTo(week.getStartDate()) >= 1 && date.compareTo(week.getEndDate()) <= -1);
 	}
+	
+	/**
+	 * Recherche dans la Day si un event est déjà présent grâce à son UID
+	 * 
+	 * @param event L'Event qui est recherché
+	 * @return L'Event si il est trouvé, ou null sinon
+	 */
+	public Event findEvent(Event event) {
+		Event ret = null;
+		for (Event e : eventsList) {
+			if (e.getUid().equals(event.getUid())) {
+				ret = e;
+				break;
+			}
+		}		
+		return ret;
+	}
 
 	@Override
 	public int compareTo(Object t) {
