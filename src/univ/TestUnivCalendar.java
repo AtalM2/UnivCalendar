@@ -61,10 +61,14 @@ public class TestUnivCalendar {
 			System.err.println("AuthenticationException");
 			e.printStackTrace();
 		}
-
-		Calendar calGoogle = GGLParser.parse(myService);
-		System.out.println(calGoogle.toString());
-
+		System.out.println("calendrier cours");
+		Calendar calGoogleCours = GGLParser.parse(myService, true);
+		System.out.println(calGoogleCours.toString());
+		
+		System.out.println("calendrier autres");
+		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
+		System.out.println(calGoogleNotCours.toString());
+		
 		Event event = new Event();
 		event.setStartTime(new DateTime("20121203_200000"));
 		event.setEndTime(new DateTime("20121203_210000"));
@@ -109,7 +113,7 @@ public class TestUnivCalendar {
 		mainFrame.setVisible(true);
 		DateTime now = new DateTime();
 		Week week = calendar.findWeek(now);
-		Week weekGoogle = calGoogle.findWeek(now);
+		Week weekGoogle = calGoogleNotCours.findWeek(now);
 		mainFrame.getJWeek().addIcsUnivWeek(week);
 		mainFrame.getJWeek().addGoogleEventWeek(weekGoogle);
 		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
