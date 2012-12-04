@@ -50,6 +50,27 @@ public class Calendar {
 		}
 		return week;
 	}
+	
+	/**
+	 * Permet de fusionner un Calendar avec le Calendar courant
+	 * @param otherCalendar Le calendar à fusionner
+	 */
+	public void merge(Calendar otherCalendar) {
+		Week currentWeek;
+		Day currentDay;
+		for (Week week : otherCalendar.getWeeksList()) {
+			for (Day day : week.getDaysList()) {
+				for (Event event : day.getEventsList()) {
+					DateTime date = event.getStartTime();
+					currentWeek = findWeek(date);
+					currentDay = currentWeek.findDay(date);
+					currentDay.getEventsList().add(event);
+					Collections.sort(currentDay.getEventsList());
+				}
+				
+			}
+		}
+	}
 
 	@Override
 	public String toString() {
