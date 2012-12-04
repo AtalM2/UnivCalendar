@@ -7,6 +7,7 @@ package univ.google;
 import univ.calendar.Event;
 
 /**
+ * Classe d�finissant les appels aux actions possibles sur le google calendar.
  *
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */

@@ -8,6 +8,7 @@ import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import univ.calendar.Calendar;
@@ -40,9 +41,12 @@ public class GGLParser {
 	public static Calendar parse(CalendarService service, boolean cours) {
 		Calendar calendar = new Calendar();
 
+//		String userName = "univcalendar@gmail.com";
+//		String userPassword = "lolcalendar";
+
 		String userName = "atal.univ.nantes@gmail.com";
 		String userPassword = "jnatal44";
-
+		
 		// Create the necessary URL objects.
 		try {
 			metafeedUrl = new URL(METAFEED_URL_BASE + userName);
@@ -68,10 +72,18 @@ public class GGLParser {
 				List<When> times = entry.getTimes();
 				if (!times.isEmpty()) {
 					String date = times.get(0).getStartTime().toString();
-					String uid = entry.getPlainTextContent().toString();
-					System.out.println("uid = " + uid);
-					if ((uid.equals("")) != cours ) {
-						if (date.length() > 10) {
+					if (date.length() > 10) {
+					
+					System.out.println(entry.getPlainTextContent().toString());
+					String[] content = entry.getPlainTextContent().toString().split("\n");
+					
+					System.out.println(content[0]);
+					System.out.println(content.length);
+					
+					String uid = content[0];
+					
+					if (uid.length() > 5 && ( uid.substring(0, 5).equals("CELCAT") != cours ) 
+							|| (uid.length() <= 5) && !cours ) {
 							DateTime datetime = new DateTime("000000000000000");
 							datetime.setYear(Integer.parseInt(date.substring(0, 4)));
 							datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
@@ -109,16 +121,21 @@ public class GGLParser {
 							currentDay.getEventsList().add(currentEvent);
 							Collections.sort(currentDay.getEventsList());
 						}
-					}
+					
 					String summary = entry.getTitle().getPlainText();
-
+					String location = content[1];
+					String description = content[2];
+					String categories = content[3];
+					
+					currentEvent.setUid(uid);
 					currentEvent.setSummary(summary);
-					currentEvent.setDescription(null);
-					currentEvent.setLocation(null);
-					currentEvent.setUid(entry.getIcalUID());
-					currentEvent.setCategories(null);
+					currentEvent.setLocation(location);
+					currentEvent.setDescription(description);
+					currentEvent.setCategories(categories);
 
-					//System.out.println(newEvent.toString());
+//					System.out.println(currentEvent.toString());
+					
+					}
 				}
 			}
 

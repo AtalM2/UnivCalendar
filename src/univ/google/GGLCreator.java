@@ -17,6 +17,7 @@ import java.util.Date;
 import univ.calendar.Event;
 
 /**
+ * Classe des actions sur le google calendar. 
  * 
  * @authors No√©mi Sala√ºn, Joseph Lark
  */
@@ -39,27 +40,28 @@ public class GGLCreator {
 	private static URL eventFeedUrl = null;
 
 	/**
-	 * Helper method to create either single-instance or recurring events. For
-	 * simplicity, some values that might normally be passed as parameters (such
-	 * as author name, email, etc.) are hard-coded.
+	 * Ajoute l'evenement du modele au google calendar
 	 * 
-	 * @param service An authenticated CalendarService object.
-	 * @param eventTitle Title of the event to create.
-	 * @param eventContent Text content of the event to create.
-	 * @return The newly-created CalendarEventEntry.
-	 * @throws ServiceException If the service is unable to handle the request.
-	 * @throws IOException Error communicating with the server.
+	 * @param service Le calendrier google
+	 * @param event L'evenement du modele
+	 * @return
+	 * @throws ServiceException
+	 * @throws IOException
 	 */
 	public static CalendarEventEntry createEvent(CalendarService service,
 			Event event) throws ServiceException, IOException {
 
+//		String userName = "univcalendar@gmail.com";
 		String userName = "atal.univ.nantes@gmail.com";
 		//String userPassword = "jnatal44";
 
 		CalendarEventEntry myEntry = new CalendarEventEntry();
 
 		myEntry.setTitle(new PlainTextConstruct(event.getSummary()));
-		myEntry.setContent(new PlainTextConstruct(event.getUid()));
+		myEntry.setContent(new PlainTextConstruct(event.getUid()  + "\n" + 
+				event.getLocation() + "\n" + 
+				event.getDescription() + "\n" + 
+				event.getCategories()));
 
 		// If a recurrence was requested, add it. Otherwise, set the
 		// time (the current date and time) and duration (30 minutes)
@@ -87,14 +89,13 @@ public class GGLCreator {
 	}
 
 	/**
-	 * Creates a single-occurrence event.
+	 * Appel ‡ la fonction qui ajoute l'evenement du modele au google calendar
 	 * 
-	 * @param service An authenticated CalendarService object.
-	 * @param eventTitle Title of the event to create.
-	 * @param eventContent Text content of the event to create.
-	 * @return The newly-created CalendarEventEntry.
-	 * @throws ServiceException If the service is unable to handle the request.
-	 * @throws IOException Error communicating with the server.
+	 * @param service Le calendrier google
+	 * @param e L'evenement du modele
+	 * @return
+	 * @throws ServiceException
+	 * @throws IOException
 	 */
 	public static CalendarEventEntry createSingleEvent(CalendarService service,
 			Event e) throws ServiceException,
@@ -103,29 +104,27 @@ public class GGLCreator {
 	}
 
 	/**
-	 * Updates the desc of an existing calendar event.
+	 * Met ‡ jour la description de l'evenement dans le google calendar
 	 * 
-	 * @param entry The event to update.
-	 * @param newTitle The new title for this event.
-	 * @return The updated CalendarEventEntry object.
-	 * @throws ServiceException If the service is unable to handle the request.
-	 * @throws IOException Error communicating with the server.
+	 * @param entry L'evenement google
+	 * @param newTitle La nouvelle description
+	 * @return
+	 * @throws ServiceException
+	 * @throws IOException
 	 */
 	public static CalendarEventEntry updateContent(CalendarEventEntry entry,
 			String newTitle) throws ServiceException, IOException {
 		entry.setTitle(new PlainTextConstruct(newTitle));
 		return entry.update();
-		//	    entry.get
 	}
 
 	/**
-	 * Updates the title of an existing calendar event.
+	 * Met ‡ jour l'evenement en entier dans le google calendar
 	 * 
-	 * @param entry The event to update.
-	 * @param newTitle The new title for this event.
-	 * @return The updated CalendarEventEntry object.
-	 * @throws ServiceException If the service is unable to handle the request.
-	 * @throws IOException Error communicating with the server.
+	 * @param service Le calendrier google
+	 * @param event L'evenement ‡ changer
+	 * @throws ServiceException
+	 * @throws IOException
 	 */
 	public static void updateEvent(CalendarService service, Event event) throws ServiceException, IOException {
 		Event e = new Event();
@@ -137,8 +136,9 @@ public class GGLCreator {
 		e.setDescription(event.getDescription());
 		e.setLocation(event.getLocation());
 
+//		String userName = "univcalendar@gmail.com";
 		String userName = "atal.univ.nantes@gmail.com";
-
+		
 		try {
 			eventFeedUrl = new URL(METAFEED_URL_BASE + userName
 					+ EVENT_FEED_URL_SUFFIX);
@@ -163,18 +163,12 @@ public class GGLCreator {
 
 
 	/**
-	 * Makes a batch request to delete all the events in the given list. If any of
-	 * the operations fails, the errors returned from the server are displayed.
-	 * The CalendarEntry objects in the list given as a parameters must be entries
-	 * returned from the server that contain valid edit links (for optimistic
-	 * concurrency to work). Note: You can add entries to a batch request for the
-	 * other operation types (INSERT, QUERY, and UPDATE) in the same manner as
-	 * shown below for DELETE operations.
+	 * Supprime l'evenement du calendrier google
 	 * 
-	 * @param service An authenticated CalendarService object.
-	 * @param eventsToDelete A list of CalendarEventEntry objects to delete.
-	 * @throws ServiceException If the service is unable to handle the request.
-	 * @throws IOException Error communicating with the server.
+	 * @param service Le calendrier google
+	 * @param eventToDelete L'evenement ‡ supprimer
+	 * @throws ServiceException
+	 * @throws IOException
 	 */
 	public static void deleteEvent(CalendarService service,
 			CalendarEventEntry eventToDelete) throws ServiceException,
