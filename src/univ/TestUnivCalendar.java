@@ -86,7 +86,27 @@ public class TestUnivCalendar {
 		
 		CalendarEventEntry cee = new CalendarEventEntry();
 
-		
+//		ArrayList<Week> wl = calendar.getWeeksList();
+//		for (int i = 0 ; i < wl.size() ; i++){
+//			Week w = wl.get(i);
+//			ArrayList<Day> dl = w.getDaysList();
+//			for (int j = 0 ; j < dl.size() ; j++){
+//				Day d = dl.get(j);
+//				ArrayList<Event> el = d.getEventsList();
+//				for (int k = 0 ; k < el.size() ; k++){
+//					Event currentEvent = el.get(k);
+//					try {
+//						GGLCreator.updateEvent(myService, currentEvent);
+//					} catch (ServiceException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//		}
 		
 		try {
 			GGLCreator.updateEvent(myService, event);
@@ -97,7 +117,6 @@ public class TestUnivCalendar {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		calendar.update(calGoogleCours);
 		calendar.merge(calGoogleNotCours);
