@@ -153,7 +153,7 @@ public class GGLCreator {
 
 		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 			CalendarEventEntry entry = resultFeed.getEntries().get(i);
-			if (entry.getPlainTextContent().toString().equals(event.getUid())){
+			if (entry.getPlainTextContent().toString().split("\n")[0].equals(event.getUid())){
 				deleteEvent(service,entry);
 			}
 		}

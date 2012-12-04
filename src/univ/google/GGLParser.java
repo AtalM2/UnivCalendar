@@ -132,8 +132,6 @@ public class GGLParser {
 					currentEvent.setLocation(location);
 					currentEvent.setDescription(description);
 					currentEvent.setCategories(categories);
-
-//					System.out.println(currentEvent.toString());
 					
 					}
 				}
