@@ -1,5 +1,6 @@
 package univ.view;
 
+import univ.view.listener.ActionSyncListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,11 +25,11 @@ import net.miginfocom.swing.MigLayout;
  * @authors Noémi Salaün, Joseph Lark
  */
 public class MainFrame extends JFrame {
-
-	private JCalendarWeek jWeek;
-	private JLabel weekNumber;
-	private JLabel weekDetail;
-
+	
+	public JCalendarWeek jWeek;
+	public JLabel weekNumber;
+	public JLabel weekDetail;
+	
 	public MainFrame() {
 		super();
 		ToolTipManager.sharedInstance().setDismissDelay(1000000);
@@ -91,15 +92,18 @@ public class MainFrame extends JFrame {
 		add(content);
 
 		// Panel top
-		JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		content.add(top, "center");
-
+		JPanel top = new JPanel(new MigLayout());
+		content.add(top, "grow");
+		
 		JPanel topContent = new JPanel(new FlowLayout());
-		top.add(topContent);
-
+		top.add(topContent, "dock center");
+		JButton btnSync = new JButton("Synchroniser");
+		top.add(btnSync, "dock east");
+		btnSync.addActionListener(new ActionSyncListener(this));
+		
 		JButton left = new JButton("<");
 		topContent.add(left);
-
+		
 		JPanel week = new JPanel(new GridLayout(0, 1));
 		setWeekNumber(new JLabel("Semaine 45"));
 		getWeekNumber().setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,7 +112,7 @@ public class MainFrame extends JFrame {
 		getWeekDetail().setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		week.add(getWeekDetail());
 		topContent.add(week);
-
+		
 		JButton right = new JButton(">");
 		topContent.add(right);
 
@@ -116,27 +120,27 @@ public class MainFrame extends JFrame {
 		JPanel bottom = new JPanel(new MigLayout());
 		bottom.setBackground(Color.ORANGE);
 		content.add(bottom, "push, grow");
-
+		
 		jWeek = new JCalendarWeek();
 		bottom.add(jWeek, "push, grow");
 	}
-
+	
 	public JCalendarWeek getJWeek() {
 		return jWeek;
 	}
-
+	
 	public JLabel getWeekNumber() {
 		return weekNumber;
 	}
-
+	
 	public void setWeekNumber(JLabel weekNumber) {
 		this.weekNumber = weekNumber;
 	}
-
+	
 	public JLabel getWeekDetail() {
 		return weekDetail;
 	}
-
+	
 	public void setWeekDetail(JLabel weekDetail) {
 		this.weekDetail = weekDetail;
 	}

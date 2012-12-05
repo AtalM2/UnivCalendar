@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import univ.calendar.Day;
 import univ.calendar.Week;
+import univ.google.GGLAction;
 
 /**
  * Classe gérant l'affichage d'une Week dans le calendrier
@@ -68,5 +69,18 @@ public class JCalendarWeek extends JPanel {
 				jDay.addDay(day);
 			}
 		}
+	}
+	
+	/**
+	 * Permet de récupérer la liste des actions à effectuer pour la synchronisation
+	 * de la semaine
+	 * @return Une liste de GGLActions
+	 */
+	public ArrayList<GGLAction> getSyncAction() {
+		ArrayList<GGLAction> array = new ArrayList<>();
+		for (JCalendarDay jDay : daysList) {
+			array.addAll(jDay.getSyncAction());
+		}
+		return array;
 	}
 }

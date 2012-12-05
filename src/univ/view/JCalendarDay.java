@@ -10,6 +10,7 @@ import net.miginfocom.swing.MigLayout;
 import univ.calendar.Day;
 import univ.calendar.Event;
 import univ.calendar.EventInfos;
+import univ.google.GGLAction;
 import univ.util.DateTime;
 import univ.util.Tools;
 
@@ -178,5 +179,23 @@ class JCalendarDay extends JPanel {
 
 		JCalendarEvent jEvent = new JCalendarEvent(event, ev.isSelected());
 		content.add(jEvent, "width 0:100%:100%, grow, cell " + ev.getColumn() + " " + startPosition + " " + maxCol / ev.getWidth() + " " + (endPosition - startPosition));
+	}
+
+	/**
+	 * Permet de récupérer la liste des actions à effectuer pour la synchronisation
+	 * de la journée, basé sur la selection des évènements dans l'agenda.
+	 * Les actions sont forcement de type DELETE
+	 * 
+	 * @return Une liste de GGLActions
+	 */
+	public ArrayList<GGLAction> getSyncAction() {
+		ArrayList<GGLAction> array = new ArrayList<>();
+		for (EventInfos event : eventsList) {
+			// Pour chaque event, on regarde si on veut l'utiliser, si ce n'est pas le cas on demande une suppression
+			if(!event.isSelected()) {
+				array.add(new GGLAction(event.getEvent(), GGLAction.DELETE));
+			}
+		}
+		return array;
 	}
 }
