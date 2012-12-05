@@ -7,7 +7,7 @@ package univ.google;
 import univ.calendar.Event;
 
 /**
- * Classe d�finissant les appels aux actions possibles sur le google calendar.
+ * Classe d�finissant les appels aux actions possibles sur le google calendar.
  *
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
@@ -19,19 +19,31 @@ public class GGLAction {
 	
 	private String type;
 	private Event event;
+	private Event oldEvent;
 	
 	public GGLAction(Event e, String t) {
-		if (t.equals(UPDATE) || t.equals(INSERT) || t.equals(DELETE)) {
+		this(e,t,null);
+	}
+	
+	public GGLAction(Event e, String t, Event old) {
+		event = e;
+		if (t.equals(INSERT) || t.equals(DELETE)) {
 			type = t;
 		} else {
 			type = UPDATE;
-		}
-		event = e;
+			if (old != null) {
+				oldEvent = old;
+			}
+		}		
 	}
 	
 	@Override
 	public String toString() {
-		return "Type : " + type + "\n" + event.toString();
+		if (type.equals(UPDATE) && oldEvent != null) {
+			return "Type : " + type + "\nOLD : " + oldEvent.toString() + "\nNEW : " + event.toString();
+		} else {
+			return "Type : " + type + "\n" + event.toString();
+		}		
 	}
 
 	public String getType() {
@@ -52,6 +64,14 @@ public class GGLAction {
 
 	public void setEvent(Event event) {
 		this.event = event;
+	}
+
+	public Event getOldEvent() {
+		return oldEvent;
+	}
+
+	public void setOldEvent(Event oldEvent) {
+		this.oldEvent = oldEvent;
 	}
 	
 }
