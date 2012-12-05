@@ -62,7 +62,7 @@ public class ICSParser {
 				currentEvent.setDescription(getValue(line));
 			}
 			if (isCategories(line)) {
-				currentEvent.setCategories(getValue(line));
+				// ON NE FAIT RIEN
 			}
 			if (isEnd(line)) {
 				if (getValue(line).equalsIgnoreCase(VEVENT)) {

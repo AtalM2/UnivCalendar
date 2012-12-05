@@ -22,7 +22,6 @@ public class Event implements Comparable {
 	private String summary;
 	private String location;
 	private String description;
-	private String categories;
 	private String type;
 
 	public Event() {
@@ -31,7 +30,6 @@ public class Event implements Comparable {
 		summary = "";
 		location = "";
 		description = "";
-		categories = "";
 		type = TYPE_EVENT_GGL;
 	}
 
@@ -53,7 +51,6 @@ public class Event implements Comparable {
 	
 	public boolean equals(Event event) {
 		return (event.getUid().trim().equals(uid.trim()) &&
-				event.getCategories().trim().equals(categories.trim()) &&
 				event.getDescription().trim().equals(description.trim()) &&
 				(event.getEndTime().compareTo(endTime,true) == 0) &&
 				(event.getStartTime().compareTo(startTime,true) == 0) &&
@@ -69,7 +66,6 @@ public class Event implements Comparable {
 		ret += "\t\t\t Summary : " + summary + "\n";
 		ret += "\t\t\t Location : " + location + "\n";
 		ret += "\t\t\t Description : " + description + "\n";
-		ret += "\t\t\t Categories : " + categories + "\n";
 		return ret;
 	}
 
@@ -134,18 +130,6 @@ public class Event implements Comparable {
 			this.description = "";
 		} else {
 			this.description = description;
-		}
-	}
-
-	public String getCategories() {
-		return categories;
-	}
-
-	public void setCategories(String categories) {
-		if (categories == null) {
-			this.categories = "";
-		} else {
-			this.categories = categories;
 		}
 	}
 

@@ -77,7 +77,6 @@ public class TestUnivCalendar {
 		event.setUid("CELCAT_UID_DE_L_EVENT");
 		event.setLocation("la salle");
 		event.setDescription("la descritpnio");
-		event.setCategories("la categorie");
 		
 		CalendarEventEntry cee = new CalendarEventEntry();
 
