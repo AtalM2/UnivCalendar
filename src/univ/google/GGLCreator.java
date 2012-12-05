@@ -60,8 +60,7 @@ public class GGLCreator {
 		myEntry.setTitle(new PlainTextConstruct(event.getSummary()));
 		myEntry.setContent(new PlainTextConstruct(event.getUid()  + "\n" + 
 				event.getLocation() + "\n" + 
-				event.getDescription() + "\n" + 
-				event.getCategories()));
+				event.getDescription() + "\n" ));
 
 		// If a recurrence was requested, add it. Otherwise, set the
 		// time (the current date and time) and duration (30 minutes)
@@ -132,7 +131,6 @@ public class GGLCreator {
 		e.setUid(event.getUid());
 		e.setStartTime(event.getStartTime());
 		e.setEndTime(event.getEndTime());
-		e.setCategories(event.getCategories());
 		e.setDescription(event.getDescription());
 		e.setLocation(event.getLocation());
 

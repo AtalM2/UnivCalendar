@@ -68,6 +68,7 @@ public class GGLParser {
 				CalendarEventEntry entry = resultFeed.getEntries().get(i);
 
 				Event currentEvent = new Event();
+				currentEvent.setType("event-ggl");
 
 				List<When> times = entry.getTimes();
 				if (!times.isEmpty()) {
@@ -82,9 +83,14 @@ public class GGLParser {
 							uid = content[0];
 						}
 						currentEvent.setUid(uid);
-						
-						if (uid.length() > 5 && ( uid.substring(0, 5).equals("CELCAT") != cours ) 
-								|| (uid.length() <= 5) && !cours ) {
+
+						boolean isCours = false;
+						if (uid.length() > 5 && ( uid.substring(0, 5).equals("CELCAT"))){
+							isCours = true;
+							currentEvent.setType("univ-ggl");
+						}
+
+						if (isCours == cours ) {
 							DateTime datetime = new DateTime("000000000000000");
 							datetime.setYear(Integer.parseInt(date.substring(0, 4)));
 							datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
@@ -121,34 +127,25 @@ public class GGLParser {
 							}
 							currentDay.getEventsList().add(currentEvent);
 							Collections.sort(currentDay.getEventsList());
+
+
+							if (uid.length() > 5 && uid.substring(0, 5).equals("CELCAT") && contentSize == 3){
+								System.out.println("if CONTENT");
+								String location = content[1];
+								String description = content[2];
+								currentEvent.setLocation(location);
+								currentEvent.setDescription(description);
+							}
+							else {
+								System.out.println("else CONTENT");
+								currentEvent.setLocation("");
+								currentEvent.setDescription("");
+							}
+
+							String summary = entry.getTitle().getPlainText();
+							currentEvent.setSummary(summary);
 						}
 
-						
-						
-						
-						if (uid.length() > 5 && uid.substring(0, 5).equals("CELCAT") && contentSize == 4){
-							System.out.println("if CONTENT");
-							String location = content[1];
-							String description = content[2];
-							String categories = content[3];
-							currentEvent.setLocation(location);
-							currentEvent.setDescription(description);
-							currentEvent.setCategories(categories);
-						}
-						else {
-							System.out.println("else CONTENT");
-							currentEvent.setLocation("");
-							currentEvent.setDescription("");
-							currentEvent.setCategories("");
-						}
-
-						String summary = entry.getTitle().getPlainText();
-						currentEvent.setSummary(summary);
-						
-						if (cours){
-							currentEvent.setType("univ-ggl");
-						}
-						else currentEvent.setType("event-ggl");
 					}
 				}
 			}
