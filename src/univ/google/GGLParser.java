@@ -74,11 +74,9 @@ public class GGLParser {
 					String date = times.get(0).getStartTime().toString();
 					if (date.length() > 10) {
 					
-					System.out.println(entry.getPlainTextContent().toString());
 					String[] content = entry.getPlainTextContent().toString().split("\n");
 					
-					System.out.println(content[0]);
-					System.out.println(content.length);
+					int contentSize = content.length;
 					
 					String uid = content[0];
 					
@@ -120,20 +118,22 @@ public class GGLParser {
 							}
 							currentDay.getEventsList().add(currentEvent);
 							Collections.sort(currentDay.getEventsList());
-						}
-					
+					}
+
 					String summary = entry.getTitle().getPlainText();
-					String location = content[1];
-					String description = content[2];
-					String categories = content[3];
-					
 					currentEvent.setUid(uid);
 					currentEvent.setSummary(summary);
-					currentEvent.setLocation(location);
-					currentEvent.setDescription(description);
-					currentEvent.setCategories(categories);
+
+					if (uid.substring(0, 5).equals("CELCAT") && contentSize == 4){
+						String location = content[1];
+						String description = content[2];
+						String categories = content[3];
+						currentEvent.setLocation(location);
+						currentEvent.setDescription(description);
+						currentEvent.setCategories(categories);
+					}
 					if (cours){
-					currentEvent.setType("univ-ggl");
+						currentEvent.setType("univ-ggl");
 					}
 					else currentEvent.setType("event-ggl");
 					}
