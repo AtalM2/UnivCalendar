@@ -52,13 +52,13 @@ public class Event implements Comparable {
 	}
 	
 	public boolean equals(Event event) {
-		return (event.getUid().equals(uid) &&
-				event.getCategories().equals(categories) &&
-				event.getDescription().equals(description) &&
+		return (event.getUid().trim().equals(uid.trim()) &&
+				event.getCategories().trim().equals(categories.trim()) &&
+				event.getDescription().trim().equals(description.trim()) &&
 				(event.getEndTime().compareTo(endTime) == 0) &&
 				(event.getStartTime().compareTo(startTime) == 0) &&
-				event.getLocation().equals(location) &&
-				event.getSummary().equals(summary));
+				event.getLocation().trim().equals(location.trim()) &&
+				event.getSummary().trim().equals(summary.trim()));
 	}
 
 	@Override

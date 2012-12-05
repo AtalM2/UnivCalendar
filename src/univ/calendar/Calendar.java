@@ -84,7 +84,7 @@ public class Calendar {
 						// Si l'Event existe déjà on vérifie si il doit être modifié
 						currentEvent.checked = true;
 						if (!currentEvent.equals(event)) {
-							gglAction.add(new GGLAction(event, GGLAction.UPDATE));
+							gglAction.add(new GGLAction(event, GGLAction.UPDATE, currentEvent));
 							currentDay.getEventsList().remove(currentEvent);
 							currentDay.getEventsList().add(event);
 							Collections.sort(currentDay.getEventsList());
