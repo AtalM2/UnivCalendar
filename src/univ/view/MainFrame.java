@@ -126,6 +126,11 @@ public class MainFrame extends JFrame {
 		bottom.add(jWeek, "push, grow");
 	}
 
+	/**
+	 * Permet de mettre à jour l'affichage selon la semaine
+	 *
+	 * @param w Semaine que l'on souhaite afficher
+	 */
 	public void setWeek(Week w) {
 		weekNumber.setText("Semaine " + w.getStartDate().getWeekOfYear());
 		weekDetail.setText("Du " + w.getStartDate().toString() + " au " + w.getEndDate().toString());
@@ -133,6 +138,9 @@ public class MainFrame extends JFrame {
 		build();
 	}
 
+	/**
+	 * Déclanche l'affichage du calendrier
+	 */
 	public void build() {
 		jWeek.build();
 	}
@@ -166,10 +174,25 @@ public class MainFrame extends JFrame {
 		setWeek(this.calendar.findWeek(new DateTime()));
 	}
 
+	/**
+	 * Permet de récupérer la liste des actions à effectuer sur Google par
+	 * rapport à l'état actuel du calendrier
+	 *
+	 * @return
+	 */
 	public ArrayList<GGLAction> getSyncAction() {
 		return jWeek.getSyncAction();
 	}
 
+	/**
+	 * Permet de construire le calendrier à partir des informations Google et de
+	 * l'ICS
+	 *
+	 * @param login L'adresse mail Google de l'utilisateur
+	 * @param pwd Le mot de passe de l'utilisateur
+	 * @param ics L'ICS universtiaire, soit en local soit en URL
+	 * @param localIcs Un booléen permettant d'identifier le type d'ICS
+	 */
 	private void buildCalendar(String login, String pwd, String ics, boolean localIcs) {
 		ArrayList<String> icsArray = null;
 

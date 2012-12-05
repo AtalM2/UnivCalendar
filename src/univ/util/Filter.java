@@ -4,8 +4,10 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
+ * Filtre personnaliser pour filtrer la sélection des fichiers dans un
+ * JFileChooser
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class Filter extends FileFilter {
 

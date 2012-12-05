@@ -78,6 +78,11 @@ public class JCalendarEvent extends JPanel {
 		addMouseListener(new MouseSelectListener(this));
 	}
 
+	/**
+	 * Permet de changer l'apparence de l'évènement lorsqu'il est sélectionné
+	 *
+	 * @param select L'état de l'évenement, sélectionné ou pas
+	 */
 	public void setSelected(boolean select) {
 		selected = select;
 		int red = color.getRed();

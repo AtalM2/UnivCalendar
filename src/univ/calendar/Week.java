@@ -8,13 +8,18 @@ import univ.util.DateTime;
  * Classe représentant une semaine. Elle contient la liste des jours qui la
  * composent.
  *
- * @author
  * @authors Noémi Salaün, Joseph Lark
  */
 public class Week implements Comparable {
 
 	private ArrayList<Day> daysList;
+	/**
+	 * La date du lundi de la semaine
+	 */
 	private DateTime startDate;
+	/**
+	 * La date du dimanche de la semaine
+	 */
 	private DateTime endDate;
 
 	public Week(DateTime d) {

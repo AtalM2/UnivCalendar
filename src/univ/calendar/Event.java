@@ -6,7 +6,6 @@ import univ.util.DateTime;
  * Classe représentant un évènement. Il peut s'agir d'un évènement Google ou
  * d'un cours de l'ICS.
  *
- * @author
  * @authors Noémi Salaün, Joseph Lark
  */
 public class Event implements Comparable {
@@ -14,11 +13,17 @@ public class Event implements Comparable {
 	public static final String TYPE_UNIV_ICS = "univ-ics";
 	public static final String TYPE_UNIV_GGL = "univ-ggl";
 	public static final String TYPE_EVENT_GGL = "event-ggl";
-	public boolean checked;
 	/**
 	 * Attribut public utilisé lors du parcourt des Calendar pour la fusion *
 	 */
+	public boolean checked;
+	/**
+	 * Heure de début de l'évènement
+	 */
 	private DateTime startTime;
+	/**
+	 * Heure de fin de l'évènement
+	 */
 	private DateTime endTime;
 	private String uid;
 	private String summary;
@@ -151,14 +156,13 @@ public class Event implements Comparable {
 		}
 	}
 
-	public boolean equalsXType(Event event){
+	public boolean equalsXType(Event event) {
 		boolean ret;
-		ret = ( startTime.equals(event.getStartTime()) && 
-				endTime.equals(event.getEndTime()) &&
-				summary.equals(event.getSummary()) &&
-				description.equals(event.getDescription()) &&
-				location.equals(event.getLocation())
-				);
+		ret = (startTime.equals(event.getStartTime())
+				&& endTime.equals(event.getEndTime())
+				&& summary.equals(event.getSummary())
+				&& description.equals(event.getDescription())
+				&& location.equals(event.getLocation()));
 		return ret;
 	}
 }

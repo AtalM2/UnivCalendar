@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 import univ.view.ConnectionFrame;
 
 /**
+ * Le listener pour le clic sur le bouton de connexion de la ConnexionFrame
  *
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
 public class ActionConnectListener implements ActionListener {
+
 	private ConnectionFrame frame;
 
 	public ActionConnectListener(ConnectionFrame f) {
@@ -25,11 +27,10 @@ public class ActionConnectListener implements ActionListener {
 		String ics = localIcs ? frame.fieldLocal.getText() : frame.fieldUrl.getText();
 		String login = frame.fieldLogin.getText();
 		String pwd = frame.fieldPwd.getText();
-		
+
 		if (!"".equals(ics) && !"".equals(login) && !"".equals(pwd)) {
 			frame.connect(login, pwd, ics, localIcs);
 		}
-		
+
 	}
-	
 }

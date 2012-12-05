@@ -11,7 +11,13 @@ import univ.util.DateTime;
  */
 public class Day implements Comparable {
 
+	/**
+	 * La liste des évènements de la journée
+	 */
 	private ArrayList<Event> eventsList;
+	/**
+	 * La date du jour
+	 */
 	private DateTime date;
 
 	public Day(DateTime d) {

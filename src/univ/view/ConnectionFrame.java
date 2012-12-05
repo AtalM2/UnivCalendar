@@ -143,7 +143,7 @@ public class ConnectionFrame extends JFrame {
 		load();
 	}
 
-	public String chooseFile() {
+	private String chooseFile() {
 		JFileChooser choix = new JFileChooser();
 		choix.setAcceptAllFileFilterUsed(false);
 		choix.addChoosableFileFilter(new Filter(new String[]{"ics"}, "Fichier ICS (*.ics)"));
@@ -156,6 +156,15 @@ public class ConnectionFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de connecter l'utilisateur et d'ouvrir la fenêtre
+	 * principale
+	 *
+	 * @param login L'adresse mail Google de l'utilisateur
+	 * @param pwd Le mot de passe de l'utilisateur
+	 * @param ics Le chemin de l'ICS, soit le fichier, soit l'URL
+	 * @param localIcs Un booléen permettant de connaître le type d'ICS
+	 */
 	public void connect(String login, String pwd, String ics, boolean localIcs) {
 		boolean save = checkBox.isSelected();
 		if (save) {
@@ -174,14 +183,17 @@ public class ConnectionFrame extends JFrame {
 		}
 	}
 
-	public void save() {
+	/**
+	 * Méthode pour enregistrer les préférences dans un fichier conf.ini
+	 */
+	private void save() {
 		ArrayList<String> array = new ArrayList<>();
 		boolean localIcs = local.isSelected();
 		boolean save = checkBox.isSelected();
 		String ics = localIcs ? fieldLocal.getText() : fieldUrl.getText();
 		String login = fieldLogin.getText();
 		String pwd = fieldPwd.getText();
-		pwd = Tools.encode(pwd,login);
+		pwd = Tools.encrypt(pwd, login);
 		array.add(localIcs ? "ics-local" : "ics-url");
 		array.add(ics);
 		array.add(login);
@@ -194,7 +206,10 @@ public class ConnectionFrame extends JFrame {
 		}
 	}
 
-	public void load() {
+	/**
+	 * Méthode pour charger les préférences à partir d'un fichier conf.ini
+	 */
+	private void load() {
 		try {
 			ArrayList<String> array = Tools.readFile("conf.ini");
 			if (array.size() >= 5) {
@@ -202,7 +217,7 @@ public class ConnectionFrame extends JFrame {
 				String ics = array.get(1);
 				String login = array.get(2);
 				String pwd = array.get(3);
-				pwd = Tools.decode(pwd,login);
+				pwd = Tools.decrypt(pwd, login);
 				boolean save = array.get(4).equals("save");
 				if (save) {
 					if (localIcs) {

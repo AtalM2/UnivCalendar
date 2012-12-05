@@ -27,10 +27,8 @@ public class GGLCreator {
 	// L'URL de base des metadonnees pour un utilisateur du calendar.
 	private static final String METAFEED_URL_BASE =
 			"https://www.google.com/calendar/feeds/";
-
 	// La chaine a ajouter a l'url des meta donnees pour avoir acces aux evenements du calendrier principal
 	private static final String EVENT_FEED_URL_SUFFIX = "/private/full";
-
 	// L'url d'access aux evenements de l'utilisateur du calendar. 
 	private static URL eventFeedUrl = null;
 
@@ -98,7 +96,7 @@ public class GGLCreator {
 	 * @throws ServiceException
 	 * @throws IOException
 	 */
-	public static void updateEvent(CalendarService service, Event event) throws ServiceException, IOException {		
+	public static void updateEvent(CalendarService service, Event event) throws ServiceException, IOException {
 		String userName = "atal.univ.nantes@gmail.com";
 
 		try {
@@ -152,8 +150,8 @@ public class GGLCreator {
 		service.batch(batchUrl, batchRequest);
 
 	}
-	
-	public static void deleteEvent(CalendarService service, Event event){
+
+	public static void deleteEvent(CalendarService service, Event event) {
 		String userName = "atal.univ.nantes@gmail.com";
 
 		try {
@@ -192,43 +190,43 @@ public class GGLCreator {
 			}
 		}
 	}
-	
-	public static void execGGLActions(CalendarService service, ArrayList<GGLAction> gglActions){
-		for (int i = 0 ; i < gglActions.size() ; i++){
+
+	public static void execGGLActions(CalendarService service, ArrayList<GGLAction> gglActions) {
+		for (int i = 0; i < gglActions.size(); i++) {
 			GGLAction ggla = gglActions.get(i);
 			String type = ggla.getType();
 			switch (type) {
 
-			case GGLAction.DELETE :
-			 deleteEvent(service, ggla.getEvent());
-			 break;
+				case GGLAction.DELETE:
+					deleteEvent(service, ggla.getEvent());
+					break;
 
-			case GGLAction.INSERT :
-				try {
-					createEvent(service, ggla.getEvent());
-				} catch (ServiceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			 break;
+				case GGLAction.INSERT:
+					try {
+						createEvent(service, ggla.getEvent());
+					} catch (ServiceException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
 
-			case GGLAction.UPDATE :
-				try {
-					updateEvent(service, ggla.getEvent());
-				} catch (ServiceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			 break;
+				case GGLAction.UPDATE:
+					try {
+						updateEvent(service, ggla.getEvent());
+					} catch (ServiceException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
 
-			default: 
-			 //
+				default:
+				//
 			}
 		}
 	}

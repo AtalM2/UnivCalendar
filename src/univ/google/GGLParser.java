@@ -28,19 +28,17 @@ public class GGLParser {
 	// L'URL de base des metadonnees pour un utilisateur du calendar.
 	private static final String METAFEED_URL_BASE =
 			"https://www.google.com/calendar/feeds/";
-
 	// La chaine a ajouter a l'url des meta donnees pour avoir acces aux evenements du calendrier principal
 	private static final String EVENT_FEED_URL_SUFFIX = "/private/full";
-
 	// L'url d'access aux evenements de l'utilisateur du calendar. 
 	// (e.g. http://www.googe.com/feeds/calendar/jdoe@gmail.com/private/full)
 	private static URL eventFeedUrl = null;
 
 	/**
-	 * Definit des evenements au sens de notre modele univ.calendar 
-	 * a partir d'un google calendar, et selon un critere de choix booleen 
-	 * si l'on souhaite recuperer les cours ou les autres evenements
-	 * 
+	 * Definit des evenements au sens de notre modele univ.calendar a partir
+	 * d'un google calendar, et selon un critere de choix booleen si l'on
+	 * souhaite recuperer les cours ou les autres evenements
+	 *
 	 * @param service Le google calendar
 	 * @param cours Vrai si l'on souhaite les cours
 	 * @return
@@ -71,9 +69,9 @@ public class GGLParser {
 
 			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 				CalendarEventEntry entry = resultFeed.getEntries().get(i);
-				
+
 				System.out.println("NOUVELLE ENTREE");
-				
+
 				Event currentEvent = new Event();
 				// L'evenement est par defaut un "evenement google quelconque"
 				currentEvent.setType("event-ggl");
@@ -122,7 +120,7 @@ public class GGLParser {
 							System.out.println("datetime : " + datetime.toString(true));
 
 							DateTime datetimeEnd = new DateTime(datetime);
-							datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13)) + 1);				
+							datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13)) + 1);
 
 							String dateEnd = times.get(0).getEndTime().toString();
 							if (dateEnd.length() > 10) {
@@ -161,15 +159,15 @@ public class GGLParser {
 							}
 
 
-						}
-						else
+						} else {
 							System.out.println("isCours != cours");
-					}
-					else
+						}
+					} else {
 						System.out.println("date size < 10");
-				}
-				else
+					}
+				} else {
 					System.out.println("time is empty");
+				}
 			}
 
 		} catch (IOException e) {

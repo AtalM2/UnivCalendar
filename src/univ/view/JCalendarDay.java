@@ -2,7 +2,6 @@ package univ.view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -27,8 +26,14 @@ public class JCalendarDay extends JPanel {
 	private int END_HOUR;
 	private int MINUTES_BY_SPLIT;
 	private int NB_SPLIT;
-	private ArrayList<JCalendarEvent[]> checkList; // Tableau représentant l'ensemble des plages horaires affichées
-	private ArrayList<JCalendarEvent> eventsList; // Tableau comprenant la liste des Events du jour
+	/**
+	 * Tableau représentant l'ensemble des plages horaires affichées *
+	 */
+	private ArrayList<JCalendarEvent[]> checkList;
+	/**
+	 * Tableau comprenant la liste des Events du jour *
+	 */
+	private ArrayList<JCalendarEvent> eventsList;
 	private JLabel title;
 	private JPanel content;
 
@@ -202,6 +207,12 @@ public class JCalendarDay extends JPanel {
 		return array;
 	}
 
+	/**
+	 * Permet de sélectionner l'évenement passé en paramètre et de déselectionné
+	 * les évenements concurrents
+	 *
+	 * @param jEvent L'évènement que l'on souhaite sélectionner
+	 */
 	public void setSelected(JCalendarEvent jEvent) {
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
 		boolean done = false;
@@ -231,13 +242,10 @@ public class JCalendarDay extends JPanel {
 					} else {
 						if (checkList.get(i)[j] != null) {
 							checkList.get(i)[j].setSelected(false);
-						}						
+						}
 					}
 				}
 			}
 		}
-
-
-
 	}
 }

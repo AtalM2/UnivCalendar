@@ -53,10 +53,22 @@ public class DateTime {
 		second = cloneDateTime.getSecond();
 	}
 
+	/**
+	 * Renvoi le jour de la semaine en chiffre
+	 *
+	 * @return Le numéro du jour de la semaine
+	 */
 	public String getDayOfWeek() {
 		return getDayOfWeek(false);
 	}
 
+	/**
+	 * Renvoi le jour de la semaine en chiffre ou en texte
+	 *
+	 * @param inText Permet de choisir entre un retour en chiffre ou en texte
+	 * @return Le numéro du jour de la semaine, ou le nom du jour, suivant la
+	 * valeur de inText
+	 */
 	public String getDayOfWeek(boolean inText) {
 		String ret;
 		//Utilisation de la classe java.util.Calendar
@@ -99,6 +111,11 @@ public class DateTime {
 		return ret;
 	}
 
+	/**
+	 * Permet de connaitre le numéro de la semaine dans une année
+	 *
+	 * @return Le numéro de la semaine
+	 */
 	public int getWeekOfYear() {
 		//Utilisation de la classe java.util.Calendar
 		int weekOfYear;

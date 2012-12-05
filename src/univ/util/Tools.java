@@ -27,8 +27,11 @@ public class Tools {
 		return floor * ((number + floor / 2) / floor);
 	}
 
-	/*
-	 * Get the extension of a file.
+	/**
+	 * Permet de récupérer l'extension d'un fichier
+	 *
+	 * @param f Le fichier dont on veut récupérer l'extension
+	 * @return L'extension du fichier seule (sans le point)
 	 */
 	public static String getExtension(File f) {
 		String ext = null;
@@ -41,6 +44,14 @@ public class Tools {
 		return ext;
 	}
 
+	/**
+	 * Méthode permettant de lire un fichier
+	 *
+	 * @param path Le chemin du fichier
+	 * @return Un tableau de chaîne de caractères
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public static ArrayList<String> readFile(String path) throws FileNotFoundException, IOException {
 		ArrayList<String> ret = new ArrayList<>();
 
@@ -55,6 +66,13 @@ public class Tools {
 		return ret;
 	}
 
+	/**
+	 * Méthode permettant d'écrire dans un fichier
+	 *
+	 * @param fileName Le chemin du fichier
+	 * @param txt Le texte dans un tableau de chaîne de caractères
+	 * @throws IOException
+	 */
 	public static void writeFile(String fileName, ArrayList<String> txt) throws IOException {
 		//on va chercher le chemin et le nom du fichier et on me tout ca dans un String
 		String filePath = System.getProperty("user.dir") + "/" + fileName;
@@ -84,7 +102,14 @@ public class Tools {
 		//et on le ferme
 	}
 
-	public static String encode(String text, String key) {
+	/**
+	 * Permet de crypter un texte grâce à une clé
+	 *
+	 * @param text Le texte à crypter
+	 * @param key La clé pour crypter
+	 * @return Le texte crypté
+	 */
+	public static String encrypt(String text, String key) {
 		String ret = "";
 		char[] arrayText;
 		char[] arrayKey;
@@ -107,7 +132,14 @@ public class Tools {
 		return ret;
 	}
 
-	public static String decode(String text, String key) {
+	/**
+	 * Permet de décrypter un texte en fournissant la clé
+	 *
+	 * @param text Le texte à décrypter
+	 * @param key La clé permettant de décrypter
+	 * @return Le texte décrypté
+	 */
+	public static String decrypt(String text, String key) {
 		String ret = "";
 		char[] arrayText;
 		char[] arrayKey;
@@ -115,7 +147,7 @@ public class Tools {
 		char ck;
 		arrayKey = key.toCharArray();
 		arrayText = text.toCharArray();
-		for (int i = 0; i < arrayText.length/2; i++) {
+		for (int i = 0; i < arrayText.length / 2; i++) {
 			ct = arrayText[i];
 			ck = arrayKey[i % arrayKey.length];
 			ct = (char) (((int) ct) - ((int) ck));

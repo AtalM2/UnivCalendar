@@ -13,7 +13,7 @@ import univ.view.MainFrame;
  * @authors Noémi Salaün, Joseph Lark
  */
 public class ActionWeekChooserListener implements ActionListener {
-	
+
 	private MainFrame main;
 
 	public ActionWeekChooserListener(MainFrame m) {
@@ -28,9 +28,8 @@ public class ActionWeekChooserListener implements ActionListener {
 			weekStart = weekStart.addDay(-7);
 		} else {
 			weekStart = weekStart.addDay(7);
-		}		
+		}
 		Week week = main.getCalendar().findWeek(weekStart);
 		main.setWeek(week);
 	}
-	
 }

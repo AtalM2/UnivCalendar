@@ -9,13 +9,14 @@ import java.awt.event.MouseListener;
 import univ.view.JCalendarEvent;
 
 /**
+ * Listener qui gère la sélection d'un évènement
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class MouseSelectListener implements MouseListener {
 
 	private JCalendarEvent event;
-	
+
 	public MouseSelectListener(JCalendarEvent e) {
 		event = e;
 	}
@@ -24,7 +25,7 @@ public class MouseSelectListener implements MouseListener {
 	public void mouseClicked(MouseEvent me) {
 		if (!event.isSelected()) {
 			event.getParentDay().setSelected(event);
-		}		
+		}
 	}
 
 	@Override
@@ -42,5 +43,4 @@ public class MouseSelectListener implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent me) {
 	}
-	
 }

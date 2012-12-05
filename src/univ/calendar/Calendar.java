@@ -14,7 +14,13 @@ import univ.util.DateTime;
  */
 public class Calendar {
 
+	/**
+	 * Liste des semaines composant le calendrier
+	 */
 	private ArrayList<Week> weeksList;
+	/**
+	 * Liste des actions à effectuer sur Google pour maintenant l'agenda à jour
+	 */
 	private ArrayList<GGLAction> gglAction;
 
 	public Calendar() {
@@ -90,11 +96,11 @@ public class Calendar {
 							currentDay.getEventsList().remove(currentEvent);
 							currentDay.getEventsList().add(event);
 							Collections.sort(currentDay.getEventsList());
-						}
-						else
+						} else {
 							System.out.println("event reconnu");
+						}
 					}
-					
+
 				}
 
 			}
@@ -103,7 +109,7 @@ public class Calendar {
 		// On partourt ensuite tout le Calendar initial pour déterminer les Event à supprimer
 		for (Week week : weeksList) {
 			for (Day day : week.getDaysList()) {
-				for (int i=0 ; i<day.getEventsList().size() ; i++) {
+				for (int i = 0; i < day.getEventsList().size(); i++) {
 					event = day.getEventsList().get(i);
 					if (!event.checked) {
 						day.getEventsList().remove(event);
@@ -114,10 +120,10 @@ public class Calendar {
 			}
 		}
 	}
-		
+
 	/**
 	 * Permet de fusionner un Calendar avec le Calendar courant
-	 * 
+	 *
 	 * @param otherCalendar Le calendar à fusionner
 	 */
 	public void merge(Calendar otherCalendar) {

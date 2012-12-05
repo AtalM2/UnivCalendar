@@ -1,15 +1,12 @@
 package univ.view.listener;
 
+import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.util.AuthenticationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
-import com.google.gdata.client.calendar.CalendarService;
-import com.google.gdata.util.AuthenticationException;
-
 import univ.google.GGLAction;
 import univ.google.GGLCreator;
 import univ.view.MainFrame;
