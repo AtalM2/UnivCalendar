@@ -48,10 +48,6 @@ public class TestUnivCalendar {
 		Calendar calIcs = ICSParser.parse(ics);
 		//System.out.println(calendar.toString());
 
-		// Récupération google
-//		String adresse = "univcalendar@gmail.com";
-//		String passwd = "lolcalendar";
-
 		String adresse = "atal.univ.nantes@gmail.com";
 		String passwd = "jnatal44";
 
@@ -69,48 +65,6 @@ public class TestUnivCalendar {
 
 		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
 //		System.out.println(calGoogleNotCours.toString());
-
-		Event event = new Event();
-		event.setStartTime(new DateTime("20121203_200000"));
-		event.setEndTime(new DateTime("20121203_210000"));
-		event.setSummary("Le summary de l event\\avec - des tirets,");
-		event.setUid("CELCAT_UID_DE_L_EVENT");
-		event.setLocation("la salle");
-		event.setDescription("la descritpnio");
-
-		CalendarEventEntry cee = new CalendarEventEntry();
-
-//		ArrayList<Week> wl = calendar.getWeeksList();
-//		for (int i = 0 ; i < wl.size() ; i++){
-//			Week w = wl.get(i);
-//			ArrayList<Day> dl = w.getDaysList();
-//			for (int j = 0 ; j < dl.size() ; j++){
-//				Day d = dl.get(j);
-//				ArrayList<Event> el = d.getEventsList();
-//				for (int k = 0 ; k < el.size() ; k++){
-//					Event currentEvent = el.get(k);
-//					try {
-//						GGLCreator.updateEvent(myService, currentEvent);
-//					} catch (ServiceException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//		}
-
-//		try {
-//			GGLCreator.updateEvent(myService, event);
-//		} catch (ServiceException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
 		calGoogleCours.update(calIcs);
 		calGoogleCours.merge(calGoogleNotCours);
