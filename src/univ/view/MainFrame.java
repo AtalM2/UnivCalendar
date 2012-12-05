@@ -45,7 +45,6 @@ public class MainFrame extends JFrame {
 	private JCalendarWeek jWeek;
 	public JLabel weekNumber;
 	public JLabel weekDetail;
-	
 	public static MainFrame mainFrame;
 
 	public MainFrame(String login, String pwd, String ics, boolean localIcs) {
@@ -54,7 +53,6 @@ public class MainFrame extends JFrame {
 		ToolTipManager.sharedInstance().setDismissDelay(1000000);
 		buildLookAndFeel();
 		buildFrame();
-		buildMenu();
 		buildContent();
 		buildCalendar(login, pwd, ics, localIcs);
 	}
@@ -211,7 +209,7 @@ public class MainFrame extends JFrame {
 		}
 
 		Calendar calIcs = ICSParser.parse(icsArray);
-		
+
 		CalendarService myService = new CalendarService("");
 		try {
 			myService.setUserCredentials(login, pwd);
@@ -222,7 +220,7 @@ public class MainFrame extends JFrame {
 		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
 		System.out.println("COURS GOOGLE\n" + calGoogleCours);
 		System.out.println("PAS COURS\n" + calGoogleNotCours);
-		
+
 		calGoogleCours.update(calIcs);
 		calGoogleCours.merge(calGoogleNotCours);
 		setCalendar(calGoogleCours);

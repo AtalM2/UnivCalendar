@@ -2,16 +2,19 @@ package univ.view;
 
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.util.AuthenticationException;
-import univ.view.listener.ActionConnectListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +27,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.swing.MigLayout;
 import univ.util.Filter;
+import univ.util.Tools;
+import univ.view.listener.ActionConnectListener;
 
 /**
  * Classe gérant l'affichage de la fenêtre de connexion
@@ -38,6 +43,7 @@ public class ConnectionFrame extends JFrame {
 	public JPasswordField fieldPwd;
 	public JRadioButton url;
 	public JRadioButton local;
+	public JCheckBox checkBox;
 
 	public ConnectionFrame() {
 		super();
@@ -62,8 +68,8 @@ public class ConnectionFrame extends JFrame {
 	 */
 	private void buildFrame() {
 		setTitle("UnivCalendar");
-		setSize(new Dimension(350, 200));
-		setPreferredSize(new Dimension(350, 200));
+		setSize(new Dimension(350, 220));
+		setPreferredSize(new Dimension(350, 220));
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -125,9 +131,16 @@ public class ConnectionFrame extends JFrame {
 		fieldPwd = new JPasswordField();
 		googleLogin.add(fieldPwd, "wrap, grow, width 200px");
 
+
+		JPanel bottom = new JPanel(new MigLayout());
+		add(bottom, BorderLayout.SOUTH);
+		checkBox = new JCheckBox();
 		JButton connect = new JButton("Connexion");
 		connect.addActionListener(new ActionConnectListener(this));
-		add(connect, BorderLayout.SOUTH);
+		bottom.add(new JLabel("Enregistrer les informations "));
+		bottom.add(checkBox);
+		bottom.add(connect);
+		load();
 	}
 
 	public String chooseFile() {
@@ -144,6 +157,13 @@ public class ConnectionFrame extends JFrame {
 	}
 
 	public void connect(String login, String pwd, String ics, boolean localIcs) {
+		boolean save = checkBox.isSelected();
+		if (save) {
+			save();
+		} else {
+			String filePath = System.getProperty("user.dir") + File.separator + "conf.ini";
+			File file = new File(filePath);
+		}
 		CalendarService myService = new CalendarService("");
 		try {
 			myService.setUserCredentials(login, pwd);
@@ -152,6 +172,52 @@ public class ConnectionFrame extends JFrame {
 		} catch (AuthenticationException e) {
 			JOptionPane.showMessageDialog(this, "Connexion impossible", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
 		}
+	}
 
+	public void save() {
+		ArrayList<String> array = new ArrayList<>();
+		boolean localIcs = local.isSelected();
+		boolean save = checkBox.isSelected();
+		String ics = localIcs ? fieldLocal.getText() : fieldUrl.getText();
+		String login = fieldLogin.getText();
+		String pwd = fieldPwd.getText();
+		pwd = Tools.encode(pwd,login);
+		array.add(localIcs ? "ics-local" : "ics-url");
+		array.add(ics);
+		array.add(login);
+		array.add(pwd);
+		array.add(save ? "save" : "not-save");
+		try {
+			Tools.writeFile("conf.ini", array);
+		} catch (IOException ex) {
+			JOptionPane.showMessageDialog(this, "Impossible d'enregistrer les paramètres", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	public void load() {
+		try {
+			ArrayList<String> array = Tools.readFile("conf.ini");
+			if (array.size() >= 5) {
+				boolean localIcs = array.get(0).equals("ics-local");
+				String ics = array.get(1);
+				String login = array.get(2);
+				String pwd = array.get(3);
+				pwd = Tools.decode(pwd,login);
+				boolean save = array.get(4).equals("save");
+				if (save) {
+					if (localIcs) {
+						fieldLocal.setText(ics);
+					} else {
+						fieldUrl.setText(ics);
+					}
+					local.setSelected(localIcs);
+					url.setSelected(!localIcs);
+					fieldLogin.setText(login);
+					fieldPwd.setText(pwd);
+					checkBox.setSelected(save);
+				}
+			}
+		} catch (Exception ex) {
+		}
 	}
 }

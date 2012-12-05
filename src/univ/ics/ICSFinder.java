@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+import univ.util.Tools;
 
 /**
  * Classe permettant de charger le texte d'un ICS à partir d'un fichier local ou
@@ -25,17 +26,8 @@ public class ICSFinder {
 	 * @return Un ArrayList contenant chaque ligne de l'ICS
 	 * @throws FileNotFoundException
 	 */
-	public static ArrayList<String> getLocal(String path) throws FileNotFoundException {
-		ArrayList<String> ret = new ArrayList<>();
-
-		FileReader file;
-		file = new FileReader(path);
-
-		Scanner scanner = new Scanner(file);
-		while (scanner.hasNextLine()) {
-			ret.add(scanner.nextLine());
-		}
-		return ret;
+	public static ArrayList<String> getLocal(String path) throws FileNotFoundException, IOException {
+		return Tools.readFile(path);
 	}
 
 	/**
