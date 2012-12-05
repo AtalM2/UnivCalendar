@@ -132,7 +132,10 @@ public class GGLParser {
 					currentEvent.setLocation(location);
 					currentEvent.setDescription(description);
 					currentEvent.setCategories(categories);
-					
+					if (cours){
+					currentEvent.setType("univ-ggl");
+					}
+					else currentEvent.setType("event-ggl");
 					}
 				}
 			}

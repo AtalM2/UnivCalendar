@@ -108,15 +108,15 @@ public class TestUnivCalendar {
 //			}
 //		}
 		
-		try {
-			GGLCreator.updateEvent(myService, event);
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			GGLCreator.updateEvent(myService, event);
+//		} catch (ServiceException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		calendar.update(calGoogleCours);
 		calendar.merge(calGoogleNotCours);
