@@ -46,7 +46,8 @@ public class TestUnivCalendar {
 
 		// Parsing de l'ICS récupéré
 		Calendar calIcs = ICSParser.parse(ics);
-		//System.out.println(calendar.toString());
+		System.out.println("cal ics : ");
+		System.out.println(calIcs.toString());
 
 		String adresse = "atal.univ.nantes@gmail.com";
 		String passwd = "jnatal44";
@@ -61,21 +62,23 @@ public class TestUnivCalendar {
 			e.printStackTrace();
 		}
 		Calendar calGoogleCours = GGLParser.parse(myService, true);
+		System.out.println("google cours : ");
 		System.out.println(calGoogleCours.toString());
 
 		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
-//		System.out.println(calGoogleNotCours.toString());
+		System.out.println("google autres : ");
+		System.out.println(calGoogleNotCours.toString());
 
 		
-		calGoogleCours.update(calIcs);
-		calGoogleCours.merge(calGoogleNotCours);
+//		calGoogleCours.update(calIcs);
+//		calGoogleCours.merge(calGoogleNotCours);
 
-//		System.out.println(calGoogleCours.getGglAction());
+	//	System.out.println(calGoogleCours.getGglAction());
 
-		//GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
+//		GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
 
-//		MainFrame mainFrame = new MainFrame();
-//		mainFrame.setCalendar(calGoogleCours);
-//		mainFrame.setVisible(true);
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.setCalendar(calGoogleCours);
+		mainFrame.setVisible(true);
 	}
 }
