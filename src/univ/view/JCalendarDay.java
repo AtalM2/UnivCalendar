@@ -72,24 +72,26 @@ class JCalendarDay extends JPanel {
 		// On parcourt tous les Events de la Day passé en paramètre
 		for (Event event : day.getEventsList()) {
 			startHour = event.getStartTime().getHour();
-						startMin = event.getStartTime().getMinute();
+			startMin = event.getStartTime().getMinute();
 			endHour = event.getEndTime().getHour();
 			endMin = event.getEndTime().getMinute();
-			startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
-			startPosition = startPosition > 0 ? startPosition : 0;
-			endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
-			endPosition = endPosition < NB_SPLIT ? endPosition : NB_SPLIT;
-
-			eventInfos = new EventInfos(event, 0, 0, true);
-			col = 0;
-			row = startPosition;
+			if (startHour < START_HOUR) {
+				startHour = START_HOUR;
+			}
+			if (endHour > END_HOUR) {
+				endHour = END_HOUR;
+			}
 			done = false;
-			if (startHour < START_HOUR || endHour > END_HOUR) {
+			if (startHour > END_HOUR || endHour < START_HOUR) {
 				done = true;
 			}
-
+			startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
+			endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
+			row = startPosition;
+			col = 0;
+			eventInfos = new EventInfos(event, 0, 0, true);
 			while (!done) {
-				eventInfos.setSelected(col==0);
+				eventInfos.setSelected(col == 0);
 				// On vérifie si le tableau contient assez de colonnes
 				if (checkList.size() < col + 1) {
 					checkList.add(new EventInfos[NB_SPLIT]);
@@ -154,7 +156,7 @@ class JCalendarDay extends JPanel {
 
 	/**
 	 * Ajout d'un Event dans l'IHM
-	 * 
+	 *
 	 * @param ev L'Event avec ses infos complémentaires
 	 */
 	private void addEvent(EventInfos ev) {
@@ -164,6 +166,12 @@ class JCalendarDay extends JPanel {
 		int endHour = event.getEndTime().getHour();
 		int endMin = event.getEndTime().getMinute();
 		int maxCol = checkList.size();
+		if (startHour < START_HOUR) {
+			startHour = START_HOUR;
+		}
+		if (endHour > END_HOUR) {
+			endHour = END_HOUR;
+		}
 
 		int startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 		int endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;

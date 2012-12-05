@@ -16,11 +16,13 @@ import univ.calendar.EventInfos;
 class JCalendarEvent extends JPanel {
 
 	private Event event;
+	private Color color;
+	private JLabel labelSummary;
+	private JLabel labelLocation;
 
 	public JCalendarEvent(Event e, boolean isSelected) {
 		super(new MigLayout("wrap"));
 		event = e;
-		Color color;
 		switch (event.getType()) {
 			case Event.TYPE_EVENT_GGL:
 				color = EventInfos.GOOGLE_EVENT;
@@ -43,6 +45,8 @@ class JCalendarEvent extends JPanel {
 		description = description.replace("\\n", "<br/>");
 		description = description.replace("\\,", ",");
 
+		String location = event.getLocation();
+
 		startHour = new Integer(event.getStartTime().getHour()).toString();
 		startMinutes = new Integer(event.getStartTime().getMinute()).toString();
 		endHour = new Integer(event.getEndTime().getHour()).toString();
@@ -63,17 +67,25 @@ class JCalendarEvent extends JPanel {
 				+ summary + "</b><br/><br/>"
 				+ description);
 		setBackground(color);
-		JLabel labelSummary = new JLabel(summary);
+		labelSummary = new JLabel(summary);
+		labelLocation = new JLabel(location);
 		add(labelSummary);
-		add(new JLabel(event.getLocation()));
+		add(labelLocation);
 		select(isSelected);
 	}
 
 	public void select(boolean select) {
+		int red = color.getRed();
+		int green = color.getGreen();
+		int blue = color.getBlue();
 		if (select) {
-			setBorder(null);
+			setBackground(new Color(red, green, blue));
+			labelSummary.setForeground(Color.BLACK);
+			labelLocation.setForeground(Color.BLACK);
 		} else {
-			setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			setBackground(new Color(red, green, blue, 150));
+			labelSummary.setForeground(new Color(0, 0, 0, 150));
+			labelLocation.setForeground(new Color(0, 0, 0, 150));
 		}
 	}
 }
