@@ -84,25 +84,6 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Création du menu
-	 */
-	private void buildMenu() {
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setPreferredSize(new Dimension(menuBar.getWidth(), 26));
-		setJMenuBar(menuBar);
-		JMenu fileMenu = new JMenu("Fichier");
-		menuBar.add(fileMenu);
-		JMenuItem disconnectAction = new JMenuItem("Déconnexion");
-		ImageIcon iconDisconnect = new ImageIcon("img/icon-disconnect.png");
-		disconnectAction.setIcon(iconDisconnect);
-		JMenuItem exitAction = new JMenuItem("Quitter");
-		ImageIcon iconExit = new ImageIcon("img/icon-exit.png");
-		exitAction.setIcon(iconExit);
-		fileMenu.add(disconnectAction);
-		fileMenu.add(exitAction);
-	}
-
-	/**
 	 * Création du contenu
 	 */
 	private void buildContent() {
@@ -194,8 +175,8 @@ public class MainFrame extends JFrame {
 
 		if (localIcs) {
 			try {
-				System.out.println(ICSFinder.getLocal(ics));
-			} catch (FileNotFoundException e) {
+				icsArray = ICSFinder.getLocal(ics);
+			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
