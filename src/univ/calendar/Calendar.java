@@ -77,7 +77,7 @@ public class Calendar {
 					currentEvent = currentDay.findEvent(event);	// On recherche si l'Event existe déjà
 					if (currentEvent == null) {						
 						// Si il n'existe pas on l'ajoute						
-						gglAction.add(new GGLAction(event, GGLAction.INSERT));
+						gglAction.add(new GGLAction(event, GGLAction.UPDATE));
 						currentDay.getEventsList().add(event);
 						Collections.sort(currentDay.getEventsList());
 					} else {
