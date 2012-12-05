@@ -150,4 +150,15 @@ public class Event implements Comparable {
 			}
 		}
 	}
+
+	public boolean equalsXType(Event event){
+		boolean ret;
+		ret = ( startTime.equals(event.getStartTime()) && 
+				endTime.equals(event.getEndTime()) &&
+				summary.equals(event.getSummary()) &&
+				description.equals(event.getDescription()) &&
+				location.equals(event.getLocation())
+				);
+		return ret;
+	}
 }

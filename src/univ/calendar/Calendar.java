@@ -75,7 +75,8 @@ public class Calendar {
 					currentWeek = findWeek(date);
 					currentDay = currentWeek.findDay(date);
 					currentEvent = currentDay.findEvent(event);	// On recherche si l'Event existe déjà
-					if (currentEvent == null) {						
+					if (currentEvent == null) {
+						System.out.println("event existe pas");
 						// Si il n'existe pas on l'ajoute						
 						gglAction.add(new GGLAction(event, GGLAction.UPDATE));
 						currentDay.getEventsList().add(event);
@@ -83,13 +84,17 @@ public class Calendar {
 					} else {
 						// Si l'Event existe déjà on vérifie si il doit être modifié
 						currentEvent.checked = true;
-						if (!currentEvent.equals(event)) {
+						if (!currentEvent.equalsXType(event)) {
+							System.out.println("event a modifier");
 							gglAction.add(new GGLAction(event, GGLAction.UPDATE, currentEvent));
 							currentDay.getEventsList().remove(currentEvent);
 							currentDay.getEventsList().add(event);
 							Collections.sort(currentDay.getEventsList());
 						}
+						else
+							System.out.println("event reconnu");
 					}
+					
 				}
 
 			}
