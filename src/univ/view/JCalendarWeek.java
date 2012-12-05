@@ -56,6 +56,7 @@ public class JCalendarWeek extends JPanel {
 
 	/**
 	 * Ajout d'une semaine
+	 *
 	 * @param w La Week à ajouter
 	 */
 	public void addWeek(Week w) {

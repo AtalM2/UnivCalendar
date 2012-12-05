@@ -3,19 +3,21 @@ package univ.calendar;
 import univ.util.DateTime;
 
 /**
- * Classe représentant un évènement. Il peut s'agir d'un évènement Google ou d'un
- * cours de l'ICS.
+ * Classe représentant un évènement. Il peut s'agir d'un évènement Google ou
+ * d'un cours de l'ICS.
  *
- * @author @authors Noémi Salaün, Joseph Lark
+ * @author
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class Event implements Comparable {
-	
+
 	public static final String TYPE_UNIV_ICS = "univ-ics";
 	public static final String TYPE_UNIV_GGL = "univ-ggl";
 	public static final String TYPE_EVENT_GGL = "event-ggl";
-	
-	public boolean checked;	/** Attribut public utilisé lors du parcourt des Calendar pour la fusion **/
-
+	public boolean checked;
+	/**
+	 * Attribut public utilisé lors du parcourt des Calendar pour la fusion *
+	 */
 	private DateTime startTime;
 	private DateTime endTime;
 	private String uid;
@@ -35,7 +37,7 @@ public class Event implements Comparable {
 
 	/**
 	 * Vérifie si la date de l'Event correspond à la date de la Day
-	 * 
+	 *
 	 * @param day La Day à comparer avec la date de l'Event
 	 * @return Vrai sir la date correspond, faux sinon
 	 */
@@ -48,14 +50,14 @@ public class Event implements Comparable {
 		Event otherEvent = (Event) t;
 		return startTime.compareTo(otherEvent.getStartTime(), true);
 	}
-	
+
 	public boolean equals(Event event) {
-		return (event.getUid().trim().equals(uid.trim()) &&
-				event.getDescription().trim().equals(description.trim()) &&
-				(event.getEndTime().compareTo(endTime,true) == 0) &&
-				(event.getStartTime().compareTo(startTime,true) == 0) &&
-				event.getLocation().trim().equals(location.trim()) &&
-				event.getSummary().trim().equals(summary.trim()));
+		return (event.getUid().trim().equals(uid.trim())
+				&& event.getDescription().trim().equals(description.trim())
+				&& (event.getEndTime().compareTo(endTime, true) == 0)
+				&& (event.getStartTime().compareTo(startTime, true) == 0)
+				&& event.getLocation().trim().equals(location.trim())
+				&& event.getSummary().trim().equals(summary.trim()));
 	}
 
 	@Override
@@ -145,7 +147,7 @@ public class Event implements Comparable {
 				this.type = TYPE_EVENT_GGL;
 			} else {
 				this.type = type;
-			}			
+			}
 		}
 	}
 }

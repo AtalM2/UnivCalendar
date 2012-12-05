@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Classe permettant de charger le texte d'un ICS à partir d'un fichier local
- * ou d'une URL. Les données sont retournées sous forme d'un tableau de lignes
+ * Classe permettant de charger le texte d'un ICS à partir d'un fichier local ou
+ * d'une URL. Les données sont retournées sous forme d'un tableau de lignes
  *
  * @authors Noémi Salaün, Joseph Lark
  */
@@ -20,10 +20,10 @@ public class ICSFinder {
 
 	/**
 	 * Récupère un ICS en local à partir du chemin du fichier
-	 * 
+	 *
 	 * @param path Le chemin du fichier ICS
 	 * @return Un ArrayList contenant chaque ligne de l'ICS
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	public static ArrayList<String> getLocal(String path) throws FileNotFoundException {
 		ArrayList<String> ret = new ArrayList<>();
@@ -39,13 +39,13 @@ public class ICSFinder {
 	}
 
 	/**
-	 * 
+	 *
 	 * Récupère un ICS sur Internet à partir d'une URL
-	 * 
+	 *
 	 * @param path L'adresse du fichier ICS
 	 * @return Un ArrayList contenant chaque ligne de l'ICS
 	 * @throws MalformedURLException
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static ArrayList<String> getURL(String path) throws MalformedURLException, IOException {
 		ArrayList<String> ret = new ArrayList<>();

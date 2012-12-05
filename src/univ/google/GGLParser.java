@@ -8,7 +8,6 @@ import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import univ.calendar.Calendar;
@@ -79,19 +78,19 @@ public class GGLParser {
 
 						int contentSize = content.length;
 						String uid = "";
-						if (contentSize != 0 ){
+						if (contentSize != 0) {
 							uid = content[0];
 						}
 						currentEvent.setUid(uid);
 
 						boolean isCours = false;
 //						System.out.println("uid substrg : " + uid.substring(0, 6));
-						if (uid.length() > 5 && ( uid.substring(0, 6).equals("CELCAT"))){
+						if (uid.length() > 5 && (uid.substring(0, 6).equals("CELCAT"))) {
 							isCours = true;
 							currentEvent.setType("univ-ggl");
 						}
 
-						if (isCours == cours ) {
+						if (isCours == cours) {
 							DateTime datetime = new DateTime("000000000000000");
 							datetime.setYear(Integer.parseInt(date.substring(0, 4)));
 							datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
@@ -130,14 +129,13 @@ public class GGLParser {
 							Collections.sort(currentDay.getEventsList());
 
 
-							if (isCours && contentSize >= 3){
+							if (isCours && contentSize >= 3) {
 								System.out.println("if CONTENT");
 								String location = content[1];
 								String description = content[2];
 								currentEvent.setLocation(location);
 								currentEvent.setDescription(description);
-							}
-							else {
+							} else {
 								System.out.println("else CONTENT");
 								currentEvent.setLocation("");
 								currentEvent.setDescription("");

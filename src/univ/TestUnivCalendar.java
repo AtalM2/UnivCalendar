@@ -54,7 +54,7 @@ public class TestUnivCalendar {
 
 		String adresse = "atal.univ.nantes@gmail.com";
 		String passwd = "jnatal44";
-		
+
 		//https://developers.google.com/google-apps/calendar/v2/developers_guide_java
 
 		CalendarService myService = new CalendarService("");
@@ -66,10 +66,10 @@ public class TestUnivCalendar {
 		}
 		Calendar calGoogleCours = GGLParser.parse(myService, true);
 //		System.out.println(calGoogleCours.toString());
-		
+
 		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
 //		System.out.println(calGoogleNotCours.toString());
-		
+
 		Event event = new Event();
 		event.setStartTime(new DateTime("20121203_200000"));
 		event.setEndTime(new DateTime("20121203_210000"));
@@ -77,7 +77,7 @@ public class TestUnivCalendar {
 		event.setUid("CELCAT_UID_DE_L_EVENT");
 		event.setLocation("la salle");
 		event.setDescription("la descritpnio");
-		
+
 		CalendarEventEntry cee = new CalendarEventEntry();
 
 //		ArrayList<Week> wl = calendar.getWeeksList();
@@ -101,7 +101,7 @@ public class TestUnivCalendar {
 //				}
 //			}
 //		}
-		
+
 //		try {
 //			GGLCreator.updateEvent(myService, event);
 //		} catch (ServiceException e) {

@@ -10,7 +10,7 @@ import univ.util.DateTime;
 
 /**
  * Classe permettant de parser l'ICS vers notre modèle univ.calendar
- * 
+ *
  * @authors Noémi Salaün, Joseph Lark
  */
 public class ICSParser {

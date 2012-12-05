@@ -12,19 +12,18 @@ import univ.calendar.Event;
  * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
  */
 public class GGLAction {
-	
+
 	public static final String UPDATE = "update";
 	public static final String DELETE = "delete";
 	public static final String INSERT = "insert";
-	
 	private String type;
 	private Event event;
 	private Event oldEvent;
-	
+
 	public GGLAction(Event e, String t) {
-		this(e,t,null);
+		this(e, t, null);
 	}
-	
+
 	public GGLAction(Event e, String t, Event old) {
 		event = e;
 		if (t.equals(INSERT) || t.equals(DELETE)) {
@@ -34,16 +33,16 @@ public class GGLAction {
 			if (old != null) {
 				oldEvent = old;
 			}
-		}		
+		}
 	}
-	
+
 	@Override
 	public String toString() {
 		if (type.equals(UPDATE) && oldEvent != null) {
 			return "Type : " + type + "\n\tOLD : " + oldEvent.toString() + "\n\tNEW : " + event.toString();
 		} else {
 			return "Type : " + type + "\n" + event.toString();
-		}		
+		}
 	}
 
 	public String getType() {
@@ -55,7 +54,7 @@ public class GGLAction {
 			this.type = type;
 		} else {
 			this.type = UPDATE;
-		}		
+		}
 	}
 
 	public Event getEvent() {
@@ -73,5 +72,4 @@ public class GGLAction {
 	public void setOldEvent(Event oldEvent) {
 		this.oldEvent = oldEvent;
 	}
-	
 }

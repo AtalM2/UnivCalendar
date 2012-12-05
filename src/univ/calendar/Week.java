@@ -5,9 +5,11 @@ import java.util.Collections;
 import univ.util.DateTime;
 
 /**
- * Classe représentant une semaine. Elle contient la liste des jours qui la composent.
+ * Classe représentant une semaine. Elle contient la liste des jours qui la
+ * composent.
  *
- * @author @authors Noémi Salaün, Joseph Lark
+ * @author
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class Week implements Comparable {
 
@@ -34,7 +36,7 @@ public class Week implements Comparable {
 	/**
 	 * Permet de récupérer la Day contenant la DateTime. La Day est créée si
 	 * elle n'est pas trouvée
-	 * 
+	 *
 	 * @param date La date que doit contenir la Day à trouver
 	 * @return La Day correspondante
 	 */
@@ -48,7 +50,7 @@ public class Week implements Comparable {
 				finded = true;
 				break;
 			}
-		}		
+		}
 		// Si elle n'est pas trouvée, on la crée
 		if (!finded) {
 			day = new Day(date);

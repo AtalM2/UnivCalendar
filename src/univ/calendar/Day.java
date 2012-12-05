@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import univ.util.DateTime;
 
 /**
- * Classe représentant un jour de notre calendrier. Un jour contient la liste des
- * évènements de la journée.
- * 
+ * Classe représentant un jour de notre calendrier. Un jour contient la liste
+ * des évènements de la journée.
+ *
  * @authors Noémi Salaün, Joseph Lark
  */
 public class Day implements Comparable {
@@ -21,17 +21,17 @@ public class Day implements Comparable {
 
 	/**
 	 * Permet de tester l'existance d'une Day dans une Week
-	 * 
+	 *
 	 * @param week La week dans laquelle on veut chercher la Day
 	 * @return Vrai si la Week contient la Day, faux sinon
 	 */
 	public boolean inWeek(Week week) {
 		return (date.compareTo(week.getStartDate()) >= 1 && date.compareTo(week.getEndDate()) <= -1);
 	}
-	
+
 	/**
 	 * Recherche dans la Day si un event est déjà présent grâce à son UID
-	 * 
+	 *
 	 * @param event L'Event qui est recherché
 	 * @return L'Event si il est trouvé, ou null sinon
 	 */
@@ -42,7 +42,7 @@ public class Day implements Comparable {
 				ret = e;
 				break;
 			}
-		}		
+		}
 		return ret;
 	}
 

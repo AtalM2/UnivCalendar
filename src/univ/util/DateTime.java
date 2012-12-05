@@ -113,6 +113,7 @@ public class DateTime {
 	/**
 	 * Permet d'ajouter un nombre de jours à une date, en prenant en compte les
 	 * années bisextiles, etc...
+	 *
 	 * @param add Le nombre de jours à ajouter
 	 * @return Une nouvelle DateTime avec les jours ajoutés
 	 */
@@ -132,7 +133,7 @@ public class DateTime {
 
 	/**
 	 * Test si la DateTime correspond au Day
-	 * 
+	 *
 	 * @param day La Day à comparer
 	 * @return Vrai si la DateTime correpond, faux sinon
 	 */
@@ -142,6 +143,7 @@ public class DateTime {
 
 	/**
 	 * Test si la DateTime est comprise dans la Week
+	 *
 	 * @param week La Week à comparer
 	 * @return Vrai si la DateTime est comprise, faux sinon
 	 */
@@ -171,8 +173,9 @@ public class DateTime {
 
 	/**
 	 * Retourne une chaine avec tout les attributs concaténés simplement
+	 *
 	 * @param withTime Permet définir si on veut l'heure en plus de la date
-	 * @return 
+	 * @return
 	 */
 	public String toSimpleString(boolean withTime) {
 		if (withTime) {
