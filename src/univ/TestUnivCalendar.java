@@ -70,12 +70,12 @@ public class TestUnivCalendar {
 		calGoogleCours.update(calIcs);
 		calGoogleCours.merge(calGoogleNotCours);
 
-	//	System.out.println(calGoogleCours.getGglAction());
+//		System.out.println(calGoogleCours.getGglAction());
 
-		GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
+		//GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
 
-		MainFrame mainFrame = new MainFrame();
-		mainFrame.setCalendar(calGoogleCours);
-		mainFrame.setVisible(true);
+//		MainFrame mainFrame = new MainFrame();
+//		mainFrame.setCalendar(calGoogleCours);
+//		mainFrame.setVisible(true);
 	}
 }

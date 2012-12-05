@@ -1,12 +1,15 @@
 package univ.view;
 
-import univ.view.listener.ActionWeekChooserListener;
-import univ.view.listener.ActionSyncListener;
+import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.util.AuthenticationException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
@@ -23,7 +27,12 @@ import net.miginfocom.swing.MigLayout;
 import univ.calendar.Calendar;
 import univ.calendar.Week;
 import univ.google.GGLAction;
+import univ.google.GGLParser;
+import univ.ics.ICSFinder;
+import univ.ics.ICSParser;
 import univ.util.DateTime;
+import univ.view.listener.ActionSyncListener;
+import univ.view.listener.ActionWeekChooserListener;
 
 /**
  * Classe gérant l'affichage de la fenêtre principale
@@ -37,13 +46,14 @@ public class MainFrame extends JFrame {
 	public JLabel weekNumber;
 	public JLabel weekDetail;
 
-	public MainFrame() {
+	public MainFrame(String login, String pwd, String ics, boolean localIcs) {
 		super();
 		ToolTipManager.sharedInstance().setDismissDelay(1000000);
 		buildLookAndFeel();
 		buildFrame();
 		buildMenu();
 		buildContent();
+		buildCalendar(login, pwd, ics, localIcs);
 	}
 
 	/**
@@ -176,5 +186,40 @@ public class MainFrame extends JFrame {
 
 	public ArrayList<GGLAction> getSyncAction() {
 		return jWeek.getSyncAction();
+	}
+
+	private void buildCalendar(String login, String pwd, String ics, boolean localIcs) {
+		ArrayList<String> icsArray = null;
+
+		if (localIcs) {
+			try {
+				System.out.println(ICSFinder.getLocal(ics));
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		} else {
+			try {
+				icsArray = ICSFinder.getURL(ics);
+			} catch (MalformedURLException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+
+		Calendar calIcs = ICSParser.parse(icsArray);
+		
+		CalendarService myService = new CalendarService("");
+		try {
+			myService.setUserCredentials(login, pwd);
+		} catch (AuthenticationException e) {
+			JOptionPane.showMessageDialog(this, "Connexion impossible", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+		}
+		Calendar calGoogleCours = GGLParser.parse(myService, true);
+		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
+		
+		calGoogleCours.update(calIcs);
+		calGoogleCours.merge(calGoogleNotCours);
+		setCalendar(calGoogleCours);
 	}
 }
