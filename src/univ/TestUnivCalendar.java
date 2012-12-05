@@ -66,8 +66,12 @@ public class TestUnivCalendar {
 		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
 //		System.out.println(calGoogleNotCours.toString());
 
+		
 		calGoogleCours.update(calIcs);
 		calGoogleCours.merge(calGoogleNotCours);
+
+		GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
+		
 		System.out.println(calGoogleCours.getGglAction().toString());
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
