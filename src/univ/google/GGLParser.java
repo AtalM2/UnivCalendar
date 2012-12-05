@@ -41,12 +41,12 @@ public class GGLParser {
 	public static Calendar parse(CalendarService service, boolean cours) {
 		Calendar calendar = new Calendar();
 
-//		String userName = "univcalendar@gmail.com";
-//		String userPassword = "lolcalendar";
+		//		String userName = "univcalendar@gmail.com";
+		//		String userPassword = "lolcalendar";
 
 		String userName = "atal.univ.nantes@gmail.com";
 		String userPassword = "jnatal44";
-		
+
 		// Create the necessary URL objects.
 		try {
 			metafeedUrl = new URL(METAFEED_URL_BASE + userName);
@@ -73,16 +73,18 @@ public class GGLParser {
 				if (!times.isEmpty()) {
 					String date = times.get(0).getStartTime().toString();
 					if (date.length() > 10) {
-					
-					String[] content = entry.getPlainTextContent().toString().split("\n");
-					
-					int contentSize = content.length;
-					String uid = "";
-					if (contentSize != 0 ){
-					uid = content[0];
-					}
-					if (uid.length() > 5 && ( uid.substring(0, 5).equals("CELCAT") != cours ) 
-							|| (uid.length() <= 5) && !cours ) {
+
+						String[] content = entry.getPlainTextContent().toString().split("\n");
+
+						int contentSize = content.length;
+						String uid = "";
+						if (contentSize != 0 ){
+							uid = content[0];
+						}
+						currentEvent.setUid(uid);
+						
+						if (uid.length() > 5 && ( uid.substring(0, 5).equals("CELCAT") != cours ) 
+								|| (uid.length() <= 5) && !cours ) {
 							DateTime datetime = new DateTime("000000000000000");
 							datetime.setYear(Integer.parseInt(date.substring(0, 4)));
 							datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
@@ -120,29 +122,33 @@ public class GGLParser {
 							currentDay.getEventsList().add(currentEvent);
 							Collections.sort(currentDay.getEventsList());
 						}
-					
-					String summary = entry.getTitle().getPlainText();
-					currentEvent.setUid(uid);
-					currentEvent.setSummary(summary);
-					
-					if (uid.length() > 5 && uid.substring(0, 5).equals("CELCAT") && contentSize == 4){
-					String location = content[1];
-					String description = content[2];
-					String categories = content[3];
-					currentEvent.setLocation(location);
-					currentEvent.setDescription(description);
-					currentEvent.setCategories(categories);
-					}
-					else {
-						currentEvent.setLocation("");
-						currentEvent.setDescription("");
-						currentEvent.setCategories("");
-					}
-					
-					if (cours){
-					currentEvent.setType("univ-ggl");
-					}
-					else currentEvent.setType("event-ggl");
+
+						
+						
+						
+						if (uid.length() > 5 && uid.substring(0, 5).equals("CELCAT") && contentSize == 4){
+							System.out.println("if CONTENT");
+							String location = content[1];
+							String description = content[2];
+							String categories = content[3];
+							currentEvent.setLocation(location);
+							currentEvent.setDescription(description);
+							currentEvent.setCategories(categories);
+						}
+						else {
+							System.out.println("else CONTENT");
+							currentEvent.setLocation("");
+							currentEvent.setDescription("");
+							currentEvent.setCategories("");
+						}
+
+						String summary = entry.getTitle().getPlainText();
+						currentEvent.setSummary(summary);
+						
+						if (cours){
+							currentEvent.setType("univ-ggl");
+						}
+						else currentEvent.setType("event-ggl");
 					}
 				}
 			}
