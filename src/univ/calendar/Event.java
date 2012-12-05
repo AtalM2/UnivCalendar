@@ -55,8 +55,8 @@ public class Event implements Comparable {
 		return (event.getUid().trim().equals(uid.trim()) &&
 				event.getCategories().trim().equals(categories.trim()) &&
 				event.getDescription().trim().equals(description.trim()) &&
-				(event.getEndTime().compareTo(endTime) == 0) &&
-				(event.getStartTime().compareTo(startTime) == 0) &&
+				(event.getEndTime().compareTo(endTime,true) == 0) &&
+				(event.getStartTime().compareTo(startTime,true) == 0) &&
 				event.getLocation().trim().equals(location.trim()) &&
 				event.getSummary().trim().equals(summary.trim()));
 	}
