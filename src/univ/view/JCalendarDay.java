@@ -61,7 +61,6 @@ class JCalendarDay extends JPanel {
 	 * @param day La Day à ajouter
 	 */
 	public void addDay(Day day) {
-		Color color;
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
 		DateTime date = day.getDate();
 		String dayName = date.getDayOfWeek(true) + " " + date.toString();
@@ -81,21 +80,7 @@ class JCalendarDay extends JPanel {
 			endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 			endPosition = endPosition < NB_SPLIT ? endPosition : NB_SPLIT;
 
-			switch (event.getType()) {
-				case Event.TYPE_EVENT_GGL :
-					color = EventInfos.GOOGLE_EVENT;
-					break;
-				case Event.TYPE_UNIV_GGL :
-					color = EventInfos.GOOGLE_UNIV;
-					break;
-				case Event.TYPE_UNIV_ICS :
-					color = EventInfos.ICS_UNIV;
-					break;
-				default :
-					color = EventInfos.GOOGLE_EVENT;
-						
-			}
-			eventInfos = new EventInfos(event, 0, 0, color);
+			eventInfos = new EventInfos(event, 0, 0, true);
 			col = 0;
 			row = startPosition;
 			done = false;
@@ -104,6 +89,7 @@ class JCalendarDay extends JPanel {
 			}
 
 			while (!done) {
+				eventInfos.setSelected(col==0);
 				// On vérifie si le tableau contient assez de colonnes
 				if (checkList.size() < col + 1) {
 					checkList.add(new EventInfos[NB_SPLIT]);
@@ -182,7 +168,7 @@ class JCalendarDay extends JPanel {
 		int startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 		int endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 
-		JCalendarEvent jEvent = new JCalendarEvent(event, ev.getColor());
+		JCalendarEvent jEvent = new JCalendarEvent(event, ev.isSelected());
 		content.add(jEvent, "width 0:100%:100%, grow, cell " + ev.getColumn() + " " + startPosition + " " + maxCol / ev.getWidth() + " " + (endPosition - startPosition));
 	}
 }
