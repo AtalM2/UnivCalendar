@@ -1,10 +1,12 @@
 package univ.view;
 
 import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import univ.calendar.Event;
+import univ.calendar.EventInfos;
 
 /**
  * Classe gérant l'affichage d'un Event dans le calendrier
@@ -15,9 +17,24 @@ class JCalendarEvent extends JPanel {
 
 	private Event event;
 
-	public JCalendarEvent(Event e, Color color) {
+	public JCalendarEvent(Event e, boolean isSelected) {
 		super(new MigLayout("wrap"));
 		event = e;
+		Color color;
+		switch (event.getType()) {
+			case Event.TYPE_EVENT_GGL:
+				color = EventInfos.GOOGLE_EVENT;
+				break;
+			case Event.TYPE_UNIV_GGL:
+				color = EventInfos.GOOGLE_UNIV;
+				break;
+			case Event.TYPE_UNIV_ICS:
+				color = EventInfos.ICS_UNIV;
+				break;
+			default:
+				color = EventInfos.GOOGLE_EVENT;
+
+		}
 		String startHour, startMinutes, endHour, endMinutes;
 		String summary = event.getSummary();
 		summary = summary.replace("\\,", ",");
@@ -49,5 +66,14 @@ class JCalendarEvent extends JPanel {
 		JLabel labelSummary = new JLabel(summary);
 		add(labelSummary);
 		add(new JLabel(event.getLocation()));
+		select(isSelected);
+	}
+
+	public void select(boolean select) {
+		if (select) {
+			setBorder(null);
+		} else {
+			setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		}
 	}
 }
