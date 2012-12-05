@@ -1,215 +1,415 @@
 <class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Week" project="UnivCalendar" 
-    file="/UnivCalendar/src/univ/calendar/Week.java" binary="false">    
-    <position height="-1" width="-1" x="139" y="433"/>    
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="univ.google.GGLCreator" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/google/GGLCreator.java" binary="false">    
+    <position height="-1" width="-1" x="637" y="405"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Day" project="UnivCalendar" 
-    file="/UnivCalendar/src/univ/calendar/Day.java" binary="false">    
-    <position height="-1" width="-1" x="132" y="743"/>    
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="univ.google.GGLParser" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/google/GGLParser.java" binary="false">    
+    <position height="-1" width="-1" x="649" y="112"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Event" project="UnivCalendar" 
-    file="/UnivCalendar/src/univ/calendar/Event.java" binary="false">    
-    <position height="-1" width="-1" x="534" y="896"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Calendar" project="UnivCalendar" 
-    file="/UnivCalendar/src/univ/calendar/Calendar.java" binary="false">    
-    <position height="-1" width="-1" x="135" y="115"/>    
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="univ.google.GGLAction" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/google/GGLAction.java" binary="false">    
+    <position height="282" width="173" x="1139" y="647"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.EventInfos" project="UnivCalendar" 
-    file="/UnivCalendar/src/univ/calendar/EventInfos.java" binary="false">    
-    <position height="-1" width="-1" x="842" y="901"/>    
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="univ.ics.ICSFinder" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/ics/ICSFinder.java" binary="false">    
+    <position height="-1" width="-1" x="669" y="659"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="univ.ics.ICSParser" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/ics/ICSParser.java" binary="false">    
+    <position height="-1" width="-1" x="953" y="176"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
   <class id="6" corner="BOTTOM_RIGHT" language="java" name="univ.util.DateTime" project="UnivCalendar" 
     file="/UnivCalendar/src/univ/util/DateTime.java" binary="false">    
-    <position height="158" width="175" x="461" y="339"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="639" width="184" x="895" y="1546"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
+      <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="univ.view.MainFrame" project="UnivCalendar" 
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Week" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/calendar/Week.java" binary="false">    
+    <position height="248" width="188" x="855" y="359"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Day" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/calendar/Day.java" binary="false">    
+    <position height="248" width="204" x="895" y="647"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Event" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/calendar/Event.java" binary="false">    
+    <position height="537" width="159" x="1053" y="969"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.Calendar" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/calendar/Calendar.java" binary="false">    
+    <position height="197" width="207" x="1139" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="univ.calendar.EventInfos" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/calendar/EventInfos.java" binary="false">    
+    <position height="265" width="138" x="1352" y="647"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="univ.util.Tools" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/util/Tools.java" binary="false">    
+    <position height="-1" width="-1" x="648" y="1009"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="univ.util.Filter" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/util/Filter.java" binary="false">    
+    <position height="-1" width="-1" x="661" y="811"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="univ.view.ConnectionFrame" project="UnivCalendar" 
+    file="/UnivCalendar/src/univ/view/ConnectionFrame.java" binary="false">    
+    <position height="-1" width="-1" x="1903" y="837"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="univ.view.MainFrame" project="UnivCalendar" 
     file="/UnivCalendar/src/univ/view/MainFrame.java" binary="false">    
-    <position height="-1" width="-1" x="1056" y="450"/>    
+    <position height="-1" width="-1" x="1866" y="1245"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="univ.view.JCalendarEvent" project="UnivCalendar" 
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="univ.view.JCalendarEvent" project="UnivCalendar" 
     file="/UnivCalendar/src/univ/view/JCalendarEvent.java" binary="false">    
-    <position height="-1" width="-1" x="850" y="649"/>    
+    <position height="-1" width="-1" x="1431" y="1980"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="univ.view.JCalendarDay" project="UnivCalendar" 
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="univ.view.JCalendarDay" project="UnivCalendar" 
     file="/UnivCalendar/src/univ/view/JCalendarDay.java" binary="false">    
-    <position height="-1" width="-1" x="1063" y="1050"/>    
+    <position height="-1" width="-1" x="1842" y="1890"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="10" corner="BOTTOM_RIGHT" language="java" name="univ.view.JCalendarWeek" project="UnivCalendar" 
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="univ.view.JCalendarWeek" project="UnivCalendar" 
     file="/UnivCalendar/src/univ/view/JCalendarWeek.java" binary="false">    
-    <position height="-1" width="-1" x="1061" y="740"/>    
+    <position height="-1" width="-1" x="1846" y="1594"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="11">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="12" name="date"/>      
-      <multiplicity id="13" minimum="0" maximum="1">        
-        <position height="15" width="21" x="411" y="492"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="14">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="15" name="event"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="18" name="startDate">        
-        <position height="15" width="51" x="392" y="440"/>      
-      </attribute>      
-      <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="15" width="21" x="411" y="449"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="21" name="eventsList"/>      
-      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="univ.view.listener.ActionWeekChooserListener" 
+    project="UnivCalendar" file="/UnivCalendar/src/univ/view/listener/ActionWeekChooserListener.java" binary="false">    
+    <position height="-1" width="-1" x="2144" y="1591"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="univ.view.listener.ActionSyncListener" 
+    project="UnivCalendar" file="/UnivCalendar/src/univ/view/listener/ActionSyncListener.java" binary="false">    
+    <position height="-1" width="-1" x="2391" y="1625"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="univ.view.listener.MouseSelectListener" 
+    project="UnivCalendar" file="/UnivCalendar/src/univ/view/listener/MouseSelectListener.java" binary="false">    
+    <position height="-1" width="-1" x="1832" y="2172"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="univ.view.listener.ActionConnectListener" 
+    project="UnivCalendar" file="/UnivCalendar/src/univ/view/listener/ActionConnectListener.java" binary="false">    
+    <position height="-1" width="-1" x="2329" y="997"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
   <association id="23">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="24" name="endTime">        
-        <position height="15" width="47" x="468" y="518"/>      
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="24" name="eventsList">        
+        <position height="15" width="57" x="1587" y="1980"/>      
       </attribute>      
-      <multiplicity id="25" minimum="0" maximum="1">        
-        <position height="15" width="21" x="500" y="504"/>      
-      </multiplicity>    
+      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="26">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="27" name="event"/>      
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="27" name="jWeek"/>      
       <multiplicity id="28" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="29">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="30" name="weeksList"/>      
-      <multiplicity id="31" minimum="0" maximum="2147483647"/>    
+    <bendpoint x="843" y="647"/>    
+    <bendpoint x="843" y="969"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="30" name="endDate">        
+        <position height="15" width="47" x="869" y="1518"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="15" width="21" x="908" y="1502"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="32">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="33" name="jWeek"/>      
-      <multiplicity id="34" minimum="0" maximum="1"/>    
+      <attribute id="33" name="daysList"/>      
+      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="36" name="calendar"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="35">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="36" name="daysList"/>      
-      <multiplicity id="37" minimum="0" maximum="2147483647"/>    
+  <association id="38">    
+    <bendpoint x="1148" y="359"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="39" name="gglAction"/>      
+      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="38">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="39" name="startTime">        
-        <position height="15" width="51" x="551" y="519"/>      
+  <association id="41">    
+    <bendpoint x="864" y="647"/>    
+    <bendpoint x="864" y="969"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="42" name="startDate">        
+        <position height="15" width="51" x="850" y="1505"/>      
       </attribute>      
-      <multiplicity id="40" minimum="0" maximum="1">        
-        <position height="15" width="21" x="567" y="504"/>      
+      <multiplicity id="43" minimum="0" maximum="1">        
+        <position height="15" width="21" x="907" y="1487"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="41">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="42" name="daysList"/>      
-      <multiplicity id="43" minimum="0" maximum="2147483647"/>    
+  <association id="44">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="45" name="eventsList"/>      
+      <multiplicity id="46" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="44">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="45" name="eventsList">        
-        <position height="15" width="57" x="907" y="1007"/>      
-      </attribute>      
-      <multiplicity id="46" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <association id="47">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="48" name="endDate">        
-        <position height="15" width="47" x="396" y="389"/>      
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="48" name="event">        
+        <position height="15" width="34" x="1109" y="933"/>      
       </attribute>      
       <multiplicity id="49" minimum="0" maximum="1">        
-        <position height="15" width="21" x="416" y="404"/>      
+        <position height="15" width="21" x="1177" y="947"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="51" name="parentDay"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="54" name="event"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="57" name="startTime">        
+        <position height="15" width="51" x="970" y="1517"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="15" width="21" x="1013" y="1527"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="50">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="51" name="checkList"/>      
-      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
+  <association id="59">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="60" name="main"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <bendpoint x="904" y="969"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="63" name="date">        
+        <position height="15" width="28" x="870" y="1487"/>      
+      </attribute>      
+      <multiplicity id="64" minimum="0" maximum="1">        
+        <position height="15" width="21" x="916" y="1519"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="66" name="startTime"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="69" name="eventInfos"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="72" name="mainFrame"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="75" name="endTime">        
+        <position height="15" width="47" x="992" y="1495"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="1">        
+        <position height="15" width="21" x="1033" y="1511"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="78" name="daysList"/>      
+      <multiplicity id="79" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="81" name="oldEvent">        
+        <position height="15" width="48" x="1194" y="943"/>      
+      </attribute>      
+      <multiplicity id="82" minimum="0" maximum="1">        
+        <position height="15" width="21" x="1152" y="932"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="84" name="checkList"/>      
+      <multiplicity id="85" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="86">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="87" name="main"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="90" name="event"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="92">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="93" name="frame"/>      
+      <multiplicity id="94" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="96" name="weeksList"/>      
+      <multiplicity id="97" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

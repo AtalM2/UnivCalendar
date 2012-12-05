@@ -27,6 +27,7 @@ import net.miginfocom.swing.MigLayout;
 import univ.calendar.Calendar;
 import univ.calendar.Week;
 import univ.google.GGLAction;
+import univ.google.GGLCreator;
 import univ.google.GGLParser;
 import univ.ics.ICSFinder;
 import univ.ics.ICSParser;
@@ -226,6 +227,9 @@ public class MainFrame extends JFrame {
 		System.out.println("PAS COURS\n" + calGoogleNotCours);
 
 		calGoogleCours.update(calIcs);
+		
+		GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
+		
 		calGoogleCours.merge(calGoogleNotCours);
 		setCalendar(calGoogleCours);
 	}

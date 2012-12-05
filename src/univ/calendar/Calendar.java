@@ -90,7 +90,7 @@ public class Calendar {
 					} else {
 						// Si l'Event existe déjà on vérifie si il doit être modifié
 						currentEvent.checked = true;
-						if (!currentEvent.equalsXType(event)) {
+						if (!currentEvent.equals(event)) {
 							System.out.println("event a modifier");
 							gglAction.add(new GGLAction(event, GGLAction.UPDATE, currentEvent));
 							currentDay.getEventsList().remove(currentEvent);

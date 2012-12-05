@@ -64,8 +64,6 @@ public class GGLParser {
 			CalendarQuery myQuery = new CalendarQuery(eventFeedUrl);
 			myQuery.setMaxResults(5000);
 			CalendarEventFeed resultFeed = service.query(myQuery, CalendarEventFeed.class);
-//			CalendarEventFeed resultFeed = service.getFeed(eventFeedUrl,
-//					CalendarEventFeed.class);
 
 			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 				CalendarEventEntry entry = resultFeed.getEntries().get(i);
@@ -157,17 +155,9 @@ public class GGLParser {
 								currentEvent.setLocation("");
 								currentEvent.setDescription("");
 							}
-
-
-						} else {
-							System.out.println("isCours != cours");
-						}
-					} else {
-						System.out.println("date size < 10");
-					}
-				} else {
-					System.out.println("time is empty");
-				}
+						} 
+					} 
+				} 
 			}
 
 		} catch (IOException e) {
