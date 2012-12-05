@@ -1,11 +1,13 @@
 package univ.view;
 
+import univ.view.listener.ActionWeekChooserListener;
 import univ.view.listener.ActionSyncListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +20,10 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.swing.MigLayout;
+import univ.calendar.Calendar;
+import univ.calendar.Week;
+import univ.google.GGLAction;
+import univ.util.DateTime;
 
 /**
  * Classe gérant l'affichage de la fenêtre principale
@@ -25,11 +31,12 @@ import net.miginfocom.swing.MigLayout;
  * @authors Noémi Salaün, Joseph Lark
  */
 public class MainFrame extends JFrame {
-	
-	public JCalendarWeek jWeek;
+
+	private Calendar calendar;
+	private JCalendarWeek jWeek;
 	public JLabel weekNumber;
 	public JLabel weekDetail;
-	
+
 	public MainFrame() {
 		super();
 		ToolTipManager.sharedInstance().setDismissDelay(1000000);
@@ -94,16 +101,17 @@ public class MainFrame extends JFrame {
 		// Panel top
 		JPanel top = new JPanel(new MigLayout());
 		content.add(top, "grow");
-		
+
 		JPanel topContent = new JPanel(new FlowLayout());
 		top.add(topContent, "dock center");
 		JButton btnSync = new JButton("Synchroniser");
 		top.add(btnSync, "dock east");
 		btnSync.addActionListener(new ActionSyncListener(this));
-		
+
 		JButton left = new JButton("<");
+		left.addActionListener(new ActionWeekChooserListener(this));
 		topContent.add(left);
-		
+
 		JPanel week = new JPanel(new GridLayout(0, 1));
 		setWeekNumber(new JLabel("Semaine 45"));
 		getWeekNumber().setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,36 +120,61 @@ public class MainFrame extends JFrame {
 		getWeekDetail().setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		week.add(getWeekDetail());
 		topContent.add(week);
-		
+
 		JButton right = new JButton(">");
+		right.addActionListener(new ActionWeekChooserListener(this));
 		topContent.add(right);
 
 		// Panel bottom
 		JPanel bottom = new JPanel(new MigLayout());
 		bottom.setBackground(Color.ORANGE);
 		content.add(bottom, "push, grow");
-		
+
 		jWeek = new JCalendarWeek();
 		bottom.add(jWeek, "push, grow");
 	}
-	
+
+	public void setWeek(Week w) {
+		weekNumber.setText("Semaine " + w.getStartDate().getWeekOfYear());
+		weekDetail.setText("Du " + w.getStartDate().toString() + " au " + w.getEndDate().toString());
+		jWeek.setWeek(w);
+		build();
+	}
+
+	public void build() {
+		jWeek.build();
+	}
+
 	public JCalendarWeek getJWeek() {
 		return jWeek;
 	}
-	
+
 	public JLabel getWeekNumber() {
 		return weekNumber;
 	}
-	
+
 	public void setWeekNumber(JLabel weekNumber) {
 		this.weekNumber = weekNumber;
 	}
-	
+
 	public JLabel getWeekDetail() {
 		return weekDetail;
 	}
-	
+
 	public void setWeekDetail(JLabel weekDetail) {
 		this.weekDetail = weekDetail;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+		setWeek(this.calendar.findWeek(new DateTime()));
+	}
+
+	public ArrayList<GGLAction> getSyncAction() {
+		return jWeek.getSyncAction();
 	}
 }

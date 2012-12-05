@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package univ.view.listener;
 
 import java.awt.event.ActionEvent;
@@ -12,8 +8,9 @@ import univ.google.GGLAction;
 import univ.view.MainFrame;
 
 /**
+ * Listener déclanchant la synchronisation avec Google
  *
- * @author Noémi Salaün <noemi.salaun@etu.univ-nantes.fr>
+ * @authors Noémi Salaün, Joseph Lark
  */
 public class ActionSyncListener implements ActionListener {
 	
@@ -27,7 +24,7 @@ public class ActionSyncListener implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		// On récupère la liste des actions à effectuer pour la synchronisation
 		ArrayList<GGLAction> array = new ArrayList<>();
-		array = main.jWeek.getSyncAction();
+		array = main.getSyncAction();
 		
 		// CODE A RAJOUTE POUR EXECUTER LES GGLACTIONS CONTENUES DANS ARRAY //
 		
