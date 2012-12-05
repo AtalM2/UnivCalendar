@@ -130,15 +130,15 @@ public class GGLParser {
 							Collections.sort(currentDay.getEventsList());
 
 
-							if (uid.length() > 5 && uid.substring(0, 5).equals("CELCAT") && contentSize == 3){
-//								System.out.println("if CONTENT");
+							if (isCours && contentSize >= 3){
+								System.out.println("if CONTENT");
 								String location = content[1];
 								String description = content[2];
 								currentEvent.setLocation(location);
 								currentEvent.setDescription(description);
 							}
 							else {
-//								System.out.println("else CONTENT");
+								System.out.println("else CONTENT");
 								currentEvent.setLocation("");
 								currentEvent.setDescription("");
 							}
