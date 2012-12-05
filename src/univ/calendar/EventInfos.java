@@ -19,19 +19,14 @@ public class EventInfos {
 	 * Index de la colonne d'affichage de l'Event *
 	 */
 	private int width;
-	/**
-	 * Largeur de l'event, pour gérer les Events simultanés *
-	 */
-	private boolean selected;
 
 	/**
 	 * Permet de savoir quel Event on garde en cas d'Events simultanés *
 	 */
-	public EventInfos(Event e, int c, int w, boolean s) {
+	public EventInfos(Event e, int c, int w) {
 		event = e;
 		column = c;
 		width = w;
-		selected = s;
 	}
 
 	public Event getEvent() {
@@ -56,13 +51,5 @@ public class EventInfos {
 
 	public void setWidth(int width) {
 		this.width = width;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean isSelected) {
-		this.selected = isSelected;
 	}
 }
