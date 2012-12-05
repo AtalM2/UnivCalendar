@@ -1,5 +1,6 @@
 package univ.google;
 
+import com.google.gdata.client.calendar.CalendarQuery;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.calendar.CalendarEventEntry;
 import com.google.gdata.data.calendar.CalendarEventFeed;
@@ -62,14 +63,26 @@ public class GGLParser {
 		// Authentification avec les identifiants et procedure de parsing
 		try {
 			service.setUserCredentials(userName, userPassword);
-			CalendarEventFeed resultFeed = service.getFeed(eventFeedUrl,
-					CalendarEventFeed.class);
+			CalendarQuery myQuery = new CalendarQuery(eventFeedUrl);
+			myQuery.setMaxResults(5000);
+			CalendarEventFeed resultFeed = service.query(myQuery, CalendarEventFeed.class);
+//			CalendarEventFeed resultFeed = service.getFeed(eventFeedUrl,
+//					CalendarEventFeed.class);
 
 			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 				CalendarEventEntry entry = resultFeed.getEntries().get(i);
+				
+				System.out.println("NOUVELLE ENTREE");
+				
 				Event currentEvent = new Event();
 				// L'evenement est par defaut un "evenement google quelconque"
 				currentEvent.setType("event-ggl");
+
+				// Definition du titre
+				String summary = entry.getTitle().getPlainText();
+				System.out.println(summary);
+				currentEvent.setSummary(summary);
+
 				List<When> times = entry.getTimes();
 				if (!times.isEmpty()) {
 					String date = times.get(0).getStartTime().toString();
@@ -77,6 +90,8 @@ public class GGLParser {
 
 						String[] content = entry.getPlainTextContent().toString().split("\n");
 						int contentSize = content.length;
+						System.out.println(contentSize);
+
 						String uid = "";
 						if (contentSize != 0) {
 							uid = content[0];
@@ -90,6 +105,8 @@ public class GGLParser {
 							currentEvent.setType("univ-ggl");
 						}
 
+						System.out.println("isCours : " + isCours);
+
 						if (isCours == cours) {
 							// Definition des dates de debut et de fin
 							DateTime datetime = new DateTime("000000000000000");
@@ -101,21 +118,24 @@ public class GGLParser {
 							datetime.setMinute(Integer.parseInt(date.substring(14, 16)));
 							datetime.setSecond(Integer.parseInt(date.substring(17, 19)));
 
+//							currentEvent.setStartTime(datetime);
+							System.out.println("datetime : " + datetime.toString(true));
+
 							DateTime datetimeEnd = new DateTime(datetime);
-							if (date.length() > 10) {
-								datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13)) + 1);
-							}
+							datetimeEnd.setHour(Integer.parseInt(date.substring(11, 13)) + 1);				
 
 							String dateEnd = times.get(0).getEndTime().toString();
-							if (dateEnd != null) {
+							if (dateEnd.length() > 10) {
 								datetimeEnd.setYear(Integer.parseInt(dateEnd.substring(0, 4)));
 								datetimeEnd.setMonth(Integer.parseInt(dateEnd.substring(5, 7)));
 								datetimeEnd.setDay(Integer.parseInt(dateEnd.substring(8, 10)));
-								if (dateEnd.length() > 10) {
-									datetimeEnd.setHour(Integer.parseInt(dateEnd.substring(11, 13)));
-									datetimeEnd.setMinute(Integer.parseInt(dateEnd.substring(14, 16)));
-									datetimeEnd.setSecond(Integer.parseInt(dateEnd.substring(17, 19)));
-								}
+
+								datetimeEnd.setHour(Integer.parseInt(dateEnd.substring(11, 13)));
+								datetimeEnd.setMinute(Integer.parseInt(dateEnd.substring(14, 16)));
+								datetimeEnd.setSecond(Integer.parseInt(dateEnd.substring(17, 19)));
+
+//								currentEvent.setStartTime(datetimeEnd);
+								System.out.println("datetimeEnd : " + datetimeEnd.toString(true));
 							}
 
 							Week currentWeek = null;
@@ -139,12 +159,17 @@ public class GGLParser {
 								currentEvent.setLocation("");
 								currentEvent.setDescription("");
 							}
-							// Definition du titre
-							String summary = entry.getTitle().getPlainText();
-							currentEvent.setSummary(summary);
+
+
 						}
+						else
+							System.out.println("isCours != cours");
 					}
+					else
+						System.out.println("date size < 10");
 				}
+				else
+					System.out.println("time is empty");
 			}
 
 		} catch (IOException e) {
