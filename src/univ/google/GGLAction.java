@@ -40,7 +40,7 @@ public class GGLAction {
 	@Override
 	public String toString() {
 		if (type.equals(UPDATE) && oldEvent != null) {
-			return "Type : " + type + "\nOLD : " + oldEvent.toString() + "\nNEW : " + event.toString();
+			return "Type : " + type + "\n\tOLD : " + oldEvent.toString() + "\n\tNEW : " + event.toString();
 		} else {
 			return "Type : " + type + "\n" + event.toString();
 		}		

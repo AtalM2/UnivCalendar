@@ -89,11 +89,9 @@ public class MainFrame extends JFrame {
 	private void buildContent() {
 		JPanel content = new JPanel(new MigLayout("wrap 1"));
 		add(content);
-		content.setBackground(Color.yellow);
 
 		// Panel top
 		JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		top.setBackground(Color.GREEN);
 		content.add(top, "center");
 
 		JPanel topContent = new JPanel(new FlowLayout());
