@@ -8,6 +8,7 @@ import net.miginfocom.swing.MigLayout;
 import univ.calendar.Day;
 import univ.calendar.Week;
 import univ.google.GGLAction;
+import univ.util.DateTime;
 
 /**
  * Classe gérant l'affichage d'une Week dans le calendrier
@@ -16,11 +17,13 @@ import univ.google.GGLAction;
  */
 public class JCalendarWeek extends JPanel {
 
+	private DateTime startTime;
 	private final int START_HOUR = 7;
 	private final int END_HOUR = 21;
 	private final int MINUTES_BY_SPLIT = 15;
 	private final int NB_SPLIT = (END_HOUR - START_HOUR) * 60 / MINUTES_BY_SPLIT;
 	private ArrayList<JCalendarDay> daysList;
+	private JPanel content;
 
 	public JCalendarWeek() {
 		super(new MigLayout("", "[][grow]", "[grow]"));
@@ -34,8 +37,23 @@ public class JCalendarWeek extends JPanel {
 			listHours.add(new JLabel(new Integer(hour).toString()), "cell 0 " + (hour - START_HOUR));
 		}
 
-		JPanel content = new JPanel(new GridLayout(0, 6));
+		content = new JPanel(new GridLayout(0, 6));
 		add(content, "cell 1 0, grow");
+
+		daysList = new ArrayList<>();
+		for (int i = 0; i < 6; i++) {
+			daysList.add(new JCalendarDay(START_HOUR, END_HOUR, MINUTES_BY_SPLIT));
+		}
+		for (JCalendarDay day : daysList) {
+			content.add(day);
+		}
+	}
+
+	/**
+	 * Permet de reset l'affichage d'une semaine vierge
+	 */
+	public void reset() {
+		content.removeAll();
 
 		daysList = new ArrayList<>();
 		for (int i = 0; i < 6; i++) {
@@ -56,11 +74,14 @@ public class JCalendarWeek extends JPanel {
 	}
 
 	/**
-	 * Ajout d'une semaine
+	 * Selection de la semaine à afficher
 	 *
-	 * @param w La Week à ajouter
+	 * @param w La Week à afficher
 	 */
-	public void addWeek(Week w) {
+	public void setWeek(Week w) {
+		reset();
+		startTime = w.getStartDate();
+
 		int dayOfWeek;
 		for (Day day : w.getDaysList()) {
 			dayOfWeek = Integer.parseInt(day.getDayOfWeek()) - 1;
@@ -70,10 +91,11 @@ public class JCalendarWeek extends JPanel {
 			}
 		}
 	}
-	
+
 	/**
-	 * Permet de récupérer la liste des actions à effectuer pour la synchronisation
-	 * de la semaine
+	 * Permet de récupérer la liste des actions à effectuer pour la
+	 * synchronisation de la semaine
+	 *
 	 * @return Une liste de GGLActions
 	 */
 	public ArrayList<GGLAction> getSyncAction() {
@@ -82,5 +104,9 @@ public class JCalendarWeek extends JPanel {
 			array.addAll(jDay.getSyncAction());
 		}
 		return array;
+	}
+
+	public DateTime getStartTime() {
+		return startTime;
 	}
 }

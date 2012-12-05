@@ -61,7 +61,7 @@ public class TestUnivCalendar {
 			e.printStackTrace();
 		}
 		Calendar calGoogleCours = GGLParser.parse(myService, true);
-//		System.out.println(calGoogleCours.toString());
+		System.out.println(calGoogleCours.toString());
 
 		Calendar calGoogleNotCours = GGLParser.parse(myService, false);
 //		System.out.println(calGoogleNotCours.toString());
@@ -69,18 +69,12 @@ public class TestUnivCalendar {
 		
 		calGoogleCours.update(calIcs);
 		calGoogleCours.merge(calGoogleNotCours);
+//		System.out.println(calGoogleCours.getGglAction());
 
 		GGLCreator.execGGLActions(myService, calGoogleCours.getGglAction());
-		
-		System.out.println(calGoogleCours.getGglAction().toString());
-		MainFrame mainFrame = new MainFrame();
-		mainFrame.setVisible(true);
-		DateTime now = new DateTime();
-		Week week = calGoogleCours.findWeek(now);
-		mainFrame.getJWeek().addWeek(week);
-		mainFrame.getWeekNumber().setText("Semaine " + week.getWeekOfYear());
-		mainFrame.getWeekDetail().setText("Du " + week.getStartDate().toString() + " au " + week.getEndDate().toString());
-		mainFrame.getJWeek().build();
 
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.setCalendar(calGoogleCours);
+		mainFrame.setVisible(true);
 	}
 }
