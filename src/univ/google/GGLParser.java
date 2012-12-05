@@ -17,80 +17,81 @@ import univ.calendar.Week;
 import univ.util.DateTime;
 
 /**
- * Classe permettant de parser les évènements Google vers notre modèle
+ * Classe permettant de parser les evenements Google vers notre modele
  * univ.calendar
  *
  * @authors Noémi Salaün, Joseph Lark
  */
 public class GGLParser {
 
-	// The base URL for a user's calendar metafeed (needs a username appended).
+	// L'URL de base des metadonnees pour un utilisateur du calendar.
 	private static final String METAFEED_URL_BASE =
 			"https://www.google.com/calendar/feeds/";
-	// The string to add to the user's metafeedUrl to access the event feed for
-	// their primary calendar.
+
+	// La chaine a ajouter a l'url des meta donnees pour avoir acces aux evenements du calendrier principal
 	private static final String EVENT_FEED_URL_SUFFIX = "/private/full";
-	// The URL for the metafeed of the specified user.
-	// (e.g. http://www.google.com/feeds/calendar/jdoe@gmail.com)
-	private static URL metafeedUrl = null;
-	// The URL for the event feed of the specified user's primary calendar.
+
+	// L'url d'access aux evenements de l'utilisateur du calendar. 
 	// (e.g. http://www.googe.com/feeds/calendar/jdoe@gmail.com/private/full)
 	private static URL eventFeedUrl = null;
 
+	/**
+	 * Definit des evenements au sens de notre modele univ.calendar 
+	 * a partir d'un google calendar, et selon un critere de choix booleen 
+	 * si l'on souhaite recuperer les cours ou les autres evenements
+	 * 
+	 * @param service Le google calendar
+	 * @param cours Vrai si l'on souhaite les cours
+	 * @return
+	 */
 	public static Calendar parse(CalendarService service, boolean cours) {
 		Calendar calendar = new Calendar();
-
-		//		String userName = "univcalendar@gmail.com";
-		//		String userPassword = "lolcalendar";
 
 		String userName = "atal.univ.nantes@gmail.com";
 		String userPassword = "jnatal44";
 
-		// Create the necessary URL objects.
+		// Initialisation de l'url d'acces aux evenements
 		try {
-			metafeedUrl = new URL(METAFEED_URL_BASE + userName);
 			eventFeedUrl = new URL(METAFEED_URL_BASE + userName
 					+ EVENT_FEED_URL_SUFFIX);
 		} catch (MalformedURLException e) {
-			// Bad URL
 			System.err.println("Uh oh - you've got an invalid URL.");
 			e.printStackTrace();
 		}
 
+		// Authentification avec les identifiants et procedure de parsing
 		try {
 			service.setUserCredentials(userName, userPassword);
-
 			CalendarEventFeed resultFeed = service.getFeed(eventFeedUrl,
 					CalendarEventFeed.class);
 
 			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 				CalendarEventEntry entry = resultFeed.getEntries().get(i);
-
 				Event currentEvent = new Event();
+				// L'evenement est par defaut un "evenement google quelconque"
 				currentEvent.setType("event-ggl");
-
 				List<When> times = entry.getTimes();
 				if (!times.isEmpty()) {
 					String date = times.get(0).getStartTime().toString();
 					if (date.length() > 10) {
 
 						String[] content = entry.getPlainTextContent().toString().split("\n");
-
 						int contentSize = content.length;
 						String uid = "";
 						if (contentSize != 0) {
 							uid = content[0];
 						}
+						// Definition de l'UID
 						currentEvent.setUid(uid);
-
 						boolean isCours = false;
-//						System.out.println("uid substrg : " + uid.substring(0, 6));
+						// Si le champ UID correspond a un champ UID de l'ics, l'evenement est un cours
 						if (uid.length() > 5 && (uid.substring(0, 6).equals("CELCAT"))) {
 							isCours = true;
 							currentEvent.setType("univ-ggl");
 						}
 
 						if (isCours == cours) {
+							// Definition des dates de debut et de fin
 							DateTime datetime = new DateTime("000000000000000");
 							datetime.setYear(Integer.parseInt(date.substring(0, 4)));
 							datetime.setMonth(Integer.parseInt(date.substring(5, 7)));
@@ -128,23 +129,20 @@ public class GGLParser {
 							currentDay.getEventsList().add(currentEvent);
 							Collections.sort(currentDay.getEventsList());
 
-
+							// Definition des champs location et description
 							if (isCours && contentSize >= 3) {
-								System.out.println("if CONTENT");
 								String location = content[1];
 								String description = content[2];
 								currentEvent.setLocation(location);
 								currentEvent.setDescription(description);
 							} else {
-								System.out.println("else CONTENT");
 								currentEvent.setLocation("");
 								currentEvent.setDescription("");
 							}
-
+							// Definition du titre
 							String summary = entry.getTitle().getPlainText();
 							currentEvent.setSummary(summary);
 						}
-
 					}
 				}
 			}
