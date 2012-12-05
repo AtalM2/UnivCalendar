@@ -13,6 +13,7 @@ import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import univ.calendar.Event;
 
@@ -115,7 +116,7 @@ public class GGLCreator {
 		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 			CalendarEventEntry entry = resultFeed.getEntries().get(i);
 			if (entry.getPlainTextContent().toString().split("\n")[0].equals(event.getUid())) {
-				deleteEvent(service, entry);
+				deleteEntry(service, entry);
 			}
 		}
 		createEvent(service, event);
@@ -129,7 +130,7 @@ public class GGLCreator {
 	 * @throws ServiceException
 	 * @throws IOException
 	 */
-	public static void deleteEvent(CalendarService service,
+	public static void deleteEntry(CalendarService service,
 			CalendarEventEntry eventToDelete) throws ServiceException,
 			IOException {
 
@@ -150,5 +151,85 @@ public class GGLCreator {
 		// Submit the batch request
 		service.batch(batchUrl, batchRequest);
 
+	}
+	
+	public static void deleteEvent(CalendarService service, Event event){
+		String userName = "atal.univ.nantes@gmail.com";
+
+		try {
+			eventFeedUrl = new URL(METAFEED_URL_BASE + userName
+					+ EVENT_FEED_URL_SUFFIX);
+		} catch (MalformedURLException err) {
+			System.err.println("Uh oh - you've got an invalid URL.");
+			err.printStackTrace();
+			return;
+		}
+		CalendarEventFeed resultFeed = null;
+		try {
+			resultFeed = service.getFeed(eventFeedUrl,
+					CalendarEventFeed.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// On cherche si un l'evenement existe deja dans le google calendar, a partir de l'uid, si oui on le supprime
+		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+			CalendarEventEntry entry = resultFeed.getEntries().get(i);
+			if (entry.getPlainTextContent().toString().split("\n")[0].equals(event.getUid())) {
+				try {
+					deleteEntry(service, entry);
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void execGGLActions(CalendarService service, ArrayList<GGLAction> gglActions){
+		for (int i = 0 ; i < gglActions.size() ; i++){
+			GGLAction ggla = gglActions.get(i);
+			String type = ggla.getType();
+			switch (type) {
+
+			case GGLAction.DELETE :
+			 deleteEvent(service, ggla.getEvent());
+			 break;
+
+			case GGLAction.INSERT :
+				try {
+					createEvent(service, ggla.getEvent());
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 break;
+
+			case GGLAction.UPDATE :
+				try {
+					updateEvent(service, ggla.getEvent());
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 break;
+
+			default: 
+			 //
+			}
+		}
 	}
 }
