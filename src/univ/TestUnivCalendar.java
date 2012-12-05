@@ -1,18 +1,13 @@
 package univ;
 
 import com.google.gdata.client.calendar.CalendarService;
-import com.google.gdata.data.calendar.CalendarEntry;
 import com.google.gdata.data.calendar.CalendarEventEntry;
-import com.google.gdata.data.calendar.CalendarEventFeed;
-import com.google.gdata.data.calendar.CalendarFeed;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import univ.calendar.Calendar;
-import univ.calendar.Day;
 import univ.calendar.Event;
 import univ.calendar.Week;
 import univ.google.GGLCreator;
@@ -50,7 +45,7 @@ public class TestUnivCalendar {
 //		}
 
 		// Parsing de l'ICS récupéré
-		Calendar calendar = ICSParser.parse(ics);
+		Calendar calIcs = ICSParser.parse(ics);
 		//System.out.println(calendar.toString());
 
 		// Récupération google
@@ -99,9 +94,9 @@ public class TestUnivCalendar {
 		}
 		
 
-		calendar.update(calGoogleCours);
-		calendar.merge(calGoogleNotCours);
-		System.out.println(calendar.getGglAction().toString());
+		calGoogleCours.update(calIcs);
+		calGoogleCours.merge(calGoogleNotCours);
+		System.out.println(calGoogleCours.getGglAction().toString());
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		DateTime now = new DateTime();

@@ -99,7 +99,6 @@ public class Calendar {
 		for (Week week : weeksList) {
 			for (Day day : week.getDaysList()) {
 				for (int i=0 ; i<day.getEventsList().size() ; i++) {
-					System.out.println("Boucle 2 : " + i + "\n");
 					event = day.getEventsList().get(i);
 					if (!event.checked) {
 						day.getEventsList().remove(event);
