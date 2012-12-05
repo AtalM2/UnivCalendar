@@ -85,7 +85,8 @@ public class GGLParser {
 						currentEvent.setUid(uid);
 
 						boolean isCours = false;
-						if (uid.length() > 5 && ( uid.substring(0, 5).equals("CELCAT"))){
+//						System.out.println("uid substrg : " + uid.substring(0, 6));
+						if (uid.length() > 5 && ( uid.substring(0, 6).equals("CELCAT"))){
 							isCours = true;
 							currentEvent.setType("univ-ggl");
 						}
@@ -130,14 +131,14 @@ public class GGLParser {
 
 
 							if (uid.length() > 5 && uid.substring(0, 5).equals("CELCAT") && contentSize == 3){
-								System.out.println("if CONTENT");
+//								System.out.println("if CONTENT");
 								String location = content[1];
 								String description = content[2];
 								currentEvent.setLocation(location);
 								currentEvent.setDescription(description);
 							}
 							else {
-								System.out.println("else CONTENT");
+//								System.out.println("else CONTENT");
 								currentEvent.setLocation("");
 								currentEvent.setDescription("");
 							}
