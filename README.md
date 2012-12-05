@@ -5,8 +5,8 @@ Projet de génie logiciel visant à développer un programme en respectant une S
 Le projet à pour but de fournir une interface graphique permettant de synchronisé un agenda universitaire au format ICS avec Google Calendar.
 Les conflits entre les évènements simultanés doivent être géré par l'utilisateur grâce à l'interface graphique.
 
-TODO
-----
+TODO List
+---------
 * IHM
 	* Boutons pour switch de semaines
 	* Boutons pour valider la synchronisation
@@ -19,9 +19,9 @@ TODO
 	* Diagrammes
 
 * Modèle
-	* Classer les events par types
-	* Comparer les events ICS avec Google
-	* Dresser la liste des actions Google
+	* Classer les events par types **DONE**
+	* Comparer les events ICS avec Google **DONE**
+	* Dresser la liste des actions Google **DONE**
 
 * Google
 	* ???
