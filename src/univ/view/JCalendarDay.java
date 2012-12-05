@@ -2,6 +2,7 @@ package univ.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -19,15 +20,15 @@ import univ.util.Tools;
  *
  * @authors Noémi Salaün, Joseph Lark
  */
-class JCalendarDay extends JPanel {
+public class JCalendarDay extends JPanel {
 
 	// Découpage en tranche de 15min de 7h à 22h
 	private int START_HOUR;
 	private int END_HOUR;
 	private int MINUTES_BY_SPLIT;
 	private int NB_SPLIT;
-	private ArrayList<EventInfos[]> checkList; // Tableau représentant l'ensemble des plages horaires affichées
-	private ArrayList<EventInfos> eventsList; // Tableau comprenant la liste des Events du jour
+	private ArrayList<JCalendarEvent[]> checkList; // Tableau représentant l'ensemble des plages horaires affichées
+	private ArrayList<JCalendarEvent> eventsList; // Tableau comprenant la liste des Events du jour
 	private JLabel title;
 	private JPanel content;
 
@@ -63,11 +64,12 @@ class JCalendarDay extends JPanel {
 	 */
 	public void addDay(Day day) {
 		int startHour, startMin, endHour, endMin, startPosition, endPosition;
+		boolean selected;
 		DateTime date = day.getDate();
 		String dayName = date.getDayOfWeek(true) + " " + date.toString();
 
 		title.setText(dayName);
-		EventInfos eventInfos, tempEvent;
+		JCalendarEvent jEvent, tempJEvent;
 		int col, row;
 		boolean empty, done;
 		// On parcourt tous les Events de la Day passé en paramètre
@@ -90,12 +92,12 @@ class JCalendarDay extends JPanel {
 			endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 			row = startPosition;
 			col = 0;
-			eventInfos = new EventInfos(event, 0, 0, true);
+			jEvent = new JCalendarEvent(this, new EventInfos(event, 0, 0), false);
 			while (!done) {
-				eventInfos.setSelected(col == 0);
+				selected = (col == 0);
 				// On vérifie si le tableau contient assez de colonnes
 				if (checkList.size() < col + 1) {
-					checkList.add(new EventInfos[NB_SPLIT]);
+					checkList.add(new JCalendarEvent[NB_SPLIT]);
 				}
 				empty = true;
 				// On vérifie que la colonne courante est bien vide là où on veut ajouter l'Event
@@ -103,7 +105,7 @@ class JCalendarDay extends JPanel {
 					empty = checkList.get(col)[row] == null;
 					if (!empty) {
 						// Si l'event est déjà présent sur Google (même UID) on le considère DONE
-						if (checkList.get(col)[row].getEvent().getUid().equals(event.getUid())) {
+						if (checkList.get(col)[row].getEventInfos().getEvent().getUid().equals(event.getUid())) {
 							done = true;
 						}
 					}
@@ -111,20 +113,21 @@ class JCalendarDay extends JPanel {
 				}
 				// Si la position est libre, on ajoute l'Event
 				if (empty) {
-					eventInfos.setWidth(col + 1);
-					eventInfos.setColumn(col + 1);
-					eventsList.add(eventInfos); // On ajoute l'Event à la liste des Events
+					jEvent.getEventInfos().setWidth(col + 1);
+					jEvent.getEventInfos().setColumn(col + 1);
+					jEvent.setSelected(selected);
+					eventsList.add(jEvent); // On ajoute l'Event à la liste des Events
 					// Pour chaque Event de la checkList on met à jour les largeurs
 					for (int i = 0; i < checkList.size(); i++) {
 						for (int j = startPosition; j < endPosition; j++) {
 							if (i == col) {
 								// Si c'est la colonne courante, on ajoute simplement l'Event courant
-								checkList.get(i)[j] = eventInfos;
+								checkList.get(i)[j] = jEvent;
 							} else {
 								// Si c'est une autre colonne, on renseigne le fait qu'il y a des Events simultanés
-								tempEvent = checkList.get(i)[j];
-								if (tempEvent != null) {
-									tempEvent.setWidth(col + 1);
+								tempJEvent = checkList.get(i)[j];
+								if (tempJEvent != null) {
+									tempJEvent.getEventInfos().setWidth(col + 1);
 								}
 							}
 						}
@@ -149,8 +152,8 @@ class JCalendarDay extends JPanel {
 			}
 		}
 		// Puis on le rempli
-		for (EventInfos ev : eventsList) {
-			addEvent(ev);
+		for (JCalendarEvent jEvent : eventsList) {
+			addEvent(jEvent);
 			col++;
 		}
 	}
@@ -160,8 +163,9 @@ class JCalendarDay extends JPanel {
 	 *
 	 * @param ev L'Event avec ses infos complémentaires
 	 */
-	private void addEvent(EventInfos ev) {
-		Event event = ev.getEvent();
+	private void addEvent(JCalendarEvent jEvent) {
+		EventInfos ev = jEvent.getEventInfos();
+		Event event = jEvent.getEventInfos().getEvent();
 		int startHour = event.getStartTime().getHour();
 		int startMin = event.getStartTime().getMinute();
 		int endHour = event.getEndTime().getHour();
@@ -177,25 +181,63 @@ class JCalendarDay extends JPanel {
 		int startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 		int endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
 
-		JCalendarEvent jEvent = new JCalendarEvent(event, ev.isSelected());
 		content.add(jEvent, "width 0:100%:100%, grow, cell " + ev.getColumn() + " " + startPosition + " " + maxCol / ev.getWidth() + " " + (endPosition - startPosition));
 	}
 
 	/**
-	 * Permet de récupérer la liste des actions à effectuer pour la synchronisation
-	 * de la journée, basé sur la selection des évènements dans l'agenda.
-	 * Les actions sont forcement de type DELETE
-	 * 
+	 * Permet de récupérer la liste des actions à effectuer pour la
+	 * synchronisation de la journée, basé sur la selection des évènements dans
+	 * l'agenda. Les actions sont forcement de type DELETE
+	 *
 	 * @return Une liste de GGLActions
 	 */
 	public ArrayList<GGLAction> getSyncAction() {
 		ArrayList<GGLAction> array = new ArrayList<>();
-		for (EventInfos event : eventsList) {
+		for (JCalendarEvent jEvent : eventsList) {
 			// Pour chaque event, on regarde si on veut l'utiliser, si ce n'est pas le cas on demande une suppression
-			if(!event.isSelected()) {
-				array.add(new GGLAction(event.getEvent(), GGLAction.DELETE));
+			if (!jEvent.isSelected()) {
+				array.add(new GGLAction(jEvent.getEventInfos().getEvent(), GGLAction.DELETE));
 			}
 		}
 		return array;
+	}
+
+	public void setSelected(JCalendarEvent jEvent) {
+		int startHour, startMin, endHour, endMin, startPosition, endPosition;
+		boolean done = false;
+		JCalendarEvent tempJEvent = null;
+		Event event = jEvent.getEventInfos().getEvent();
+		startHour = event.getStartTime().getHour();
+		startMin = event.getStartTime().getMinute();
+		endHour = event.getEndTime().getHour();
+		endMin = event.getEndTime().getMinute();
+		if (startHour < START_HOUR) {
+			startHour = START_HOUR;
+		}
+		if (endHour > END_HOUR) {
+			endHour = END_HOUR;
+		}
+		if (startHour > END_HOUR || endHour < START_HOUR) {
+			done = true;
+		}
+		startPosition = (startHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(startMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
+		endPosition = (endHour - START_HOUR) * (60 / MINUTES_BY_SPLIT) + Tools.floor(endMin, MINUTES_BY_SPLIT) / MINUTES_BY_SPLIT;
+
+		if (!done) {
+			for (int i = 0; i < checkList.size(); i++) {
+				for (int j = startPosition; j < endPosition; j++) {
+					if (checkList.get(i)[j] == jEvent) {
+						checkList.get(i)[j].setSelected(true);
+					} else {
+						if (checkList.get(i)[j] != null) {
+							checkList.get(i)[j].setSelected(false);
+						}						
+					}
+				}
+			}
+		}
+
+
+
 	}
 }

@@ -1,29 +1,33 @@
 package univ.view;
 
 import java.awt.Color;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import univ.calendar.Event;
 import univ.calendar.EventInfos;
+import univ.view.listener.MouseSelectListener;
 
 /**
  * Classe gérant l'affichage d'un Event dans le calendrier
  *
  * @authors Noémi Salaün, Joseph Lark
  */
-class JCalendarEvent extends JPanel {
+public class JCalendarEvent extends JPanel {
 
-	private Event event;
+	private JCalendarDay parentDay;
+	private EventInfos eventInfos;
 	private Color color;
 	private JLabel labelSummary;
 	private JLabel labelLocation;
+	private boolean selected;
 
-	public JCalendarEvent(Event e, boolean isSelected) {
+	public JCalendarEvent(JCalendarDay p, EventInfos e, boolean isSelected) {
 		super(new MigLayout("wrap"));
-		event = e;
-		switch (event.getType()) {
+		parentDay = p;
+		eventInfos = e;
+		selected = isSelected;
+		switch (eventInfos.getEvent().getType()) {
 			case Event.TYPE_EVENT_GGL:
 				color = EventInfos.GOOGLE_EVENT;
 				break;
@@ -38,19 +42,19 @@ class JCalendarEvent extends JPanel {
 
 		}
 		String startHour, startMinutes, endHour, endMinutes;
-		String summary = event.getSummary();
+		String summary = eventInfos.getEvent().getSummary();
 		summary = summary.replace("\\,", ",");
 
-		String description = event.getDescription();
+		String description = eventInfos.getEvent().getDescription();
 		description = description.replace("\\n", "<br/>");
 		description = description.replace("\\,", ",");
 
-		String location = event.getLocation();
+		String location = eventInfos.getEvent().getLocation();
 
-		startHour = new Integer(event.getStartTime().getHour()).toString();
-		startMinutes = new Integer(event.getStartTime().getMinute()).toString();
-		endHour = new Integer(event.getEndTime().getHour()).toString();
-		endMinutes = new Integer(event.getEndTime().getMinute()).toString();
+		startHour = new Integer(eventInfos.getEvent().getStartTime().getHour()).toString();
+		startMinutes = new Integer(eventInfos.getEvent().getStartTime().getMinute()).toString();
+		endHour = new Integer(eventInfos.getEvent().getEndTime().getHour()).toString();
+		endMinutes = new Integer(eventInfos.getEvent().getEndTime().getMinute()).toString();
 		if (startHour.length() < 2) {
 			startHour = "0" + startHour;
 		}
@@ -63,7 +67,7 @@ class JCalendarEvent extends JPanel {
 		if (endMinutes.length() < 2) {
 			endMinutes = "0" + endMinutes;
 		}
-		setToolTipText("<html>" + event.getStartTime().toString() + "<br/><b>De " + startHour + ":" + startMinutes + " à " + endHour + ":" + endMinutes + "<br/><br/>"
+		setToolTipText("<html>" + eventInfos.getEvent().getStartTime().toString() + "<br/><b>De " + startHour + ":" + startMinutes + " à " + endHour + ":" + endMinutes + "<br/><br/>"
 				+ summary + "</b><br/><br/>"
 				+ description);
 		setBackground(color);
@@ -71,10 +75,11 @@ class JCalendarEvent extends JPanel {
 		labelLocation = new JLabel(location);
 		add(labelSummary);
 		add(labelLocation);
-		select(isSelected);
+		addMouseListener(new MouseSelectListener(this));
 	}
 
-	public void select(boolean select) {
+	public void setSelected(boolean select) {
+		selected = select;
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
@@ -87,5 +92,18 @@ class JCalendarEvent extends JPanel {
 			labelSummary.setForeground(new Color(0, 0, 0, 150));
 			labelLocation.setForeground(new Color(0, 0, 0, 150));
 		}
+		MainFrame.mainFrame.repaint();
+	}
+
+	public JCalendarDay getParentDay() {
+		return parentDay;
+	}
+
+	public EventInfos getEventInfos() {
+		return eventInfos;
+	}
+
+	public boolean isSelected() {
+		return selected;
 	}
 }
